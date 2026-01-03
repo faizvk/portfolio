@@ -44,6 +44,7 @@ const App = () => {
       color: "bg-slate-900",
       accent: "text-indigo-400",
       icon: <Zap size={24} />,
+      image: "./promptiveAI.png",
     },
     {
       title: "SmartChain Tender",
@@ -56,6 +57,7 @@ const App = () => {
       color: "bg-zinc-900",
       accent: "text-emerald-400",
       icon: <ShieldCheck size={24} />,
+      image: "./smartchain.png",
     },
     {
       title: "E-Commerce App",
@@ -68,6 +70,7 @@ const App = () => {
       color: "bg-gray-900",
       accent: "text-orange-400",
       icon: <Layout size={24} />,
+      image: "./mystore.png",
     },
   ];
 
@@ -272,49 +275,37 @@ const App = () => {
                 key={i}
                 className="min-w-[320px] md:min-w-[550px] snap-center group cursor-pointer"
               >
-                <div
-                  className={`aspect-[16/10] ${project.color} rounded-[2rem] mb-10 overflow-hidden relative flex items-center justify-center transition-all duration-700 group-hover:scale-[1.02]`}
-                >
+                <div className="aspect-[16/10] rounded-[2rem] mb-10 overflow-hidden relative flex items-center justify-center group transition-all duration-700">
+                  {/* Background image */}
                   <div
-                    className={`relative z-10 transition-transform duration-700 group-hover:scale-125 ${project.accent}`}
-                    {...fadeIn({
-                      direction: "up",
-                      distance: 80,
-                      duration: 0.9,
-                    })}
-                  >
-                    {React.cloneElement(project.icon, {
-                      size: 80,
-                      strokeWidth: 1.5,
-                    })}
-                  </div>
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                    style={{ backgroundImage: `url(${project.image})` }}
+                  />
+
+                  {/* Optional dark overlay for contrast */}
+                  <div className="absolute inset-0 " />
+
+                  {/* Demo link */}
                   <a
                     href={project.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="absolute top-10 left-10 bg-white p-4 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-slate-800 hover:text-white"
-                    {...fadeIn({
-                      direction: "up",
-                      distance: 80,
-                      duration: 0.9,
-                    })}
+                    className="absolute top-10 left-10 z-10 bg-white p-4 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-slate-800 hover:text-white"
                   >
                     <ExternalLink size={24} />
                   </a>
+
+                  {/* GitHub link */}
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="absolute top-10 right-10 bg-white p-4 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-slate-800 hover:text-white"
-                    {...fadeIn({
-                      direction: "up",
-                      distance: 80,
-                      duration: 0.9,
-                    })}
+                    className="absolute top-10 right-10 z-10 bg-white p-4 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-slate-800 hover:text-white"
                   >
                     <Github size={24} />
                   </a>
                 </div>
+
                 <div className="px-4">
                   <div className="flex gap-4 mb-6">
                     {project.tags.map((t) => (
