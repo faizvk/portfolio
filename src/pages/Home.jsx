@@ -6,22 +6,14 @@ import {
   Mail,
   ExternalLink,
   Download,
-  Database,
-  Cpu,
   BookOpen,
-  Layout,
-  ArrowDown,
-  Sparkles,
-  Zap,
-  ShieldCheck,
-  Code2,
-  Users,
   Trophy,
-  Terminal,
-  Globe,
   Instagram,
 } from "lucide-react";
 import { fadeIn } from "../animations/fadeIn";
+import { mainProjects } from "./utils/mainProjects";
+import { sideProjects } from "./utils/sideProjects";
+import { skills } from "./utils/skills";
 
 const App = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -31,86 +23,6 @@ const App = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const mainProjects = [
-    {
-      title: "Promptive AI",
-      description:
-        "Full-stack AI SaaS application providing image generation and content rewriting tools.",
-      tech: ["MERN", "Hugging Face", "Gemini"],
-      github: "https://github.com/faizvk/promptive-ai",
-      demo: "#",
-      tags: ["AI", "SaaS"],
-      color: "bg-slate-900",
-      accent: "text-indigo-400",
-      icon: <Zap size={24} />,
-      image: "./promptiveAI.png",
-    },
-    {
-      title: "SmartChain Tender",
-      description:
-        "Blockchain-based tendering system ensuring secure, transparent bidding using Solidity.",
-      tech: ["Solidity", "MERN", "IPFS"],
-      github: "https://github.com/faizvk/blockchain-based-contract-system",
-      demo: "#",
-      tags: ["Web3", "Security"],
-      color: "bg-zinc-900",
-      accent: "text-emerald-400",
-      icon: <ShieldCheck size={24} />,
-      image: "./smartchain.png",
-    },
-    {
-      title: "E-Commerce App",
-      description:
-        "Full-featured platform with Redux toolkit, Razorpay, and zod validation.",
-      tech: ["React", "Node.js", "Razorpay"],
-      github: "https://github.com/faizvk/ecommerce-app",
-      demo: "#",
-      tags: ["Fintech", "MERN"],
-      color: "bg-gray-900",
-      accent: "text-orange-400",
-      icon: <Layout size={24} />,
-      image: "./mystore.png",
-    },
-  ];
-
-  const sideProjects = [
-    {
-      title: "Music Recommendation",
-      description:
-        "Winner of ISTE State-Level Hackathon 2024. Personalized discovery engine.",
-      tech: ["React", "API"],
-      icon: <Sparkles size={18} />,
-      color: "bg-slate-100 border-slate-200",
-    },
-    {
-      title: "CLI Workflow",
-      description:
-        "Automation script for developer workflow optimization in Linux.",
-      tech: ["Node.js", "Bash"],
-      icon: <Terminal size={18} />,
-      color: "bg-zinc-100 border-zinc-200",
-    },
-    {
-      title: "Portfolio V1",
-      description: "Experimental minimalist portfolio focused on performance.",
-      tech: ["Vite", "Motion"],
-      icon: <Globe size={18} />,
-      color: "bg-gray-100 border-gray-200",
-    },
-  ];
-
-  const skills = {
-    frontend: [
-      "React.js",
-      "TypeScript",
-      "Redux Toolkit",
-      "Tailwind CSS",
-      "Vite",
-    ],
-    backend: ["Node.js", "Express.js", "RESTful APIs", "JWT", "WebRTC"],
-    tools: ["MongoDB", "Docker", "Git", "Postman", "Cloudinary", "Linux"],
-  };
 
   return (
     <div className="bg-[#F4F4F5] text-slate-900 min-h-screen selection:bg-slate-200 overflow-x-hidden font-sans">
@@ -276,16 +188,13 @@ const App = () => {
                 className="min-w-[320px] md:min-w-[550px] snap-center group cursor-pointer"
               >
                 <div className="aspect-[16/10] rounded-[2rem] mb-10 overflow-hidden relative flex items-center justify-center group transition-all duration-700">
-                  {/* Background image */}
                   <div
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                     style={{ backgroundImage: `url(${project.image})` }}
                   />
 
-                  {/* Optional dark overlay for contrast */}
                   <div className="absolute inset-0 " />
 
-                  {/* Demo link */}
                   <a
                     href={project.demo}
                     target="_blank"
@@ -295,7 +204,6 @@ const App = () => {
                     <ExternalLink size={24} />
                   </a>
 
-                  {/* GitHub link */}
                   <a
                     href={project.github}
                     target="_blank"
@@ -397,10 +305,28 @@ const App = () => {
                       </span>
                     ))}
                   </div>
-                  <ExternalLink
-                    size={18}
-                    className="text-slate-300 group-hover:text-slate-950 transition-colors"
-                  />
+                  <div className="flex gap-4">
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-300 hover:text-slate-950 transition-all hover:scale-110"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <Github size={18} />
+                    </a>
+                    {project.demo && (
+                      <a
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-slate-300 hover:text-slate-950 transition-all hover:scale-110"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <ExternalLink size={18} />
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
