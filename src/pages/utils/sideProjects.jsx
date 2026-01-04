@@ -17,6 +17,7 @@ export const sideProjects = [
     tech: ["React", "API"],
     icon: <Sparkles size={18} />,
     color: "bg-slate-100 border-slate-200",
+    demo: "",
   },
 
   {
@@ -26,6 +27,7 @@ export const sideProjects = [
     icon: <Globe size={18} />,
     color: "bg-gray-100 border-gray-200",
     github: "https://github.com/faizvk/portfolio",
+    demo: "",
   },
 
   {
@@ -35,6 +37,7 @@ export const sideProjects = [
     icon: <SquarePlus size={18} />, // substitute a suitable icon
     color: "bg-indigo-100 border-indigo-200",
     github: "https://github.com/acciojob/counter-redux-faizvk",
+    demo: "",
   },
   {
     title: "Pincode LookUp",
@@ -43,6 +46,7 @@ export const sideProjects = [
     icon: <User size={18} />, // substitute a suitable icon
     color: "bg-yellow-100 border-yellow-200",
     github: "https://github.com/faizvk/post-office-finder",
+    demo: "https://module6-week2-j7r7o8bbd-faizvks-projects.vercel.app",
   },
   {
     title: "Crypto Checker",
@@ -52,7 +56,18 @@ export const sideProjects = [
     icon: <User size={18} />, // substitute a suitable icon
     color: "bg-emerald-100 border-emerald-200",
     github: "https://github.com/faizvk/crypto-lister",
+    demo: "https://faizvk.github.io/crypto-lister/",
   },
+  {
+    title: "star gold LLC",
+    description: "A freelance project for company star gold LLC",
+    tech: ["HTML", "React", "CSS"],
+    icon: <User size={18} />, // substitute a suitable icon
+    color: "bg-emerald-100 border-emerald-200",
+    github: "https://github.com/faizvk/star-gold-llc",
+    demo: "https://star-gold-llc-6na3-4pcqr7ynk-faizvks-projects.vercel.app",
+  },
+
   {
     title: "Sort Books",
     description:
@@ -61,6 +76,7 @@ export const sideProjects = [
     icon: <SortAsc size={18} />, // substitute a suitable icon
     color: "bg-emerald-100 border-emerald-200",
     github: "https://github.com/acciojob/sort-books-faizvk",
+    demo: "",
   },
   {
     title: "Lorem Redux",
@@ -69,6 +85,7 @@ export const sideProjects = [
     icon: <TextQuote size={18} />, // substitute a suitable icon
     color: "bg-yellow-100 border-yellow-200",
     github: "https://github.com/acciojob/lorem-redux-faizvk",
+    demo: "",
   },
   {
     title: "User Info Redux",
@@ -77,6 +94,7 @@ export const sideProjects = [
     icon: <User size={18} />, // substitute a suitable icon
     color: "bg-teal-100 border-teal-200",
     github: "https://github.com/acciojob/user-info-redux-faizvk",
+    demo: "",
   },
   {
     title: "Museo Sans",
@@ -85,6 +103,7 @@ export const sideProjects = [
     icon: <User size={18} />, // substitute a suitable icon
     color: "bg-emerald-100 border-emerald-200",
     github: "https://github.com/faizvk/museo-sans",
+    demo: "https://faizvk.github.io/museo-sans/",
   },
   {
     title: "React Hooks",
@@ -93,5 +112,6 @@ export const sideProjects = [
     icon: <User size={18} />, // substitute a suitable icon
     color: "bg-yellow-100 border-yellow-200",
     github: "https://github.com/faizvk/react-hooks",
+    demo: "https://module6-moduletest-j5lidt72p-faizvks-projects.vercel.app",
   },
 ];
