@@ -11,6 +11,19 @@ export const mainProjects = [
     accent: "text-indigo-400",
     image: "./promptiveAI.png",
   },
+
+  {
+    title: "E-Commerce App",
+    description:
+      "Full-featured platform with Redux toolkit, Razorpay, and zod validation.",
+    tech: ["React", "Node.js", "Razorpay"],
+    github: "https://github.com/faizvk/ecommerce-app",
+    demo: "#",
+    tags: ["Ecommerce", "MERN"],
+    color: "bg-gray-900",
+    accent: "text-orange-400",
+    image: "./mystore.png",
+  },
   {
     title: "SmartChain Tender",
     description:
@@ -22,17 +35,5 @@ export const mainProjects = [
     color: "bg-zinc-900",
     accent: "text-emerald-400",
     image: "./smartchain.png",
-  },
-  {
-    title: "E-Commerce App",
-    description:
-      "Full-featured platform with Redux toolkit, Razorpay, and zod validation.",
-    tech: ["React", "Node.js", "Razorpay"],
-    github: "https://github.com/faizvk/ecommerce-app",
-    demo: "#",
-    tags: ["Fintech", "MERN"],
-    color: "bg-gray-900",
-    accent: "text-orange-400",
-    image: "./mystore.png",
   },
 ];

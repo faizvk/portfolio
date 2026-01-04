@@ -18,20 +18,14 @@ export const sideProjects = [
     icon: <Sparkles size={18} />,
     color: "bg-slate-100 border-slate-200",
   },
+
   {
-    title: "CLI Workflow",
-    description:
-      "Automation script for developer workflow optimization in Linux.",
-    tech: ["Node.js", "Bash"],
-    icon: <Terminal size={18} />,
-    color: "bg-zinc-100 border-zinc-200",
-  },
-  {
-    title: "Portfolio V1",
+    title: "Portfolio",
     description: "Experimental minimalist portfolio focused on performance.",
     tech: ["Vite", "Motion"],
     icon: <Globe size={18} />,
     color: "bg-gray-100 border-gray-200",
+    github: "https://github.com/faizvk/portfolio",
   },
 
   {
@@ -41,6 +35,23 @@ export const sideProjects = [
     icon: <SquarePlus size={18} />, // substitute a suitable icon
     color: "bg-indigo-100 border-indigo-200",
     github: "https://github.com/acciojob/counter-redux-faizvk",
+  },
+  {
+    title: "Pincode LookUp",
+    description: "A place where you can lookup post offices under a pincode",
+    tech: ["React", "CSS"],
+    icon: <User size={18} />, // substitute a suitable icon
+    color: "bg-yellow-100 border-yellow-200",
+    github: "https://github.com/faizvk/post-office-finder",
+  },
+  {
+    title: "Crypto Checker",
+    description:
+      "A place where you can lookup top 10 trending crypto currencies",
+    tech: ["HTML", "Javascript", "CSS"],
+    icon: <User size={18} />, // substitute a suitable icon
+    color: "bg-emerald-100 border-emerald-200",
+    github: "https://github.com/faizvk/crypto-lister",
   },
   {
     title: "Sort Books",
@@ -66,5 +77,21 @@ export const sideProjects = [
     icon: <User size={18} />, // substitute a suitable icon
     color: "bg-teal-100 border-teal-200",
     github: "https://github.com/acciojob/user-info-redux-faizvk",
+  },
+  {
+    title: "Museo Sans",
+    description: "Modern home page design",
+    tech: ["HTML", "CSS"],
+    icon: <User size={18} />, // substitute a suitable icon
+    color: "bg-emerald-100 border-emerald-200",
+    github: "https://github.com/faizvk/museo-sans",
+  },
+  {
+    title: "React Hooks",
+    description: "Simple project to show use of hooks",
+    tech: ["HTML", "CSS"],
+    icon: <User size={18} />, // substitute a suitable icon
+    color: "bg-yellow-100 border-yellow-200",
+    github: "https://github.com/faizvk/react-hooks",
   },
 ];

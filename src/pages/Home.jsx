@@ -260,11 +260,11 @@ const App = () => {
             <div className="h-0.5 w-full bg-slate-200" />
           </div>
 
-          <div className="flex overflow-x-auto gap-8 pb-24 snap-x no-scrollbar scroll-smooth">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-24">
             {sideProjects.map((project, i) => (
               <div
                 key={i}
-                className={`min-w-[280px] md:min-w-[400px] snap-center ${project.color} border-2 rounded-[2rem] p-12 transition-all duration-500 group`}
+                className={`${project.color} border-2 rounded-[2rem] p-10 transition-all duration-500 group`}
                 {...fadeIn({
                   direction: "up",
                   distance: 80,
@@ -285,7 +285,7 @@ const App = () => {
                   {project.title}
                 </h3>
                 <p
-                  className="text-slate-500 text-sm leading-relaxed mb-10 font-medium"
+                  className="text-slate-500 text-sm leading-relaxed mb-10 font-medium h-20"
                   {...fadeIn({
                     direction: "up",
                     distance: 80,
@@ -337,11 +337,7 @@ const App = () => {
       <section id="about" className="py-40 px-6 lg:px-24 bg-slate-200/50">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-24">
           <div className="lg:col-span-7">
-            <h2 className="text-6xl md:text-8xl font-black mb-16 tracking-tighter leading-tight text-slate-950">
-              Minimal <br />
-              Engineering.
-            </h2>
-            <div className="space-y-10 text-slate-700 text-xl font-medium leading-relaxed">
+            <div className="space-y-10 py-20 text-slate-700 text-xl font-medium leading-relaxed">
               <p>
                 I am a{" "}
                 <strong className="text-slate-950 font-black">
