@@ -421,9 +421,13 @@ const App = () => {
                 <p className="text-slate-400 mb-12 max-w-[220px] text-[10px] leading-relaxed font-black uppercase tracking-[0.2em]">
                   Full Details 2026
                 </p>
-                <button className="flex items-center gap-4 bg-slate-900 text-white px-10 py-5 rounded-xl font-black shadow-xl hover:bg-slate-700 transition-all text-xs uppercase tracking-widest">
+                <a
+                  href="/FaizZubair.pdf"
+                  download="Faiz_Zubair_Resume.pdf"
+                  className="inline-flex items-center gap-4 bg-slate-900 text-white px-10 py-5 rounded-xl font-black shadow-xl hover:bg-slate-700 transition-all text-xs uppercase tracking-widest"
+                >
                   <Download size={18} /> Get PDF
-                </button>
+                </a>
               </div>
               <BookOpen
                 size={280}
