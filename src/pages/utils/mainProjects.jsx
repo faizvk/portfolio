@@ -10,6 +10,7 @@ export const mainProjects = [
     color: "bg-slate-900",
     accent: "text-indigo-400",
     image: "./promptiveAI.png",
+    demo: "https://promptive-ai.vercel.app",
   },
 
   {
