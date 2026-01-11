@@ -193,13 +193,13 @@ const App = () => {
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                     style={{ backgroundImage: `url(${project.image})` }}
                   />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500" />
+                  <div className="absolute inset-0 bg-black/10 md:bg-black/0 group-hover:bg-black/20 transition-all duration-500" />
 
                   <a
                     href={project.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="absolute top-6 md:top-10 left-6 md:left-10 z-10 bg-white p-3 md:p-4 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-slate-800 hover:text-white"
+                    className="absolute top-6 md:top-10 left-6 md:left-10 z-10 bg-white p-3 md:p-4 rounded-xl opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-500 hover:bg-slate-800 hover:text-white"
                   >
                     <ExternalLink size={20} />
                   </a>
@@ -208,7 +208,7 @@ const App = () => {
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="absolute top-6 md:top-10 right-6 md:right-10 z-10 bg-white p-3 md:p-4 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-slate-800 hover:text-white"
+                    className="absolute top-6 md:top-10 right-6 md:right-10 z-10 bg-white p-3 md:p-4 rounded-xl opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-500 hover:bg-slate-800 hover:text-white"
                   >
                     <Github size={20} />
                   </a>
