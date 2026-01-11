@@ -24,6 +24,7 @@ export const mainProjects = [
     color: "bg-gray-900",
     accent: "text-orange-400",
     image: "./mystore.png",
+    demo: "https://ecommerce-app-neon-eight.vercel.app/",
   },
   {
     title: "SmartChain Tender",
