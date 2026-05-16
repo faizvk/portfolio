@@ -123,15 +123,16 @@ const Home = () => {
               <span className="text-[#9BC91F]">.</span>
             </h1>
             <p
-              className="max-w-lg text-black/70 text-lg md:text-xl leading-relaxed mb-10 md:mb-12 font-medium"
+              className="max-w-xl text-black/70 text-lg md:text-xl leading-relaxed mb-10 md:mb-12 font-medium"
               {...fadeIn({ direction: "up", distance: 80, duration: 0.9 })}
             >
-              Full-Stack JavaScript developer specializing in the{" "}
-              <strong className="text-black font-black">MERN stack</strong>.
-              Currently building at{" "}
-              <strong className="text-black font-black">Synup</strong> —
-              shipping scalable, user-centric web applications with a bias for
-              clean architecture and production readiness.
+              <strong className="text-black font-black">Software Engineer</strong>{" "}
+              building across the stack — full-stack JavaScript, CI/CD
+              pipelines, and cloud infrastructure. Currently shipping production
+              systems at{" "}
+              <strong className="text-black font-black">Synup</strong> with a
+              bias for clean architecture, observability, and operational
+              maturity.
             </p>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
               <a
@@ -580,24 +581,26 @@ const Home = () => {
               <p>
                 I'm a{" "}
                 <strong className="text-black font-black bg-[#C5F542] px-2 py-0.5 rounded border-2 border-black">
-                  Full-Stack JavaScript Developer
+                  Software Engineer
                 </strong>{" "}
-                building production web applications with the MERN stack. I
-                joined Synup as a Junior Software Engineer in February 2026
-                after graduating from GCE Kannur.
+                working across the full stack — frontend, backend, CI/CD, and
+                cloud infrastructure. I joined Synup as a Junior Software
+                Engineer in February 2026 after graduating from GCE Kannur.
               </p>
               <p>
-                My focus is shipping software that holds up under real traffic
-                — RESTful APIs with proper auth, rate limiting, and structured
-                logs; React frontends with sane state management and
-                accessibility; and CI pipelines that gate everything behind
-                lint, tests, and a clean build.
+                My focus is shipping software that holds up under real traffic.
+                That means RESTful APIs with proper auth, rate limiting, and
+                structured logs; React frontends with sane state management;
+                Dockerized services orchestrated with Kubernetes; deployment
+                pipelines on Jenkins and GitHub Actions; and AWS infrastructure
+                fronted by load balancers — all gated behind lint, tests, and a
+                clean build.
               </p>
               <p>
                 Outside of work, I build AI SaaS tools, experiment with
-                blockchain dApps, and grind LeetCode (100+ DSA problems
-                solved). I led the team that built a Solidity-backed
-                e-tendering system for my final-year project.
+                blockchain dApps, and grind LeetCode (100+ DSA problems solved).
+                I led the team that built a Solidity-backed e-tendering system
+                for my final-year project.
               </p>
             </div>
 
