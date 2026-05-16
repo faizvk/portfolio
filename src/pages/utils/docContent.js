@@ -8,7 +8,7 @@ export const docContent = {
     status: "Live",
     timeline: "2025 – 2026",
     github: "https://github.com/faizvk/ecommerce-app",
-    demo: "https://ecommerce-frontend-eight-blush.vercel.app/",
+    demo: "https://ecommerce-app-neon-eight.vercel.app/",
     stack: {
       Frontend: [
         "React 19",
@@ -137,7 +137,7 @@ export const docContent = {
     status: "In Development",
     timeline: "2026",
     github: "https://github.com/faizvk/job-pilot",
-    demo: "",
+    demo: "https://www.pursuits.in",
     stack: {
       Framework: ["Next.js 14 (App Router)", "TypeScript"],
       Data: ["SQLite via Prisma v7", "LibSQL adapter"],

@@ -7,9 +7,9 @@ export const mainProjects = [
       "MERN e-commerce platform with Razorpay checkout, role-based admin, Redis-cached product catalog, and 33 passing tests on a CI pipeline.",
     tech: ["React 19", "Express 5", "MongoDB", "Razorpay", "Redis"],
     github: "https://github.com/faizvk/ecommerce-app",
-    demo: "https://ecommerce-frontend-eight-blush.vercel.app/",
+    demo: "https://ecommerce-app-neon-eight.vercel.app/",
     tags: ["MERN", "Production"],
-    image: "./mystore.png",
+    image: "./nexkart.svg",
   },
   {
     slug: "promptive-ai",
@@ -21,7 +21,7 @@ export const mainProjects = [
     github: "https://github.com/faizvk/promptive-ai",
     demo: "https://promptive-ai.vercel.app",
     tags: ["AI", "SaaS"],
-    image: "./promptiveAI.png",
+    image: "./promptiveAI.svg",
   },
   {
     slug: "jobpilot",
@@ -31,9 +31,9 @@ export const mainProjects = [
       "Next.js 14 + Prisma platform that aggregates jobs from 7+ portals, scores match-fit, tailors resumes, and tracks applications across a kanban pipeline.",
     tech: ["Next.js 14", "TypeScript", "Prisma", "Anthropic", "Gemini"],
     github: "https://github.com/faizvk/job-pilot",
-    demo: "",
+    demo: "https://www.pursuits.in",
     tags: ["AI", "TypeScript"],
-    image: "./jobpilot.png",
+    image: "./jobpilot.svg",
   },
   {
     slug: "smartchain",
@@ -45,6 +45,6 @@ export const mainProjects = [
     github: "https://github.com/faizvk/blockchain-based-contract-system",
     demo: "",
     tags: ["Web3", "Team Lead"],
-    image: "./smartchain.png",
+    image: "./smartchain.svg",
   },
 ];
