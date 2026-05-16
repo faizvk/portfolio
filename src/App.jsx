@@ -1,10 +1,10 @@
 import "./App.css";
-import Home from "./pages/Home";
 import { useEffect } from "react";
-//import { useFadeInScroll } from "./animations/useFadeInScroll";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import ProjectDoc from "./pages/ProjectDoc";
 
 function App() {
-  // useFadeInScroll();
   useEffect(() => {
     const elements = document.querySelectorAll("[data-fade='true']");
 
@@ -12,18 +12,14 @@ function App() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // enter viewport → fade in
             entry.target.style.opacity = "1";
             entry.target.style.transform = "translate(0, 0)";
           } else {
-            // leave viewport → reset to hidden
             const distance = entry.target.dataset.distance || "40px";
             const direction = entry.target.dataset.direction || "up";
-
             const axis =
               direction === "left" || direction === "right" ? "X" : "Y";
             const sign = direction === "up" || direction === "left" ? 1 : -1;
-
             entry.target.style.opacity = "0";
             entry.target.style.transform = `translate${axis}(${
               sign * parseInt(distance)
@@ -35,14 +31,16 @@ function App() {
     );
 
     elements.forEach((el) => observer.observe(el));
-
     return () => observer.disconnect();
   }, []);
 
   return (
-    <>
-      <Home />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/projects/:slug" element={<ProjectDoc />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
