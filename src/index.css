@@ -38,6 +38,18 @@
   transform: translate(3px, 3px);
 }
 
+/* Smooth card press — for the big main project cards */
+.card-press {
+  will-change: transform, box-shadow;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 6px 6px 0 0 #000;
+}
+.card-press:hover {
+  transform: translate(3px, 3px);
+  box-shadow: 3px 3px 0 0 #000;
+}
+
 /* Subtle lift — gains a deeper shadow without offset */
 .lift {
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),

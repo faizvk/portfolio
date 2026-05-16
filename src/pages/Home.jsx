@@ -29,6 +29,32 @@ const Home = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const elements = document.querySelectorAll("[data-fade='true']");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translate(0, 0)";
+            observer.unobserve(entry.target);
+            // After the fade transition, clear inline transform so CSS :hover
+            // styles can take over (otherwise inline styles block hover effects).
+            setTimeout(() => {
+              entry.target.style.transform = "";
+              entry.target.style.transition = "";
+            }, 1100);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -10% 0px" }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="bg-[#FAFAF7] text-black min-h-screen selection:bg-[#C5F542] overflow-x-hidden font-sans">
       <nav
@@ -271,7 +297,7 @@ const Home = () => {
               <Link
                 key={i}
                 to={`/projects/${project.slug}`}
-                className="group bg-white border-2 border-black rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-[6px_6px_0_0_#000] hover:shadow-[3px_3px_0_0_#000] hover:translate-x-[3px] hover:translate-y-[3px] transition-all flex flex-col"
+                className="card-press group bg-white border-2 border-black rounded-[1.5rem] md:rounded-[2rem] overflow-hidden flex flex-col"
                 {...fadeIn({
                   direction: "up",
                   distance: 80,
