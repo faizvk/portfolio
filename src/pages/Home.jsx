@@ -585,7 +585,7 @@ const Home = () => {
             ))}
           </div>
 
-          <div className="mt-24 md:mt-32 mb-12 md:mb-16 flex items-center gap-6 md:gap-10">
+          <div className="mt-24 md:mt-32 mb-8 md:mb-10 flex flex-wrap items-center gap-4 md:gap-6">
             <h2
               className="text-2xl md:text-3xl font-black tracking-tighter uppercase text-black whitespace-nowrap italic bg-[#C5F542] border-2 border-black px-4 py-2 rounded-full shadow-[3px_3px_0_0_#000]"
               {...fadeIn({
@@ -596,34 +596,65 @@ const Home = () => {
             >
               Laboratory
             </h2>
-            <div className="h-0.5 w-full bg-black" />
+            <div className="h-0.5 flex-1 min-w-[40px] bg-black" />
             <span className="text-[10px] font-black uppercase tracking-widest text-black/65 whitespace-nowrap">
-              Side Projects
+              {sideProjects.length} Experiments
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          {/* Ripple scroll indicator */}
+          <div className="mb-6 flex items-center justify-between">
+            <p className="text-[11px] md:text-xs font-mono uppercase tracking-[0.25em] font-bold text-black/60">
+              Drag · Swipe · Scroll
+            </p>
+            <div
+              className="inline-flex items-center gap-1.5 bg-white border-2 border-black rounded-full px-4 py-2 shadow-[3px_3px_0_0_#000]"
+              aria-hidden="true"
+            >
+              <span className="ripple-arrow text-black">
+                <ArrowUpRight size={14} className="rotate-45" />
+              </span>
+              <span className="ripple-arrow text-black">
+                <ArrowUpRight size={14} className="rotate-45" />
+              </span>
+              <span className="ripple-arrow text-black">
+                <ArrowUpRight size={14} className="rotate-45" />
+              </span>
+            </div>
+          </div>
+
+          <div
+            className="flex gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-6 -mx-6 md:-mx-12 lg:-mx-24 px-6 md:px-12 lg:px-24"
+            role="region"
+            aria-label="Side projects, scroll horizontally"
+            tabIndex={0}
+          >
             {sideProjects.map((project, i) => (
               <div
                 key={i}
-                className="bg-white border-2 border-black rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 transition-all duration-300 group shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-[#EEFBC9]"
+                className="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[340px] bg-white border-2 border-black rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 transition-all duration-300 group shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-[#EEFBC9]"
                 {...fadeIn({
                   direction: "up",
                   distance: 80,
                   duration: 0.9,
                 })}
               >
-                <div className="icon-spin inline-flex items-center justify-center w-10 h-10 mb-6 md:mb-8 bg-[#C5F542] border-2 border-black rounded-full text-black">
-                  {project.icon}
+                <div className="flex items-start justify-between mb-6 md:mb-8">
+                  <div className="icon-spin inline-flex items-center justify-center w-10 h-10 bg-[#C5F542] border-2 border-black rounded-full text-black">
+                    {project.icon}
+                  </div>
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-black/40">
+                    {String(i + 1).padStart(2, "0")} / {String(sideProjects.length).padStart(2, "0")}
+                  </span>
                 </div>
-                <h3 className="text-xl md:text-2xl font-black mb-3 md:mb-4 text-black">
+                <h3 className="text-xl md:text-2xl font-black mb-3 text-black">
                   {project.title}
                 </h3>
-                <p className="text-black/60 text-xs md:text-sm leading-relaxed mb-8 md:mb-10 font-medium h-auto md:h-20">
+                <p className="text-black/65 text-sm leading-relaxed mb-6 font-medium min-h-[80px]">
                   {project.description}
                 </p>
-                <div className="flex justify-between items-center pt-6 md:pt-8 border-t-2 border-black/10">
-                  <div className="flex flex-wrap gap-2 md:gap-3">
+                <div className="flex justify-between items-center pt-5 border-t-2 border-black/10">
+                  <div className="flex flex-wrap gap-2">
                     {project.tech.map((t) => (
                       <span
                         key={t}
@@ -633,14 +664,14 @@ const Home = () => {
                       </span>
                     ))}
                   </div>
-                  <div className="flex gap-3 md:gap-4">
+                  <div className="flex gap-1">
                     {project.github && (
                       <a
                         href={project.github}
                         aria-label={`${project.title} on GitHub`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-10 h-10 rounded-full text-black/60 hover:text-black hover:bg-[#EEFBC9] transition-all"
+                        className="inline-flex items-center justify-center w-10 h-10 rounded-full text-black/65 hover:text-black hover:bg-[#EEFBC9] transition-all"
                       >
                         <Github size={18} />
                       </a>
@@ -651,7 +682,7 @@ const Home = () => {
                         aria-label={`${project.title} live demo`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-10 h-10 rounded-full text-black/60 hover:text-black hover:bg-[#EEFBC9] transition-all"
+                        className="inline-flex items-center justify-center w-10 h-10 rounded-full text-black/65 hover:text-black hover:bg-[#EEFBC9] transition-all"
                       >
                         <ExternalLink size={18} />
                       </a>
@@ -660,6 +691,22 @@ const Home = () => {
                 </div>
               </div>
             ))}
+            {/* End-of-list pill */}
+            <div className="snap-start shrink-0 w-[200px] flex items-center justify-center">
+              <div className="text-center">
+                <p className="font-mono text-[10px] uppercase tracking-widest font-bold text-black/40 mb-3">
+                  End of list
+                </p>
+                <a
+                  href="https://github.com/faizvk?tab=repositories"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-black text-[#C5F542] border-2 border-black rounded-full px-5 py-3 text-[10px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000] hover:shadow-[1px_1px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                >
+                  <Github size={14} /> All Repos
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
