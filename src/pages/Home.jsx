@@ -105,7 +105,7 @@ const Home = () => {
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
             aria-expanded={mobileOpen}
-            className="md:hidden inline-flex items-center justify-center w-9 h-9 bg-[#C5F542] border-2 border-black rounded-full"
+            className="md:hidden inline-flex items-center justify-center w-11 h-11 bg-[#C5F542] border-2 border-black rounded-full"
           >
             <Menu size={18} />
           </button>
@@ -127,7 +127,7 @@ const Home = () => {
               type="button"
               onClick={() => setMobileOpen(false)}
               aria-label="Close menu"
-              className="inline-flex items-center justify-center w-10 h-10 bg-white border-2 border-black rounded-full shadow-[3px_3px_0_0_#000]"
+              className="inline-flex items-center justify-center w-11 h-11 bg-white border-2 border-black rounded-full shadow-[3px_3px_0_0_#000]"
             >
               <X size={18} />
             </button>
@@ -180,16 +180,16 @@ const Home = () => {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10 max-w-7xl mx-auto w-full">
           <div className="anim-fade-up order-2 lg:order-1">
             <div className="flex items-center gap-3 mb-6 md:mb-8 flex-wrap">
-              <span className="inline-flex items-center gap-2 px-3 py-1 bg-[#C5F542] text-black rounded-full border-2 border-black font-mono text-[9px] md:text-[10px] font-bold tracking-widest uppercase">
+              <span className="inline-flex items-center gap-2 px-3 py-1 bg-[#C5F542] text-black rounded-full border-2 border-black font-mono text-[10px] font-bold tracking-widest uppercase">
                 <span className="w-2 h-2 bg-black rounded-full animate-pulse" />
                 Available
               </span>
-              <span className="px-3 py-1 bg-white text-black rounded-full border-2 border-black font-mono text-[9px] md:text-[10px] font-bold tracking-widest uppercase">
+              <span className="px-3 py-1 bg-white text-black rounded-full border-2 border-black font-mono text-[10px] font-bold tracking-widest uppercase">
                 @ Synup
               </span>
             </div>
             <h1
-              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.85] mb-6 md:mb-8 text-black"
+              className="text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.85] mb-6 md:mb-8 text-black"
               {...fadeIn({ direction: "right", distance: 80, duration: 0.9 })}
             >
               FAIZ <br />
@@ -397,7 +397,7 @@ const Home = () => {
                     onClick={() => setGhYear(y)}
                     aria-pressed={active}
                     aria-label={`Show contributions for ${y}`}
-                    className={`font-mono text-[11px] md:text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full border-2 border-black transition-all ${
+                    className={`font-mono text-[11px] md:text-xs font-bold uppercase tracking-widest px-5 py-3 min-h-[44px] rounded-full border-2 border-black transition-all ${
                       active
                         ? "bg-[#C5F542] text-black shadow-[3px_3px_0_0_#000]"
                         : "bg-white text-black/70 hover:text-black hover:bg-[#EEFBC9]"
@@ -508,7 +508,7 @@ const Home = () => {
                     {project.tags.map((t) => (
                       <span
                         key={t}
-                        className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-black bg-[#C5F542] border-2 border-black px-2.5 py-1 rounded-full"
+                        className="text-[10px] font-black uppercase tracking-widest text-black bg-[#C5F542] border-2 border-black px-2.5 py-1 rounded-full"
                       >
                         {t}
                       </span>
@@ -528,7 +528,7 @@ const Home = () => {
                       {project.tech.slice(0, 4).map((t) => (
                         <span
                           key={t}
-                          className="text-[9px] md:text-[10px] font-mono text-black/65 font-bold uppercase"
+                          className="text-[10px] font-mono text-black/65 font-bold uppercase"
                         >
                           #{t}
                         </span>
@@ -541,7 +541,7 @@ const Home = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="text-black/65 hover:text-black transition-all hover:scale-110"
+                        className="inline-flex items-center justify-center w-10 h-10 rounded-full text-black/65 hover:text-black hover:bg-[#EEFBC9] transition-all"
                       >
                         <Github size={16} />
                       </a>
@@ -552,7 +552,7 @@ const Home = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="text-black/65 hover:text-black transition-all hover:scale-110"
+                          className="inline-flex items-center justify-center w-10 h-10 rounded-full text-black/65 hover:text-black hover:bg-[#EEFBC9] transition-all"
                         >
                           <ExternalLink size={16} />
                         </a>
@@ -609,7 +609,7 @@ const Home = () => {
                     {project.tech.map((t) => (
                       <span
                         key={t}
-                        className="text-[8px] md:text-[10px] font-mono text-black/65 uppercase font-black"
+                        className="text-[10px] font-mono text-black/65 uppercase font-black"
                       >
                         {t}
                       </span>
@@ -622,7 +622,7 @@ const Home = () => {
                         aria-label={`${project.title} on GitHub`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-black/60 hover:text-black transition-all hover:scale-110"
+                        className="inline-flex items-center justify-center w-10 h-10 rounded-full text-black/60 hover:text-black hover:bg-[#EEFBC9] transition-all"
                       >
                         <Github size={18} />
                       </a>
@@ -633,7 +633,7 @@ const Home = () => {
                         aria-label={`${project.title} live demo`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-black/60 hover:text-black transition-all hover:scale-110"
+                        className="inline-flex items-center justify-center w-10 h-10 rounded-full text-black/60 hover:text-black hover:bg-[#EEFBC9] transition-all"
                       >
                         <ExternalLink size={18} />
                       </a>
@@ -687,7 +687,7 @@ const Home = () => {
               <h3 className="inline-flex items-center gap-2 text-sm md:text-base font-black uppercase tracking-[0.3em] bg-black text-[#C5F542] px-4 py-2 rounded-full mb-8">
                 <Code2 size={14} /> Technical Skills
               </h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
                 {Object.entries(skills).map(([category, list]) => (
                   <div
                     key={category}
@@ -814,7 +814,7 @@ const Home = () => {
           <span className="inline-block bg-white text-black px-4 py-1.5 rounded-full border-2 border-black text-[10px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000] mb-10">
             Let's Talk
           </span>
-          <h2 className="text-[18vw] md:text-[14vw] font-black tracking-tighter mb-12 md:mb-20 leading-none text-black select-none">
+          <h2 className="text-[15vw] md:text-[14vw] font-black tracking-tighter mb-12 md:mb-20 leading-none text-black select-none">
             CONTACT
           </h2>
           <p className="text-base md:text-xl font-bold text-black/70 mb-12 md:mb-20 max-w-xl mx-auto">
@@ -847,10 +847,10 @@ const Home = () => {
           </div>
 
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-10 md:pt-16 border-t-2 border-black">
-            <p className="text-black/80 font-mono text-[9px] md:text-[10px] uppercase tracking-[0.5em] font-black">
+            <p className="text-black/80 font-mono text-[10px] uppercase tracking-[0.25em] md:tracking-[0.5em] font-black">
               Faiz Zubair Vadakkayil / {new Date().getFullYear()}
             </p>
-            <div className="flex gap-6 md:gap-12 text-[9px] md:text-[10px] uppercase font-black text-black/70 tracking-widest">
+            <div className="flex gap-6 md:gap-12 text-[10px] uppercase font-black text-black/70 tracking-widest">
               <span>Synup</span>
               <span>Kerala, IN</span>
             </div>
