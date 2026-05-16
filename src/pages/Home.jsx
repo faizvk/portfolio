@@ -602,26 +602,22 @@ const Home = () => {
             </span>
           </div>
 
-          {/* Ripple scroll indicator */}
-          <div className="mb-6 flex items-center justify-between">
-            <p className="text-[11px] md:text-xs font-mono uppercase tracking-[0.25em] font-bold text-black/60">
-              Drag · Swipe · Scroll
-            </p>
+          <div className="relative">
+            {/* Inline ripple arrows — overlay on right edge, vertically centered with cards */}
             <div
-              className="inline-flex items-center gap-1.5 bg-white border-2 border-black rounded-full px-4 py-2 shadow-[3px_3px_0_0_#000]"
               aria-hidden="true"
+              className="pointer-events-none hidden md:flex absolute top-1/2 right-2 -translate-y-1/2 z-20 items-center gap-0"
             >
-              <span className="ripple-arrow text-black">
-                <ArrowUpRight size={14} className="rotate-45" />
+              <span className="ripple-arrow">
+                <ArrowUpRight size={36} strokeWidth={3} className="rotate-45" />
               </span>
-              <span className="ripple-arrow text-black">
-                <ArrowUpRight size={14} className="rotate-45" />
+              <span className="ripple-arrow -ml-3">
+                <ArrowUpRight size={36} strokeWidth={3} className="rotate-45" />
               </span>
-              <span className="ripple-arrow text-black">
-                <ArrowUpRight size={14} className="rotate-45" />
+              <span className="ripple-arrow -ml-3">
+                <ArrowUpRight size={36} strokeWidth={3} className="rotate-45" />
               </span>
             </div>
-          </div>
 
           <div
             className="flex gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-6 -mx-6 md:-mx-12 lg:-mx-24 px-6 md:px-12 lg:px-24"
@@ -707,6 +703,7 @@ const Home = () => {
                 </a>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </section>
