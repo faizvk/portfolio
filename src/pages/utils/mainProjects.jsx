@@ -9,7 +9,7 @@ export const mainProjects = [
     github: "https://github.com/faizvk/ecommerce-app",
     demo: "https://ecommerce-app-neon-eight.vercel.app/",
     tags: ["MERN", "Production"],
-    image: "./nexkart.svg",
+    image: "/nexkart.svg",
   },
   {
     slug: "promptive-ai",
@@ -21,7 +21,7 @@ export const mainProjects = [
     github: "https://github.com/faizvk/promptive-ai",
     demo: "https://promptive-ai.vercel.app",
     tags: ["AI", "SaaS"],
-    image: "./promptiveAI.svg",
+    image: "/promptiveAI.svg",
   },
   {
     slug: "jobpilot",
@@ -33,7 +33,7 @@ export const mainProjects = [
     github: "https://github.com/faizvk/job-pilot",
     demo: "https://www.pursuits.in",
     tags: ["AI", "TypeScript"],
-    image: "./jobpilot.svg",
+    image: "/jobpilot.svg",
   },
   {
     slug: "smartchain",
@@ -43,8 +43,8 @@ export const mainProjects = [
       "Ethereum-backed tender platform with on-chain bid verification (Solidity + Hardhat), IPFS storage, and Gemini-driven document compliance checks.",
     tech: ["Solidity", "Hardhat", "MERN", "IPFS", "Gemini"],
     github: "https://github.com/faizvk/blockchain-based-contract-system",
-    demo: "",
+    demo: null,
     tags: ["Web3", "Team Lead"],
-    image: "./smartchain.svg",
+    image: "/smartchain.svg",
   },
 ];

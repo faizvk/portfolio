@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { GitHubCalendar } from "react-github-calendar";
 import { Tooltip } from "react-tooltip";
@@ -17,6 +16,8 @@ import {
   GraduationCap,
   ArrowUpRight,
   Code2,
+  Menu,
+  X,
 } from "lucide-react";
 import { fadeIn } from "../animations/fadeIn";
 import { mainProjects } from "./utils/mainProjects";
@@ -29,6 +30,7 @@ const YEARS = [CURRENT_YEAR, CURRENT_YEAR - 1, CURRENT_YEAR - 2, CURRENT_YEAR - 
 const Home = () => {
   const [scrolled, setScrolled] = useState(false);
   const [ghYear, setGhYear] = useState(CURRENT_YEAR);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -43,15 +45,8 @@ const Home = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.style.opacity = "1";
-            entry.target.style.transform = "translate(0, 0)";
+            entry.target.classList.add("is-visible");
             observer.unobserve(entry.target);
-            // After the fade transition, clear inline transform so CSS :hover
-            // styles can take over (otherwise inline styles block hover effects).
-            setTimeout(() => {
-              entry.target.style.transform = "";
-              entry.target.style.transition = "";
-            }, 1100);
           }
         });
       },
@@ -62,49 +57,128 @@ const Home = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  const navLinks = [
+    { href: "#work", label: "Work" },
+    { href: "#projects", label: "Projects" },
+    { href: "#activity", label: "Activity" },
+    { href: "#about", label: "About" },
+    { href: "#contact", label: "Contact" },
+  ];
+
   return (
     <div className="bg-[#FAFAF7] text-black min-h-screen selection:bg-[#C5F542] overflow-x-hidden font-sans">
       <nav
         className={`fixed top-4 md:top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ${
-          scrolled ? "w-[95%] md:w-[600px]" : "w-[95%] md:w-[720px]"
+          scrolled ? "w-[92%] md:w-[600px]" : "w-[92%] md:w-[720px]"
         }`}
+        aria-label="Primary"
       >
-        <div
-          className="bg-white border-2 border-black shadow-[4px_4px_0_0_#000] rounded-full px-6 md:px-8 py-3 md:py-4 flex justify-between items-center"
-          {...fadeIn({ direction: "up", distance: 80, duration: 0.9 })}
-        >
-          <span className="font-black tracking-tighter text-xl md:text-2xl text-black bg-[#C5F542] px-3 py-0.5 rounded-md border-2 border-black">
+        <div className="bg-white border-2 border-black shadow-[4px_4px_0_0_#000] rounded-full px-5 md:px-8 py-3 md:py-4 flex justify-between items-center">
+          <a
+            href="#top"
+            aria-label="Home — Faiz Zubair"
+            className="font-black tracking-tighter text-xl md:text-2xl text-black bg-[#C5F542] px-3 py-0.5 rounded-md border-2 border-black"
+          >
             FZ.
-          </span>
-          <div className="flex gap-4 md:gap-7 text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-bold text-black/60">
-            <a href="#work" className="nav-link">
-              Work
+          </a>
+
+          {/* Desktop links */}
+          <div className="hidden md:flex gap-7 text-[10px] uppercase tracking-[0.2em] font-bold text-black/60">
+            {navLinks.map((l) => (
+              <a key={l.href} href={l.href} className="nav-link">
+                {l.label}
+              </a>
+            ))}
+          </div>
+
+          {/* Mobile hamburger */}
+          <button
+            type="button"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={mobileOpen}
+            className="md:hidden inline-flex items-center justify-center w-9 h-9 bg-[#C5F542] border-2 border-black rounded-full"
+          >
+            <Menu size={18} />
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile drawer */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-[60] bg-[#FAFAF7] md:hidden flex flex-col"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="flex justify-between items-center px-6 py-5 border-b-2 border-black">
+            <span className="font-black tracking-tighter text-2xl text-black bg-[#C5F542] px-3 py-0.5 rounded-md border-2 border-black">
+              FZ.
+            </span>
+            <button
+              type="button"
+              onClick={() => setMobileOpen(false)}
+              aria-label="Close menu"
+              className="inline-flex items-center justify-center w-10 h-10 bg-white border-2 border-black rounded-full shadow-[3px_3px_0_0_#000]"
+            >
+              <X size={18} />
+            </button>
+          </div>
+          <nav className="flex-1 flex flex-col justify-center px-8 gap-6" aria-label="Mobile">
+            {navLinks.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setMobileOpen(false)}
+                className="text-4xl font-black tracking-tight text-black hover:text-[#9BC91F] transition-colors"
+              >
+                {l.label}
+                <span className="text-[#9BC91F]">.</span>
+              </a>
+            ))}
+          </nav>
+          <div className="px-6 py-6 border-t-2 border-black flex gap-3">
+            <a
+              href="https://github.com/faizvk"
+              aria-label="GitHub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 bg-white border-2 border-black rounded-full shadow-[3px_3px_0_0_#000]"
+            >
+              <Github size={18} />
             </a>
-            <a href="#projects" className="nav-link">
-              Projects
+            <a
+              href="https://linkedin.com/in/faiz-zubair-vadakkayil"
+              aria-label="LinkedIn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 bg-white border-2 border-black rounded-full shadow-[3px_3px_0_0_#000]"
+            >
+              <Linkedin size={18} />
             </a>
-            <a href="#activity" className="nav-link">
-              Activity
-            </a>
-            <a href="#about" className="nav-link">
-              About
-            </a>
-            <a href="#contact" className="nav-link">
-              Contact
+            <a
+              href="mailto:faizvk14@gmail.com"
+              aria-label="Email"
+              className="p-3 bg-white border-2 border-black rounded-full shadow-[3px_3px_0_0_#000]"
+            >
+              <Mail size={18} />
             </a>
           </div>
         </div>
-      </nav>
+      )}
 
       {/* HERO */}
       <section className="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 relative pt-24">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10 max-w-7xl mx-auto w-full">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="order-2 lg:order-1"
-          >
+          <div className="anim-fade-up order-2 lg:order-1">
             <div className="flex items-center gap-3 mb-6 md:mb-8 flex-wrap">
               <span className="inline-flex items-center gap-2 px-3 py-1 bg-[#C5F542] text-black rounded-full border-2 border-black font-mono text-[9px] md:text-[10px] font-bold tracking-widest uppercase">
                 <span className="w-2 h-2 bg-black rounded-full animate-pulse" />
@@ -145,6 +219,7 @@ const Home = () => {
               <div className="flex gap-3 border-l-0 sm:border-l-2 border-black/10 pl-0 sm:pl-6">
                 <a
                   href="https://github.com/faizvk"
+                  aria-label="GitHub profile"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3 bg-white border-2 border-black rounded-full hover:bg-[#C5F542] transition-all shadow-[3px_3px_0_0_#000] hover:shadow-[1px_1px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px]"
@@ -153,6 +228,7 @@ const Home = () => {
                 </a>
                 <a
                   href="https://linkedin.com/in/faiz-zubair-vadakkayil"
+                  aria-label="LinkedIn profile"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3 bg-white border-2 border-black rounded-full hover:bg-[#C5F542] transition-all shadow-[3px_3px_0_0_#000] hover:shadow-[1px_1px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px]"
@@ -161,31 +237,27 @@ const Home = () => {
                 </a>
                 <a
                   href="mailto:faizvk14@gmail.com"
+                  aria-label="Send email"
                   className="p-3 bg-white border-2 border-black rounded-full hover:bg-[#C5F542] transition-all shadow-[3px_3px_0_0_#000] hover:shadow-[1px_1px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px]"
                 >
                   <Mail size={20} />
                 </a>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.2 }}
-            className="relative flex justify-center lg:justify-end order-1 lg:order-2"
-          >
+          <div className="anim-fade-in relative flex justify-center lg:justify-end order-1 lg:order-2">
             <div
               className="relative w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[460px] aspect-4/5 rounded-[2rem] border-2 border-black bg-[#C5F542] overflow-hidden shadow-[8px_8px_0_0_#000]"
               {...fadeIn({ direction: "left", distance: 80, duration: 0.9 })}
             >
               <img
-                src="./profile.jpg"
-                alt="Faiz Zubair"
+                src="/profile.jpg"
+                alt="Portrait of Faiz Zubair"
                 className="w-full h-full object-cover object-top grayscale contrast-110"
               />
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -224,7 +296,7 @@ const Home = () => {
                   <div className="inline-flex items-center justify-center w-12 h-12 bg-[#C5F542] border-2 border-black rounded-full">
                     <Briefcase size={20} />
                   </div>
-                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-black/50">
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-black/65">
                     Feb 2026 — Present
                   </span>
                 </div>
@@ -260,7 +332,7 @@ const Home = () => {
                 <GraduationCap size={18} />
               </div>
               <div className="flex-1">
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-black/50">
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-black/65">
                   2025 — Graduated
                 </span>
                 <h3 className="text-xl md:text-2xl font-black tracking-tight text-black mt-1">
@@ -297,7 +369,7 @@ const Home = () => {
                 Code Pulse
                 <span className="text-[#9BC91F]">.</span>
               </h2>
-              <p className="text-black/50 font-mono text-xs tracking-widest mt-4 uppercase font-bold">
+              <p className="text-black/65 font-mono text-xs tracking-widest mt-4 uppercase font-bold">
                 Contributions — @faizvk
               </p>
             </div>
@@ -323,10 +395,12 @@ const Home = () => {
                     key={y}
                     type="button"
                     onClick={() => setGhYear(y)}
+                    aria-pressed={active}
+                    aria-label={`Show contributions for ${y}`}
                     className={`font-mono text-[11px] md:text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full border-2 border-black transition-all ${
                       active
                         ? "bg-[#C5F542] text-black shadow-[3px_3px_0_0_#000]"
-                        : "bg-white text-black/60 hover:text-black hover:bg-[#EEFBC9]"
+                        : "bg-white text-black/70 hover:text-black hover:bg-[#EEFBC9]"
                     }`}
                   >
                     {y}
@@ -395,7 +469,7 @@ const Home = () => {
                 Projects
                 <span className="text-[#9BC91F]">.</span>
               </h2>
-              <p className="text-black/50 font-mono text-xs tracking-widest mt-4 uppercase font-bold">
+              <p className="text-black/65 font-mono text-xs tracking-widest mt-4 uppercase font-bold">
                 Production builds + documentation
               </p>
             </div>
@@ -409,6 +483,7 @@ const Home = () => {
               <Link
                 key={i}
                 to={`/projects/${project.slug}`}
+                aria-label={`Read case study: ${project.title}`}
                 className="card-press group bg-white border-2 border-black rounded-[1.5rem] md:rounded-[2rem] overflow-hidden flex flex-col"
                 {...fadeIn({
                   direction: "up",
@@ -442,7 +517,7 @@ const Home = () => {
                   <h3 className="text-2xl md:text-3xl font-black mb-1 text-black">
                     {project.title}
                   </h3>
-                  <p className="text-sm font-bold text-black/50 mb-4 uppercase tracking-wider">
+                  <p className="text-sm font-bold text-black/65 mb-4 uppercase tracking-wider">
                     {project.subtitle}
                   </p>
                   <p className="text-black/70 text-sm md:text-base font-medium leading-relaxed mb-6 flex-1">
@@ -453,7 +528,7 @@ const Home = () => {
                       {project.tech.slice(0, 4).map((t) => (
                         <span
                           key={t}
-                          className="text-[9px] md:text-[10px] font-mono text-black/50 font-bold uppercase"
+                          className="text-[9px] md:text-[10px] font-mono text-black/65 font-bold uppercase"
                         >
                           #{t}
                         </span>
@@ -462,20 +537,22 @@ const Home = () => {
                     <div className="flex items-center gap-3">
                       <a
                         href={project.github}
+                        aria-label={`${project.title} on GitHub`}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="text-black/50 hover:text-black transition-all hover:scale-110"
+                        className="text-black/65 hover:text-black transition-all hover:scale-110"
                       >
                         <Github size={16} />
                       </a>
                       {project.demo && (
                         <a
                           href={project.demo}
+                          aria-label={`${project.title} live demo`}
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="text-black/50 hover:text-black transition-all hover:scale-110"
+                          className="text-black/65 hover:text-black transition-all hover:scale-110"
                         >
                           <ExternalLink size={16} />
                         </a>
@@ -502,7 +579,7 @@ const Home = () => {
               Laboratory
             </h2>
             <div className="h-0.5 w-full bg-black" />
-            <span className="text-[10px] font-black uppercase tracking-widest text-black/50 whitespace-nowrap">
+            <span className="text-[10px] font-black uppercase tracking-widest text-black/65 whitespace-nowrap">
               Side Projects
             </span>
           </div>
@@ -532,7 +609,7 @@ const Home = () => {
                     {project.tech.map((t) => (
                       <span
                         key={t}
-                        className="text-[8px] md:text-[10px] font-mono text-black/50 uppercase font-black"
+                        className="text-[8px] md:text-[10px] font-mono text-black/65 uppercase font-black"
                       >
                         {t}
                       </span>
@@ -542,9 +619,10 @@ const Home = () => {
                     {project.github && (
                       <a
                         href={project.github}
+                        aria-label={`${project.title} on GitHub`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-black/40 hover:text-black transition-all hover:scale-110"
+                        className="text-black/60 hover:text-black transition-all hover:scale-110"
                       >
                         <Github size={18} />
                       </a>
@@ -552,9 +630,10 @@ const Home = () => {
                     {project.demo && (
                       <a
                         href={project.demo}
+                        aria-label={`${project.title} live demo`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-black/40 hover:text-black transition-all hover:scale-110"
+                        className="text-black/60 hover:text-black transition-all hover:scale-110"
                       >
                         <ExternalLink size={18} />
                       </a>
@@ -700,16 +779,14 @@ const Home = () => {
               </div>
             </div>
 
-            <motion.div
-              whileHover={{ scale: 0.99 }}
-              className="bg-white p-10 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border-2 border-black relative overflow-hidden group shadow-[6px_6px_0_0_#000]"
-            >
+            <div className="bg-white p-10 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border-2 border-black relative overflow-hidden group shadow-[6px_6px_0_0_#000] hover:scale-[0.99] transition-transform duration-300">
+
               <div className="relative z-10">
                 <h3 className="text-3xl md:text-4xl font-black mb-3 text-black leading-tight uppercase">
                   Resume<span className="text-[#9BC91F]">.</span>
                 </h3>
-                <p className="text-black/50 mb-8 max-w-[240px] text-[10px] leading-relaxed font-black uppercase tracking-[0.2em]">
-                  Full Details — 2026
+                <p className="text-black/65 mb-8 max-w-[240px] text-[10px] leading-relaxed font-black uppercase tracking-[0.2em]">
+                  Full Details — {new Date().getFullYear()}
                 </p>
                 <a
                   href="/FaizZubair.pdf"
@@ -723,7 +800,7 @@ const Home = () => {
                 size={260}
                 className="absolute right-[-60px] bottom-[-60px] opacity-[0.06] text-black group-hover:rotate-12 transition-transform duration-1000 hidden md:block"
               />
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -747,17 +824,19 @@ const Home = () => {
 
           <div className="flex flex-wrap justify-center gap-5 md:gap-8 mb-24 md:mb-32">
             {[
-              { icon: <Mail />, href: "mailto:faizvk14@gmail.com" },
+              { icon: <Mail />, href: "mailto:faizvk14@gmail.com", label: "Email" },
               {
                 icon: <Linkedin />,
                 href: "https://linkedin.com/in/faiz-zubair-vadakkayil",
+                label: "LinkedIn",
               },
-              { icon: <Github />, href: "https://github.com/faizvk" },
-              { icon: <Instagram />, href: "https://instagram.com/faiz.vk" },
+              { icon: <Github />, href: "https://github.com/faizvk", label: "GitHub" },
+              { icon: <Instagram />, href: "https://instagram.com/faiz.vk", label: "Instagram" },
             ].map((link, idx) => (
               <a
                 key={idx}
                 href={link.href}
+                aria-label={link.label}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-tile p-5 md:p-7 bg-white border-2 border-black rounded-2xl md:rounded-3xl shadow-[6px_6px_0_0_#000] hover:shadow-[2px_2px_0_0_#000]"
@@ -768,8 +847,8 @@ const Home = () => {
           </div>
 
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-10 md:pt-16 border-t-2 border-black">
-            <p className="text-black/70 font-mono text-[9px] md:text-[10px] uppercase tracking-[0.5em] font-black">
-              Faiz Zubair Vadakkayil / 2026
+            <p className="text-black/80 font-mono text-[9px] md:text-[10px] uppercase tracking-[0.5em] font-black">
+              Faiz Zubair Vadakkayil / {new Date().getFullYear()}
             </p>
             <div className="flex gap-6 md:gap-12 text-[9px] md:text-[10px] uppercase font-black text-black/70 tracking-widest">
               <span>Synup</span>
@@ -779,12 +858,6 @@ const Home = () => {
         </div>
       </footer>
 
-      <style>{`
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        html { scroll-behavior: smooth; }
-        body { -webkit-font-smoothing: antialiased; background-color: #FAFAF7; }
-      `}</style>
     </div>
   );
 };

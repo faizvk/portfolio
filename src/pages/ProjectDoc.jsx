@@ -1,11 +1,15 @@
+import { useEffect } from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import { ArrowLeft, Github, ExternalLink, CircleCheck } from "lucide-react";
-import { motion } from "framer-motion";
 import { docContent } from "./utils/docContent";
 
 export default function ProjectDoc() {
   const { slug } = useParams();
   const doc = docContent[slug];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
 
   if (!doc) return <Navigate to="/" replace />;
 
@@ -15,6 +19,7 @@ export default function ProjectDoc() {
         <div className="max-w-5xl mx-auto px-6 md:px-10 py-4 flex justify-between items-center">
           <Link
             to="/"
+            aria-label="Back to home"
             className="inline-flex items-center gap-2 bg-white border-2 border-black rounded-full px-4 py-2 text-[10px] md:text-xs uppercase tracking-widest font-black shadow-[3px_3px_0_0_#000] hover:shadow-[1px_1px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
           >
             <ArrowLeft size={14} /> Back
@@ -26,11 +31,7 @@ export default function ProjectDoc() {
       </nav>
 
       <main className="max-w-5xl mx-auto px-6 md:px-10 py-12 md:py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="anim-fade-up">
           <div className="flex flex-wrap items-center gap-3 mb-6">
             <span className="px-3 py-1 bg-[#C5F542] text-black rounded-full border-2 border-black font-mono text-[10px] font-bold tracking-widest uppercase">
               {doc.status}
@@ -38,7 +39,7 @@ export default function ProjectDoc() {
             <span className="px-3 py-1 bg-white text-black rounded-full border-2 border-black font-mono text-[10px] font-bold tracking-widest uppercase">
               {doc.role}
             </span>
-            <span className="text-black/50 font-mono text-[10px] tracking-[0.2em] uppercase font-bold">
+            <span className="text-black/65 font-mono text-[10px] tracking-[0.2em] uppercase font-bold">
               {doc.timeline}
             </span>
           </div>
@@ -75,7 +76,7 @@ export default function ProjectDoc() {
               </a>
             )}
           </div>
-        </motion.div>
+        </div>
 
         <section className="mt-16 md:mt-24">
           <h2 className="inline-block text-sm md:text-base font-black uppercase tracking-[0.3em] bg-black text-[#C5F542] px-4 py-2 rounded-full mb-8">
@@ -148,8 +149,8 @@ export default function ProjectDoc() {
           >
             <ArrowLeft size={14} /> All Projects
           </Link>
-          <p className="text-black/50 font-mono text-[10px] uppercase tracking-[0.4em] font-black">
-            Faiz Zubair / 2026
+          <p className="text-black/65 font-mono text-[10px] uppercase tracking-[0.4em] font-black">
+            Faiz Zubair / {new Date().getFullYear()}
           </p>
         </div>
       </main>
