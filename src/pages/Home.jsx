@@ -66,7 +66,7 @@ const Home = () => {
     <div className="bg-[#FAFAF7] text-black min-h-screen selection:bg-[#C5F542] overflow-x-hidden font-sans">
       <nav
         className={`fixed top-4 md:top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ${
-          scrolled ? "w-[95%] md:w-[460px]" : "w-[95%] md:w-[660px]"
+          scrolled ? "w-[95%] md:w-[600px]" : "w-[95%] md:w-[720px]"
         }`}
       >
         <div
