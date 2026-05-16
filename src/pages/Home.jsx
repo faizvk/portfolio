@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { GitHubCalendar } from "react-github-calendar";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 import {
   Github,
   Linkedin,
@@ -21,8 +23,12 @@ import { mainProjects } from "./utils/mainProjects";
 import { sideProjects } from "./utils/sideProjects";
 import { skills } from "./utils/skills";
 
+const CURRENT_YEAR = new Date().getFullYear();
+const YEARS = [CURRENT_YEAR, CURRENT_YEAR - 1, CURRENT_YEAR - 2, CURRENT_YEAR - 3];
+
 const Home = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [ghYear, setGhYear] = useState(CURRENT_YEAR);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -291,7 +297,7 @@ const Home = () => {
                 <span className="text-[#9BC91F]">.</span>
               </h2>
               <p className="text-black/50 font-mono text-xs tracking-widest mt-4 uppercase font-bold">
-                Last 12 months — @faizvk
+                Contributions — @faizvk
               </p>
             </div>
             <a
@@ -305,12 +311,33 @@ const Home = () => {
           </div>
 
           <div
-            className="bg-white border-2 border-black rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-10 shadow-[6px_6px_0_0_#000] overflow-x-auto"
+            className="bg-white border-2 border-black rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-10 shadow-[6px_6px_0_0_#000]"
             {...fadeIn({ direction: "up", distance: 60, duration: 0.9 })}
           >
-            <div className="github-calendar-wrap">
+            <div className="flex flex-wrap gap-2 mb-6 pb-6 border-b-2 border-black/10">
+              {YEARS.map((y) => {
+                const active = y === ghYear;
+                return (
+                  <button
+                    key={y}
+                    type="button"
+                    onClick={() => setGhYear(y)}
+                    className={`font-mono text-[11px] md:text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full border-2 border-black transition-all ${
+                      active
+                        ? "bg-[#C5F542] text-black shadow-[3px_3px_0_0_#000]"
+                        : "bg-white text-black/60 hover:text-black hover:bg-[#EEFBC9]"
+                    }`}
+                  >
+                    {y}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="github-calendar-wrap overflow-x-auto">
               <GitHubCalendar
+                key={ghYear}
                 username="faizvk"
+                year={ghYear}
                 colorScheme="light"
                 theme={{
                   light: [
@@ -325,9 +352,21 @@ const Home = () => {
                 blockMargin={4}
                 fontSize={13}
                 labels={{
-                  totalCount: "{{count}} contributions in the last year",
+                  totalCount: `{{count}} contributions in ${ghYear}`,
                 }}
                 style={{ color: "#000" }}
+                renderBlock={(block, activity) =>
+                  React.cloneElement(block, {
+                    "data-tooltip-id": "gh-tooltip",
+                    "data-tooltip-html": `<strong>${activity.count}</strong> contribution${
+                      activity.count === 1 ? "" : "s"
+                    } on <span style="opacity:.7">${activity.date}</span>`,
+                  })
+                }
+              />
+              <Tooltip
+                id="gh-tooltip"
+                className="!bg-black !text-[#C5F542] !rounded-md !border-2 !border-black !font-mono !text-[11px] !px-3 !py-2"
               />
             </div>
           </div>
