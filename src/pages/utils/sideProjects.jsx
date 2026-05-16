@@ -1,117 +1,85 @@
 import {
-  Sparkles,
-  Terminal,
-  Globe,
-  SquarePlus,
-  ArrowUpDown,
-  TextQuote,
-  User,
-  SortAsc,
+  LayoutDashboard,
+  TicketCheck,
+  Target,
+  Wallet,
+  Coins,
+  MapPin,
+  Newspaper,
+  Building2,
 } from "lucide-react";
 
 export const sideProjects = [
   {
-    title: "Music Recommendation",
+    title: "Task Dashboard",
     description:
-      "Winner of ISTE State-Level Hackathon 2024. Personalized discovery engine.",
-    tech: ["React", "API"],
-    icon: <Sparkles size={18} />,
-    color: "bg-slate-100 border-slate-200",
-    demo: "",
-  },
-
-  {
-    title: "Portfolio",
-    description: "Experimental minimalist portfolio focused on performance.",
-    tech: ["Vite", "Motion"],
-    icon: <Globe size={18} />,
-    color: "bg-gray-100 border-gray-200",
-    github: "https://github.com/faizvk/portfolio",
-    demo: "",
-  },
-
-  {
-    title: "Counter Redux",
-    description: "Increment and decrement counter built with React and Redux.",
-    tech: ["React", "Redux", "JavaScript"],
-    icon: <SquarePlus size={18} />, // substitute a suitable icon
-    color: "bg-indigo-100 border-indigo-200",
-    github: "https://github.com/acciojob/counter-redux-faizvk",
-    demo: "",
+      "A clean React task management dashboard with filters, status tracking, and persistent state.",
+    tech: ["React", "Vite", "CSS"],
+    icon: <LayoutDashboard size={18} />,
+    github: "https://github.com/faizvk/task-dashboard",
+    demo: "https://task-dashboard-nine-mu.vercel.app",
   },
   {
-    title: "Pincode LookUp",
-    description: "A place where you can lookup post offices under a pincode",
-    tech: ["React", "CSS"],
-    icon: <User size={18} />, // substitute a suitable icon
-    color: "bg-yellow-100 border-yellow-200",
-    github: "https://github.com/faizvk/post-office-finder",
-    demo: "https://module6-week2-j7r7o8bbd-faizvks-projects.vercel.app",
-  },
-  {
-    title: "Crypto Checker",
+    title: "Zoho Desk Widget",
     description:
-      "A place where you can lookup top 10 trending crypto currencies",
-    tech: ["HTML", "Javascript", "CSS"],
-    icon: <User size={18} />, // substitute a suitable icon
-    color: "bg-emerald-100 border-emerald-200",
+      "Custom TypeScript widget embedded inside the Zoho Desk ticket view to surface contextual data.",
+    tech: ["TypeScript", "Zoho API"],
+    icon: <TicketCheck size={18} />,
+    github: "https://github.com/faizvk/zoho-desk-ticket-widget",
+    demo: "",
+  },
+  {
+    title: "Bowling Calculator",
+    description:
+      "Ten-pin bowling score calculator handling strikes, spares, and the 10th-frame bonus rules.",
+    tech: ["React", "JavaScript"],
+    icon: <Target size={18} />,
+    github: "https://github.com/faizvk/Bowling-score-calculator",
+    demo: "https://bowling-score-calculator.vercel.app",
+  },
+  {
+    title: "Connect Wallet",
+    description:
+      "Lightweight Web3 wallet-connect demo integrating MetaMask via ethers.js.",
+    tech: ["Web3", "ethers.js"],
+    icon: <Wallet size={18} />,
+    github: "https://github.com/faizvk/connect-wallet",
+    demo: "",
+  },
+  {
+    title: "Crypto Lister",
+    description:
+      "Live market dashboard showing top trending cryptocurrencies pulled from a public API.",
+    tech: ["JavaScript", "API"],
+    icon: <Coins size={18} />,
     github: "https://github.com/faizvk/crypto-lister",
     demo: "https://faizvk.github.io/crypto-lister/",
   },
   {
-    title: "star gold LLC",
-    description: "A freelance project for company star gold LLC",
-    tech: ["HTML", "React", "CSS"],
-    icon: <User size={18} />, // substitute a suitable icon
-    color: "bg-emerald-100 border-emerald-200",
-    github: "https://github.com/faizvk/star-gold-llc",
-    demo: "https://star-gold-llc-6na3-4pcqr7ynk-faizvks-projects.vercel.app",
-  },
-
-  {
-    title: "Sort Books",
+    title: "Pincode Finder",
     description:
-      "Books list sorting app using Redux to manage state and implement sorting by title/author.",
-    tech: ["React", "Redux", "CSS"],
-    icon: <SortAsc size={18} />, // substitute a suitable icon
-    color: "bg-emerald-100 border-emerald-200",
-    github: "https://github.com/acciojob/sort-books-faizvk",
+      "Indian post-office lookup tool — enter a pincode, see all matching branches with metadata.",
+    tech: ["React", "REST"],
+    icon: <MapPin size={18} />,
+    github: "https://github.com/faizvk/post-office-finder",
+    demo: "https://module6-week2.vercel.app",
+  },
+  {
+    title: "CA Monk Blog",
+    description:
+      "TypeScript + React blog landing page with responsive typography and a clean editorial grid.",
+    tech: ["TypeScript", "React"],
+    icon: <Newspaper size={18} />,
+    github: "https://github.com/faizvk/ca-monk-blog-page",
     demo: "",
   },
   {
-    title: "Lorem Redux",
-    description: "Redux project that fetches and displays Lorem Ipsum content.",
-    tech: ["React", "Redux", "CSS"],
-    icon: <TextQuote size={18} />, // substitute a suitable icon
-    color: "bg-yellow-100 border-yellow-200",
-    github: "https://github.com/acciojob/lorem-redux-faizvk",
-    demo: "",
-  },
-  {
-    title: "User Info Redux",
-    description: "React and Redux app managing user name and email state.",
-    tech: ["React", "Redux", "CSS"],
-    icon: <User size={18} />, // substitute a suitable icon
-    color: "bg-teal-100 border-teal-200",
-    github: "https://github.com/acciojob/user-info-redux-faizvk",
-    demo: "",
-  },
-  {
-    title: "Museo Sans",
-    description: "Modern home page design",
-    tech: ["HTML", "CSS"],
-    icon: <User size={18} />, // substitute a suitable icon
-    color: "bg-emerald-100 border-emerald-200",
-    github: "https://github.com/faizvk/museo-sans",
-    demo: "https://faizvk.github.io/museo-sans/",
-  },
-  {
-    title: "React Hooks",
-    description: "Simple project to show use of hooks",
-    tech: ["HTML", "CSS"],
-    icon: <User size={18} />, // substitute a suitable icon
-    color: "bg-yellow-100 border-yellow-200",
-    github: "https://github.com/faizvk/react-hooks",
-    demo: "https://module6-moduletest-j5lidt72p-faizvks-projects.vercel.app",
+    title: "Star Gold LLC",
+    description:
+      "Freelance marketing site for Star Gold LLC — single-page React build with custom branding.",
+    tech: ["React", "CSS"],
+    icon: <Building2 size={18} />,
+    github: "https://github.com/faizvk/star-gold-llc",
+    demo: "https://star-gold-llc.vercel.app",
   },
 ];
