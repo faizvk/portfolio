@@ -76,6 +76,9 @@ const Home = () => {
             <a href="#projects" className="nav-link">
               Projects
             </a>
+            <a href="#activity" className="nav-link">
+              Activity
+            </a>
             <a href="#about" className="nav-link">
               About
             </a>
@@ -259,6 +262,75 @@ const Home = () => {
                   Government College of Engineering, Kannur
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* GITHUB ACTIVITY */}
+      <section
+        id="activity"
+        className="py-20 md:py-32 px-6 md:px-12 lg:px-24 bg-[#FAFAF7]"
+      >
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-10 md:mb-14 flex flex-col md:flex-row items-start md:items-end justify-between gap-4 border-b-2 border-black pb-8">
+            <div>
+              <span className="inline-block bg-[#C5F542] text-black px-4 py-1.5 rounded-full border-2 border-black text-[10px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000] mb-5">
+                GitHub Activity
+              </span>
+              <h2
+                className="text-5xl md:text-7xl font-black tracking-tighter uppercase text-black"
+                {...fadeIn({
+                  direction: "right",
+                  distance: 80,
+                  duration: 0.9,
+                })}
+              >
+                Code Pulse
+                <span className="text-[#9BC91F]">.</span>
+              </h2>
+              <p className="text-black/50 font-mono text-xs tracking-widest mt-4 uppercase font-bold">
+                Last 12 months — @faizvk
+              </p>
+            </div>
+            <a
+              href="https://github.com/faizvk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group shine inline-flex items-center gap-2 bg-black text-[#C5F542] px-5 py-3 rounded-full font-black text-[10px] uppercase tracking-widest border-2 border-black shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+            >
+              <Github size={14} className="arrow" /> View Profile
+            </a>
+          </div>
+
+          <div
+            className="bg-white border-2 border-black rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-10 shadow-[6px_6px_0_0_#000] overflow-hidden"
+            {...fadeIn({ direction: "up", distance: 60, duration: 0.9 })}
+          >
+            <img
+              src="https://ghchart.rshah.org/9bc91f/faizvk"
+              alt="Faiz Zubair's GitHub contribution heatmap"
+              className="w-full h-auto"
+              loading="lazy"
+            />
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 pt-6 border-t-2 border-black/10">
+              <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest font-bold text-black/50">
+                Less
+              </p>
+              <div className="flex gap-1.5">
+                {["#EEEEEE", "#E5F5BD", "#C5F542", "#9BC91F", "#6B8F0E"].map(
+                  (c) => (
+                    <span
+                      key={c}
+                      className="w-3.5 h-3.5 border-2 border-black rounded-[3px]"
+                      style={{ background: c }}
+                    />
+                  )
+                )}
+              </div>
+              <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest font-bold text-black/50">
+                More
+              </p>
             </div>
           </div>
         </div>
