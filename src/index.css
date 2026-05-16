@@ -31,6 +31,27 @@ h4 {
   letter-spacing: -0.005em;
 }
 
+/* ===== GitHub contribution calendar — brutalist theme ===== */
+.github-calendar-wrap .react-activity-calendar {
+  margin: 0 auto;
+}
+.github-calendar-wrap .react-activity-calendar__legend-month,
+.github-calendar-wrap .react-activity-calendar__count,
+.github-calendar-wrap .react-activity-calendar__legend-colors {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+  color: #000;
+}
+.github-calendar-wrap rect.react-activity-calendar__day {
+  stroke: rgba(0, 0, 0, 0.15);
+  stroke-width: 1;
+  rx: 2;
+  ry: 2;
+}
+
 /* ============================================================
    PORTFOLIO HOVER EFFECTS — minimalist neo-brutalist
    ============================================================ */

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { GitHubCalendar } from "react-github-calendar";
 import {
   Github,
   Linkedin,
@@ -304,33 +305,30 @@ const Home = () => {
           </div>
 
           <div
-            className="bg-white border-2 border-black rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-10 shadow-[6px_6px_0_0_#000] overflow-hidden"
+            className="bg-white border-2 border-black rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-10 shadow-[6px_6px_0_0_#000] overflow-x-auto"
             {...fadeIn({ direction: "up", distance: 60, duration: 0.9 })}
           >
-            <img
-              src="https://ghchart.rshah.org/9bc91f/faizvk"
-              alt="Faiz Zubair's GitHub contribution heatmap"
-              className="w-full h-auto"
-              loading="lazy"
-            />
-            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 pt-6 border-t-2 border-black/10">
-              <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest font-bold text-black/50">
-                Less
-              </p>
-              <div className="flex gap-1.5">
-                {["#EEEEEE", "#E5F5BD", "#C5F542", "#9BC91F", "#6B8F0E"].map(
-                  (c) => (
-                    <span
-                      key={c}
-                      className="w-3.5 h-3.5 border-2 border-black rounded-[3px]"
-                      style={{ background: c }}
-                    />
-                  )
-                )}
-              </div>
-              <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest font-bold text-black/50">
-                More
-              </p>
+            <div className="github-calendar-wrap">
+              <GitHubCalendar
+                username="faizvk"
+                colorScheme="light"
+                theme={{
+                  light: [
+                    "#F1F1ED",
+                    "#E5F5BD",
+                    "#C5F542",
+                    "#9BC91F",
+                    "#6B8F0E",
+                  ],
+                }}
+                blockSize={13}
+                blockMargin={4}
+                fontSize={13}
+                labels={{
+                  totalCount: "{{count}} contributions in the last year",
+                }}
+                style={{ color: "#000" }}
+              />
             </div>
           </div>
         </div>
