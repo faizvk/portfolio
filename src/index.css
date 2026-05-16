@@ -279,13 +279,12 @@ button,
 }
 
 /* ===== Brutalist ripple-scroll indicator =====
-   Arrows shift back-and-forth horizontally with a wave delay,
-   and cycle color lime → black → lime as they move. No bg / no border. */
+   Single small arrow, no bg/border. Back-and-forth + lime → black color cycle. */
 @keyframes rippleArrow {
   0% {
-    opacity: 0.2;
-    transform: translateX(-10px);
-    color: #c5f542;
+    opacity: 0.35;
+    transform: translateX(-6px);
+    color: #9bc91f;
   }
   50% {
     opacity: 1;
@@ -293,27 +292,18 @@ button,
     color: #000;
   }
   100% {
-    opacity: 0.2;
-    transform: translateX(10px);
-    color: #c5f542;
+    opacity: 0.35;
+    transform: translateX(6px);
+    color: #9bc91f;
   }
 }
 .ripple-arrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #c5f542;
-  animation: rippleArrow 1.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  color: #9bc91f;
+  animation: rippleArrow 1.5s cubic-bezier(0.65, 0, 0.35, 1) infinite;
   will-change: transform, color, opacity;
-}
-.ripple-arrow:nth-child(1) {
-  animation-delay: 0s;
-}
-.ripple-arrow:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.ripple-arrow:nth-child(3) {
-  animation-delay: 0.4s;
 }
 
 /* Edge fade on horizontal scroll container — hint there's more */

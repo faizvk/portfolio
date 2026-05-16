@@ -31,6 +31,8 @@ const Home = () => {
   const [scrolled, setScrolled] = useState(false);
   const [ghYear, setGhYear] = useState(CURRENT_YEAR);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const labRailRef = React.useRef(null);
+  const [labScroll, setLabScroll] = useState({ left: false, right: true });
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -55,6 +57,26 @@ const Home = () => {
 
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
+  }, []);
+
+  // Track horizontal scroll state of the Laboratory rail
+  useEffect(() => {
+    const el = labRailRef.current;
+    if (!el) return;
+    const update = () => {
+      const left = el.scrollLeft > 4;
+      const right = el.scrollLeft + el.clientWidth < el.scrollWidth - 4;
+      setLabScroll((prev) =>
+        prev.left === left && prev.right === right ? prev : { left, right }
+      );
+    };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      el.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
   }, []);
 
   // Close dropdown on Escape
@@ -603,23 +625,24 @@ const Home = () => {
           </div>
 
           <div className="relative">
-            {/* Inline ripple arrows — overlay on right edge, vertically centered with cards */}
+            {/* Inline scroll-direction indicator — single small arrow, no bg, ripples horizontally */}
             <div
               aria-hidden="true"
-              className="pointer-events-none hidden md:flex absolute top-1/2 right-2 -translate-y-1/2 z-20 items-center gap-0"
+              className={`pointer-events-none absolute top-1/2 -translate-y-1/2 z-20 transition-opacity duration-300 ${
+                labScroll.right ? "right-2 md:right-4" : "left-2 md:left-4"
+              } ${labScroll.left || labScroll.right ? "opacity-100" : "opacity-0"}`}
             >
-              <span className="ripple-arrow">
-                <ArrowUpRight size={36} strokeWidth={3} className="rotate-45" />
-              </span>
-              <span className="ripple-arrow -ml-3">
-                <ArrowUpRight size={36} strokeWidth={3} className="rotate-45" />
-              </span>
-              <span className="ripple-arrow -ml-3">
-                <ArrowUpRight size={36} strokeWidth={3} className="rotate-45" />
+              <span
+                className={`ripple-arrow ${
+                  labScroll.right ? "" : "rotate-180"
+                }`}
+              >
+                <ArrowUpRight size={20} strokeWidth={2.5} className="rotate-45" />
               </span>
             </div>
 
           <div
+            ref={labRailRef}
             className="flex gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-6 -mx-6 md:-mx-12 lg:-mx-24 px-6 md:px-12 lg:px-24"
             role="region"
             aria-label="Side projects, scroll horizontally"
