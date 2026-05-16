@@ -44,16 +44,16 @@ const Home = () => {
             FZ.
           </span>
           <div className="flex gap-4 md:gap-7 text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-bold text-black/60">
-            <a href="#work" className="hover:text-black transition-colors">
+            <a href="#work" className="nav-link">
               Work
             </a>
-            <a href="#projects" className="hover:text-black transition-colors">
+            <a href="#projects" className="nav-link">
               Projects
             </a>
-            <a href="#about" className="hover:text-black transition-colors">
+            <a href="#about" className="nav-link">
               About
             </a>
-            <a href="#contact" className="hover:text-black transition-colors">
+            <a href="#contact" className="nav-link">
               Contact
             </a>
           </div>
@@ -100,9 +100,10 @@ const Home = () => {
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
               <a
                 href="#contact"
-                className="group relative w-full sm:w-auto text-center px-10 py-5 bg-[#C5F542] text-black rounded-full font-black text-xs uppercase tracking-widest border-2 border-black shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                className="group shine relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-5 bg-[#C5F542] text-black rounded-full font-black text-xs uppercase tracking-widest border-2 border-black shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
               >
-                Get in touch
+                <span>Get in touch</span>
+                <ArrowUpRight size={16} className="arrow" />
               </a>
               <div className="flex gap-3 border-l-0 sm:border-l-2 border-black/10 pl-0 sm:pl-6">
                 <a
@@ -279,10 +280,13 @@ const Home = () => {
               >
                 <div className="aspect-[16/10] relative overflow-hidden border-b-2 border-black bg-[#EEFBC9]">
                   <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                    className="img-zoom absolute inset-0 bg-cover bg-center"
                     style={{ backgroundImage: `url(${project.image})` }}
                   />
-                  <div className="absolute top-4 right-4 bg-black text-[#C5F542] p-2 rounded-full border-2 border-black opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="reveal-badge absolute bottom-4 left-4 bg-black text-[#C5F542] px-3 py-1.5 rounded-full border-2 border-black text-[10px] font-black uppercase tracking-widest">
+                    View Case Study
+                  </span>
+                  <div className="reveal-badge absolute top-4 right-4 bg-[#C5F542] text-black p-2 rounded-full border-2 border-black">
                     <ArrowUpRight size={16} />
                   </div>
                 </div>
@@ -376,7 +380,7 @@ const Home = () => {
                   duration: 0.9,
                 })}
               >
-                <div className="inline-flex items-center justify-center w-10 h-10 mb-6 md:mb-8 bg-[#C5F542] border-2 border-black rounded-full text-black">
+                <div className="icon-spin inline-flex items-center justify-center w-10 h-10 mb-6 md:mb-8 bg-[#C5F542] border-2 border-black rounded-full text-black">
                   {project.icon}
                 </div>
                 <h3 className="text-xl md:text-2xl font-black mb-3 md:mb-4 text-black">
@@ -468,7 +472,7 @@ const Home = () => {
                 {Object.entries(skills).map(([category, list]) => (
                   <div
                     key={category}
-                    className="bg-white border-2 border-black rounded-2xl p-5 shadow-[4px_4px_0_0_#000]"
+                    className="skill-card bg-white border-2 border-black rounded-2xl p-5 shadow-[4px_4px_0_0_#000]"
                   >
                     <h4 className="text-[10px] uppercase tracking-[0.25em] text-black font-black mb-4 border-b-2 border-black pb-2">
                       {category}
@@ -570,9 +574,9 @@ const Home = () => {
                 <a
                   href="/FaizZubair.pdf"
                   download="Faiz_Zubair_Resume.pdf"
-                  className="inline-flex items-center gap-3 bg-[#C5F542] text-black px-8 py-4 rounded-full font-black border-2 border-black shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all text-xs uppercase tracking-widest"
+                  className="group shine inline-flex items-center gap-3 bg-[#C5F542] text-black px-8 py-4 rounded-full font-black border-2 border-black shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all text-xs uppercase tracking-widest"
                 >
-                  <Download size={16} /> Get PDF
+                  <Download size={16} className="arrow" /> Get PDF
                 </a>
               </div>
               <BookOpen
@@ -616,7 +620,7 @@ const Home = () => {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 md:p-7 bg-white border-2 border-black rounded-2xl md:rounded-3xl transition-all duration-300 shadow-[6px_6px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[4px] hover:translate-y-[4px]"
+                className="social-tile p-5 md:p-7 bg-white border-2 border-black rounded-2xl md:rounded-3xl shadow-[6px_6px_0_0_#000] hover:shadow-[2px_2px_0_0_#000]"
               >
                 {React.cloneElement(link.icon, { size: 26, strokeWidth: 1.75 })}
               </a>

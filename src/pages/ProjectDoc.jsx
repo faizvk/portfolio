@@ -60,18 +60,18 @@ export default function ProjectDoc() {
               href={doc.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-black text-[#C5F542] px-6 py-3 rounded-full font-black text-xs uppercase tracking-widest border-2 border-black shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+              className="group shine inline-flex items-center gap-2 bg-black text-[#C5F542] px-6 py-3 rounded-full font-black text-xs uppercase tracking-widest border-2 border-black shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
             >
-              <Github size={16} /> Source
+              <Github size={16} className="arrow" /> Source
             </a>
             {doc.demo && (
               <a
                 href={doc.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#C5F542] text-black px-6 py-3 rounded-full font-black text-xs uppercase tracking-widest border-2 border-black shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                className="group shine inline-flex items-center gap-2 bg-[#C5F542] text-black px-6 py-3 rounded-full font-black text-xs uppercase tracking-widest border-2 border-black shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
               >
-                <ExternalLink size={16} /> Live Demo
+                <ExternalLink size={16} className="arrow" /> Live Demo
               </a>
             )}
           </div>
@@ -85,7 +85,7 @@ export default function ProjectDoc() {
             {Object.entries(doc.stack).map(([group, items]) => (
               <div
                 key={group}
-                className="bg-white border-2 border-black rounded-2xl p-5 md:p-6 shadow-[4px_4px_0_0_#000]"
+                className="skill-card bg-white border-2 border-black rounded-2xl p-5 md:p-6 shadow-[4px_4px_0_0_#000]"
               >
                 <h4 className="text-[10px] md:text-[11px] uppercase tracking-[0.3em] text-black font-black mb-4 border-b-2 border-black pb-2">
                   {group}
