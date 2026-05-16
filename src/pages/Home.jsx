@@ -57,12 +57,12 @@ const Home = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Lock body scroll when mobile menu is open
+  // Close dropdown on Escape
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    if (!mobileOpen) return;
+    const onKey = (e) => e.key === "Escape" && setMobileOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [mobileOpen]);
 
   const navLinks = [
@@ -102,81 +102,99 @@ const Home = () => {
           {/* Mobile hamburger */}
           <button
             type="button"
-            onClick={() => setMobileOpen(true)}
-            aria-label="Open menu"
+            onClick={() => setMobileOpen((v) => !v)}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
-            className="md:hidden inline-flex items-center justify-center w-11 h-11 bg-[#C5F542] border-2 border-black rounded-full"
+            className="md:hidden inline-flex items-center justify-center w-11 h-11 bg-[#C5F542] border-2 border-black rounded-full transition-transform duration-300"
+            style={{ transform: mobileOpen ? "rotate(90deg)" : "rotate(0)" }}
           >
-            <Menu size={18} />
+            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
+        </div>
+
+        {/* Mobile dropdown — brutalist card under the nav pill */}
+        <div
+          className={`md:hidden absolute left-0 right-0 mt-3 origin-top transition-all duration-300 ${
+            mobileOpen
+              ? "opacity-100 scale-y-100 pointer-events-auto"
+              : "opacity-0 scale-y-95 pointer-events-none"
+          }`}
+          aria-hidden={!mobileOpen}
+        >
+          <div className="bg-white border-2 border-black rounded-3xl shadow-[6px_6px_0_0_#000] p-3">
+            <ul className="flex flex-col">
+              {navLinks.map((l, i) => (
+                <li key={l.href}>
+                  <a
+                    href={l.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="group flex items-center justify-between px-5 py-3.5 rounded-2xl text-base font-black uppercase tracking-widest text-black hover:bg-[#C5F542] hover:translate-x-1 transition-all"
+                  >
+                    <span className="flex items-center gap-3">
+                      <span className="font-mono text-[10px] text-black/40 group-hover:text-black/70">
+                        0{i + 1}
+                      </span>
+                      {l.label}
+                    </span>
+                    <ArrowUpRight
+                      size={16}
+                      className="text-black/30 group-hover:text-black transition-all"
+                    />
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-3 pt-3 border-t-2 border-black/10 flex items-center justify-between px-3">
+              <span className="font-mono text-[10px] uppercase tracking-widest font-bold text-black/50">
+                @ faizvk
+              </span>
+              <div className="flex gap-2">
+                <a
+                  href="https://github.com/faizvk"
+                  aria-label="GitHub"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileOpen(false)}
+                  className="inline-flex items-center justify-center w-9 h-9 bg-white border-2 border-black rounded-full hover:bg-[#C5F542] transition-colors"
+                >
+                  <Github size={14} />
+                </a>
+                <a
+                  href="https://linkedin.com/in/faiz-zubair-vadakkayil"
+                  aria-label="LinkedIn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileOpen(false)}
+                  className="inline-flex items-center justify-center w-9 h-9 bg-white border-2 border-black rounded-full hover:bg-[#C5F542] transition-colors"
+                >
+                  <Linkedin size={14} />
+                </a>
+                <a
+                  href="mailto:faizvk14@gmail.com"
+                  aria-label="Email"
+                  onClick={() => setMobileOpen(false)}
+                  className="inline-flex items-center justify-center w-9 h-9 bg-white border-2 border-black rounded-full hover:bg-[#C5F542] transition-colors"
+                >
+                  <Mail size={14} />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </nav>
 
-      {/* Mobile drawer */}
+      {/* Backdrop for mobile dropdown (tap outside to close) */}
       {mobileOpen && (
-        <div
-          className="fixed inset-0 z-[60] bg-[#FAFAF7] md:hidden flex flex-col"
-          role="dialog"
-          aria-modal="true"
-        >
-          <div className="flex justify-between items-center px-6 py-5 border-b-2 border-black">
-            <span className="font-black tracking-tighter text-2xl text-black bg-[#C5F542] px-3 py-0.5 rounded-md border-2 border-black">
-              FZ.
-            </span>
-            <button
-              type="button"
-              onClick={() => setMobileOpen(false)}
-              aria-label="Close menu"
-              className="inline-flex items-center justify-center w-11 h-11 bg-white border-2 border-black rounded-full shadow-[3px_3px_0_0_#000]"
-            >
-              <X size={18} />
-            </button>
-          </div>
-          <nav className="flex-1 flex flex-col justify-center px-8 gap-6" aria-label="Mobile">
-            {navLinks.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={() => setMobileOpen(false)}
-                className="text-4xl font-black tracking-tight text-black hover:text-[#9BC91F] transition-colors"
-              >
-                {l.label}
-                <span className="text-[#9BC91F]">.</span>
-              </a>
-            ))}
-          </nav>
-          <div className="px-6 py-6 border-t-2 border-black flex gap-3">
-            <a
-              href="https://github.com/faizvk"
-              aria-label="GitHub"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 bg-white border-2 border-black rounded-full shadow-[3px_3px_0_0_#000]"
-            >
-              <Github size={18} />
-            </a>
-            <a
-              href="https://linkedin.com/in/faiz-zubair-vadakkayil"
-              aria-label="LinkedIn"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 bg-white border-2 border-black rounded-full shadow-[3px_3px_0_0_#000]"
-            >
-              <Linkedin size={18} />
-            </a>
-            <a
-              href="mailto:faizvk14@gmail.com"
-              aria-label="Email"
-              className="p-3 bg-white border-2 border-black rounded-full shadow-[3px_3px_0_0_#000]"
-            >
-              <Mail size={18} />
-            </a>
-          </div>
-        </div>
+        <button
+          type="button"
+          onClick={() => setMobileOpen(false)}
+          aria-label="Close menu"
+          className="md:hidden fixed inset-0 z-40 bg-black/10 backdrop-blur-[2px]"
+        />
       )}
 
       {/* HERO */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 relative pt-24">
+      <section className="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 relative pt-24 pb-20 md:pb-12">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10 max-w-7xl mx-auto w-full">
           <div className="anim-fade-up order-2 lg:order-1">
             <div className="flex items-center gap-3 mb-6 md:mb-8 flex-wrap">
