@@ -344,11 +344,11 @@ const Home = () => {
                 colorScheme="light"
                 theme={{
                   light: [
-                    "#F1F1ED",
-                    "#E5F5BD",
-                    "#C5F542",
-                    "#9BC91F",
-                    "#6B8F0E",
+                    "#E4E4DE",
+                    "#CDE889",
+                    "#A8DB2C",
+                    "#7DA816",
+                    "#52720A",
                   ],
                 }}
                 blockSize={13}
