@@ -338,6 +338,8 @@ const Home = () => {
                 key={ghYear}
                 username="faizvk"
                 year={ghYear}
+                throwOnError={false}
+                errorMessage="No contributions found for this year."
                 colorScheme="light"
                 theme={{
                   light: [
