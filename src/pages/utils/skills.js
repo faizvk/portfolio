@@ -1,5 +1,5 @@
 export const skills = {
-  languages: ["JavaScript (ES6+)", "TypeScript", "Solidity"],
+  languages: ["JavaScript (ES6+)", "TypeScript", "Python", "Solidity"],
   frontend: [
     "React.js",
     "Next.js",
@@ -10,11 +10,11 @@ export const skills = {
   backend: [
     "Node.js",
     "Express.js",
-    "RESTful APIs",
+    "REST APIs",
+    "GraphQL",
     "Socket.IO",
-    "JWT / OAuth",
   ],
-  data: ["MongoDB", "Redis", "Prisma", "Mongoose", "SQLite"],
+  data: ["MongoDB", "PostgreSQL", "Redis", "Prisma", "Mongoose"],
   cloud: [
     "AWS",
     "Load Balancers",
