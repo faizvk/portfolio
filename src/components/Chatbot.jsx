@@ -1,13 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  MessageCircle,
-  X,
-  Send,
-  Sparkles,
-  Trash2,
-  Copy,
-  Check,
-} from "lucide-react";
+import { MessageCircle, X, Send, Sparkles, Trash2 } from "lucide-react";
 
 const STARTERS = [
   "What does Faiz work on at Synup?",
@@ -367,23 +359,10 @@ function SuggestionChip({ onClick, children }) {
 
 function MessageBubble({ role, content }) {
   const isUser = role === "user";
-  const [copied, setCopied] = useState(false);
   const lines = content.split("\n");
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(content);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    } catch {
-      // ignore
-    }
-  };
-
   return (
-    <div
-      className={`group flex ${isUser ? "justify-end" : "justify-start"} relative`}
-    >
+    <div className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
       <div
         className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed border-2 border-black ${
           isUser
@@ -392,18 +371,12 @@ function MessageBubble({ role, content }) {
         }`}
       >
         {lines.map((line, i) => {
-          // Accept any of: "- foo", "* foo", "• foo" as a bullet.
-          // Important: must NOT match `**foo**` (bold) which also starts with `*`.
+          // Accept "- foo", "* foo", "• foo" as a bullet (but not "**bold**").
           const bulletMatch = line.match(/^\s*(?:[-•]|\*(?!\*))\s+(.*)/);
           if (bulletMatch) {
             return (
-              <div
-                key={i}
-                className="flex items-start gap-2 mt-1.5 first:mt-0"
-              >
-                <span className="text-[#9BC91F] font-black select-none">
-                  ›
-                </span>
+              <div key={i} className="flex items-start gap-2 mt-1.5 first:mt-0">
+                <span className="text-[#9BC91F] font-black select-none">›</span>
                 <span>{renderInline(bulletMatch[1])}</span>
               </div>
             );
@@ -416,18 +389,6 @@ function MessageBubble({ role, content }) {
           );
         })}
       </div>
-
-      {!isUser && content.trim().length > 0 && (
-        <button
-          type="button"
-          onClick={handleCopy}
-          aria-label="Copy reply"
-          title={copied ? "Copied" : "Copy reply"}
-          className="absolute -bottom-2 left-3 opacity-0 group-hover:opacity-100 transition-opacity inline-flex items-center justify-center w-7 h-7 bg-white border-2 border-black rounded-full shadow-[2px_2px_0_0_#000] hover:bg-[#C5F542]"
-        >
-          {copied ? <Check size={12} /> : <Copy size={12} />}
-        </button>
-      )}
     </div>
   );
 }
