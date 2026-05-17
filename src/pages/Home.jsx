@@ -330,7 +330,7 @@ const Home = () => {
             className="bg-white border-2 border-black rounded-[1.5rem] md:rounded-[2rem] p-8 md:p-12 shadow-[6px_6px_0_0_#000]"
             {...fadeIn({ direction: "up", distance: 80, duration: 0.9 })}
           >
-            <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 md:gap-12">
+            <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 md:gap-12 pb-8 md:pb-10 border-b-2 border-black/10">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-4 flex-wrap">
                   <div className="inline-flex items-center justify-center w-12 h-12 bg-[#C5F542] border-2 border-black rounded-full">
@@ -347,9 +347,10 @@ const Home = () => {
                   Synup
                 </p>
                 <p className="text-sm md:text-base text-black/70 font-medium leading-relaxed max-w-2xl">
-                  Building production features across the Synup platform —
-                  contributing to web applications, internal tooling, and
-                  customer-facing experiences. Project breakdown coming soon.
+                  Owning end-to-end features across Synup's listings & reputation
+                  product — from the customer-facing report tool to the
+                  agency-facing operating system, plus internal embeddable
+                  widgets for distribution and support.
                 </p>
               </div>
               <div className="flex md:flex-col gap-2 md:gap-3">
@@ -359,6 +360,112 @@ const Home = () => {
                 <span className="text-[10px] font-black uppercase tracking-widest bg-white border-2 border-black px-3 py-1.5 rounded-full">
                   India
                 </span>
+              </div>
+            </div>
+
+            {/* Shipped at Synup */}
+            <div className="mt-8 md:mt-10">
+              <h4 className="text-[10px] md:text-xs font-mono uppercase tracking-[0.3em] font-bold text-black/65 mb-6">
+                Shipped
+              </h4>
+              <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+                {[
+                  {
+                    title: "Scantool V3 — Vendor Report Tool",
+                    problem:
+                      "Customers needed a single shareable report that scores any business's local SEO, reputation, social, and listing presence end-to-end.",
+                    built:
+                      "Built the report UI from scratch — SEO 7×7 grid + competitor ranking, SWOT quadrant, reputation/reviews comparison table, listing indexing, AI-summarized Local Presence, social footprint, website audit, and the overall grade meter. Layered a Formik+Yup lead-capture flow with backend-driven gating, and shipped the report header actions (Share link, AI-default Email composer via TipTap, PDF download).",
+                    tech: [
+                      "Next.js 15",
+                      "React 19",
+                      "TypeScript",
+                      "Redux Toolkit",
+                      "Formik · Yup",
+                      "TipTap",
+                      "Ant Design",
+                    ],
+                  },
+                  {
+                    title: "Scantool V3 — Embeddable Widget",
+                    problem:
+                      "Agencies and partners needed to drop the scan tool onto any third-party site with a single <script> tag, without bloating page weight.",
+                    built:
+                      "Authored the vanilla-TS IIFE bundle (~1–3 KB gzip) with three widget variants — Toast, Top Stripe, and Full-Page Modal — auto-detecting full-page vs section mode, with postMessage iframe resizing, ?domain= vendor identification, and sessionStorage config caching.",
+                    tech: ["Vite", "Vanilla TypeScript", "postMessage", "IIFE Bundle"],
+                  },
+                  {
+                    title: "Platform-UI · Scantool V4",
+                    problem:
+                      "Agencies running the V3 product had no control plane — they needed analytics, lead tracking, white-label settings, and bulk-scan workflows inside the Synup OS.",
+                    built:
+                      "Built the entire V4 agency dashboard: metrics cards + AG Charts leads timeline + AG Grid Enterprise SSRM businesses table with row-action portals and grade renderers; a 7-tab Settings page (Appearance, Sections, Detail Form, CTA Banner, Custom Domain, Custom Code, Scanned Business Config) wired through ~20 GraphQL operations with optimistic toggles + dnd-kit reorder; report modals (Shareable Link, PDF, full-screen Email Composer with chip multi-select + sequential bulk send); and a Bulk Scan flow combining Google Places lookup with CSV upload via Papa Parse.",
+                    tech: [
+                      "React 18",
+                      "Vite",
+                      "TypeScript",
+                      "Apollo · GraphQL",
+                      "AG Grid Enterprise",
+                      "@dnd-kit",
+                      "i18next · MSW",
+                    ],
+                  },
+                  {
+                    title: "Zoho Desk Support Widget",
+                    problem:
+                      "Customer support tickets often arrived without enough context — no console logs, no network state, no environment info — slowing down triage.",
+                    built:
+                      "Shipped an embeddable React widget that drops in via a single <script> tag, mounts in Shadow DOM to avoid host-style collisions, and auto-attaches console logs, network activity, JS errors, and environment data to a Zoho Desk ticket via an Express + Multer proxy. Dockerized behind nginx.",
+                    tech: [
+                      "Vite 7",
+                      "React 19",
+                      "Shadow DOM",
+                      "Express",
+                      "Docker · nginx",
+                    ],
+                  },
+                ].map((p, i) => (
+                  <article
+                    key={i}
+                    className="bg-[#FAFAF7] border-2 border-black rounded-2xl p-5 md:p-6 hover:bg-[#EEFBC9] transition-colors"
+                    {...fadeIn({
+                      direction: "up",
+                      distance: 60,
+                      duration: 0.9,
+                    })}
+                  >
+                    <div className="flex items-start justify-between gap-3 mb-3">
+                      <h5 className="text-base md:text-lg font-black tracking-tight text-black">
+                        {p.title}
+                      </h5>
+                      <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-black/40 shrink-0">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                    <p className="text-xs md:text-sm font-bold text-black/70 mb-3 leading-relaxed">
+                      <span className="font-mono text-[9px] uppercase tracking-widest text-[#9BC91F] mr-1">
+                        Problem ·
+                      </span>
+                      {p.problem}
+                    </p>
+                    <p className="text-xs md:text-sm text-black/70 mb-4 leading-relaxed font-medium">
+                      <span className="font-mono text-[9px] uppercase tracking-widest text-[#9BC91F] mr-1">
+                        Built ·
+                      </span>
+                      {p.built}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5 pt-3 border-t-2 border-black/10">
+                      {p.tech.map((t) => (
+                        <span
+                          key={t}
+                          className="font-mono text-[9px] font-bold uppercase tracking-widest text-black bg-white border-2 border-black rounded-full px-2.5 py-1"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </article>
+                ))}
               </div>
             </div>
           </div>
