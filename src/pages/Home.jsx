@@ -347,10 +347,14 @@ const Home = () => {
                   Synup
                 </p>
                 <p className="text-sm md:text-base text-black/70 font-medium leading-relaxed max-w-2xl">
-                  Owning end-to-end features across Synup's listings & reputation
-                  product — from the customer-facing report tool to the
-                  agency-facing operating system, plus internal embeddable
-                  widgets for distribution and support.
+                  Owning Scantool V3 end-to-end —{" "}
+                  <strong className="text-black font-black">
+                    full-stack from the FastAPI backend to the customer-facing
+                    Next.js report
+                  </strong>
+                  , plus the Scantool V4 agency dashboard inside Synup's
+                  operating system and embeddable widgets for distribution and
+                  support.
                 </p>
               </div>
               <div className="flex md:flex-col gap-2 md:gap-3">
@@ -371,19 +375,21 @@ const Home = () => {
               <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                 {[
                   {
-                    title: "Scantool V3 — Vendor Report Tool",
+                    title: "Scantool V3 — Full-Stack Report Product",
                     problem:
-                      "Customers needed a single shareable report that scores any business's local SEO, reputation, social, and listing presence end-to-end.",
+                      "Customers needed a single shareable report that scores any business's local SEO, reputation, social, and listing presence end-to-end — and an entire backend to power it.",
                     built:
-                      "Built the report UI from scratch — SEO 7×7 grid + competitor ranking, SWOT quadrant, reputation/reviews comparison table, listing indexing, AI-summarized Local Presence, social footprint, website audit, and the overall grade meter. Layered a Formik+Yup lead-capture flow with backend-driven gating, and shipped the report header actions (Share link, AI-default Email composer via TipTap, PDF download).",
+                      "Owned the product end-to-end. Backend: FastAPI service with async SQLAlchemy + Postgres, Dramatiq + Redis workers, Strawberry GraphQL layer, Alembic migrations, JWT/RBAC, and a multi-LLM service layer (Dwarika gpt-oss:20b, OpenAI for SWOT + AI Scores, Gemini, Perplexity) feeding the SEO / SWOT / Voice / Social / Listings analysis pipelines. Shipped Slack OAuth, Postmark email delivery, server-side PDF generation, lead-capture + credit gating, and the public scantool-v3-setup config endpoint. Frontend: built the report UI from scratch — SEO 7×7 grid with competitor ranking, SWOT quadrant, reputation/reviews comparison table, listing indexing, AI-summarized Local Presence, social footprint, website audit, and the overall grade meter — plus a Formik+Yup lead flow and report header actions (Share link, TipTap-powered AI Email composer, PDF download).",
                     tech: [
-                      "Next.js 15",
-                      "React 19",
-                      "TypeScript",
-                      "Redux Toolkit",
-                      "Formik · Yup",
-                      "TipTap",
-                      "Ant Design",
+                      "FastAPI · Python",
+                      "PostgreSQL · async SQLAlchemy",
+                      "Dramatiq · Redis",
+                      "Strawberry GraphQL",
+                      "Alembic",
+                      "Gemini · OpenAI · Perplexity",
+                      "Next.js 15 · React 19",
+                      "TypeScript · Redux Toolkit",
+                      "Formik · TipTap",
                     ],
                   },
                   {
