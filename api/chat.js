@@ -90,8 +90,10 @@ export default async function handler(req, res) {
       parts: [{ text: m.content.slice(0, 2000) }],
     }));
 
+    const model = process.env.GEMINI_MODEL || "gemini-1.5-flash-latest";
+
     const upstream = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -110,9 +112,12 @@ export default async function handler(req, res) {
     if (!upstream.ok) {
       const detail = await upstream.text();
       console.error("Gemini upstream error:", upstream.status, detail);
-      return res
-        .status(502)
-        .json({ error: "Upstream model error", status: upstream.status });
+      return res.status(502).json({
+        error: "Upstream model error",
+        status: upstream.status,
+        // Expose the upstream error message so we can see why it failed
+        detail: detail.slice(0, 600),
+      });
     }
 
     const data = await upstream.json();

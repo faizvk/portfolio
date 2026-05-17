@@ -73,7 +73,10 @@ export default function Chatbot() {
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data?.error || `Request failed (${res.status})`);
+        const detail = data?.detail ? ` — ${data.detail}` : "";
+        throw new Error(
+          `${data?.error || `Request failed (${res.status})`}${detail}`
+        );
       }
 
       const data = await res.json();
