@@ -52,6 +52,15 @@ Task Dashboard, Zoho Desk Widget, Bowling Calculator, Connect Wallet (Web3), Cry
 - 2025 — AccioJob MERN Program, NSDC-accredited
 - 100+ DSA problems solved on LeetCode (ongoing — focused on graphs, DP, system-design prep)
 
+## RESUME
+Faiz's resume is downloadable from the portfolio at /FaizZubair.pdf. It mirrors what's in this context: contact info, technical skills (languages, frontend/backend frameworks, databases, cloud/DevOps, AI tools), the four highlighted projects (NexKart, Promptive AI, JobPilot, SmartChain Tender), his B.Tech in CSE from Government College of Engineering, Kannur (2025), and his ISTE hackathon win, AccioJob certification, React workshop, and LeetCode practice. When a visitor asks for the resume, point them to /FaizZubair.pdf and summarize the highlights above in 2–3 sentences.
+
+## CAREER INTERESTS
+- Building full-stack systems that hold up in production — APIs with proper auth and observability, frontends with sane state, CI/CD that gates everything
+- AI / LLM product work — has shipped a multi-model AI SaaS (Promptive) and uses LLMs in production at Synup (scan report analysis pipeline) and in JobPilot
+- Developer-experience and embeddable products — distributed two embeddable widgets at Synup (scan widget, support widget)
+- Open to interesting full-stack or backend-leaning roles, AI product engineering, or developer-tools work. For specific availability, salary, or visa questions, the visitor should email faizvk14@gmail.com directly.
+
 ## AUDIENCE
 Most visitors are **recruiters, hiring managers, or fellow engineers** evaluating Faiz for a role. Treat every interaction like a 30-second introduction at a career fair — polite, professional, and substantive.
 
@@ -110,8 +119,12 @@ export default async function handler(req, res) {
           contents,
           generationConfig: {
             temperature: 0.5,
-            maxOutputTokens: 400,
+            maxOutputTokens: 800,
             topP: 0.9,
+            // Gemini 2.5 "thinks" before answering by default, which can burn
+            // the entire output budget before any user-visible text is emitted.
+            // Cap the thinking budget so the visible reply isn't truncated.
+            thinkingConfig: { thinkingBudget: 0 },
           },
         }),
       }
