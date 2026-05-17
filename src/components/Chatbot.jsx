@@ -152,28 +152,36 @@ export default function Chatbot() {
         body: JSON.stringify({ messages: payload }),
       });
 
-      if (!res.ok || !res.body) {
-        let detail = "";
+      // Error path — try to parse JSON error envelope from server
+      if (!res.ok) {
+        let errMsg = `Request failed (${res.status})`;
         try {
           const data = await res.json();
-          detail = data?.detail ? ` — ${data.detail}` : "";
-          throw new Error(
-            `${data?.error || `Request failed (${res.status})`}${detail}`
-          );
-        } catch (e) {
-          if (e instanceof Error && e.message) throw e;
-          throw new Error(`Request failed (${res.status})`);
+          const detail = data?.detail ? ` — ${data.detail}` : "";
+          errMsg = `${data?.error || errMsg}${detail}`;
+        } catch {
+          // body wasn't JSON; keep the generic message
         }
+        throw new Error(errMsg);
       }
 
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
+      // Success path — stream if possible, fall back to text otherwise
       let acc = "";
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        acc += decoder.decode(value, { stream: true });
+      if (res.body && typeof res.body.getReader === "function") {
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          acc += decoder.decode(value, { stream: true });
+          setMessages((prev) => {
+            const copy = [...prev];
+            copy[botIndex] = { role: "assistant", content: acc };
+            return copy;
+          });
+        }
+      } else {
+        acc = await res.text();
         setMessages((prev) => {
           const copy = [...prev];
           copy[botIndex] = { role: "assistant", content: acc };
