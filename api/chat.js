@@ -90,7 +90,7 @@ export default async function handler(req, res) {
       parts: [{ text: m.content.slice(0, 2000) }],
     }));
 
-    const model = process.env.GEMINI_MODEL || "gemini-1.5-flash-latest";
+    const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 
     const upstream = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
