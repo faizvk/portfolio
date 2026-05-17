@@ -428,7 +428,9 @@ function MessageBubble({ role, content }) {
         }`}
       >
         {lines.map((line, i) => {
-          const bulletMatch = line.match(/^\s*-\s+(.*)/);
+          // Accept any of: "- foo", "* foo", "• foo" as a bullet.
+          // Important: must NOT match `**foo**` (bold) which also starts with `*`.
+          const bulletMatch = line.match(/^\s*(?:[-•]|\*(?!\*))\s+(.*)/);
           if (bulletMatch) {
             return (
               <div
