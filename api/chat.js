@@ -1,7 +1,6 @@
-// Vercel Edge function — POST /api/chat
-// Streams Gemini responses as plain text. Rate-limited per IP.
-
-export const config = { runtime: "edge" };
+// Vercel serverless function — POST /api/chat
+// Non-streaming: returns { reply: string } as JSON.
+// Rate-limited per IP (best-effort in-memory).
 
 const SYSTEM_PROMPT = `You are the chatbot on Faiz Zubair's portfolio site. You answer visitor questions about Faiz (his work, projects, stack, contact) using ONLY the context below. If something isn't in the context, say "I don't have that detail — [reach out to Faiz directly](mailto:faizvk14@gmail.com)." Don't make things up.
 
@@ -135,7 +134,6 @@ Q: Write me a React login component.
 A: That's outside what I can help with — I'm focused on questions about Faiz's experience. Try asking about his Synup work or [his projects](https://github.com/faizvk).`;
 
 // ---------------- Rate limit ----------------
-// In-memory sliding window. Best-effort across Edge instances.
 const buckets = new Map();
 const WINDOW_MS = 60_000;
 const MAX_REQUESTS = 12;
@@ -146,7 +144,6 @@ function rateLimit(key) {
   if (arr.length >= MAX_REQUESTS) return false;
   arr.push(now);
   buckets.set(key, arr);
-  // Light GC every ~1000 entries
   if (buckets.size > 1000) {
     for (const [k, v] of buckets) {
       if (!v.some((t) => now - t < WINDOW_MS)) buckets.delete(k);
@@ -155,133 +152,78 @@ function rateLimit(key) {
   return true;
 }
 
-// ---------------- Handler ----------------
-export default async function handler(req) {
-  if (req.method === "OPTIONS") return new Response(null, { status: 204 });
-  if (req.method !== "POST") {
-    return json({ error: "Method not allowed" }, 405);
-  }
+export default async function handler(req, res) {
+  if (req.method === "OPTIONS") return res.status(204).end();
+  if (req.method !== "POST")
+    return res.status(405).json({ error: "Method not allowed" });
 
   const ip =
-    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    req.headers.get("x-real-ip") ||
+    req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
+    req.headers["x-real-ip"] ||
     "unknown";
 
   if (!rateLimit(ip)) {
-    return json(
-      {
-        error:
-          "You're sending messages too quickly. Please wait a minute before trying again.",
-      },
-      429
-    );
+    return res.status(429).json({
+      error:
+        "You're sending messages too quickly. Please wait a minute before trying again.",
+    });
   }
 
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) return json({ error: "GEMINI_API_KEY is not configured" }, 500);
+  if (!apiKey)
+    return res.status(500).json({ error: "GEMINI_API_KEY is not configured" });
 
-  let body;
   try {
-    body = await req.json();
-  } catch {
-    return json({ error: "Invalid JSON" }, 400);
-  }
+    const messages = Array.isArray(req.body?.messages) ? req.body.messages : [];
+    if (messages.length === 0)
+      return res.status(400).json({ error: "messages[] required" });
 
-  const messages = Array.isArray(body?.messages) ? body.messages : [];
-  if (messages.length === 0) {
-    return json({ error: "messages[] required" }, 400);
-  }
+    const recent = messages
+      .slice(-10)
+      .filter((m) => m && typeof m.content === "string" && m.content.trim());
 
-  const recent = messages
-    .slice(-10)
-    .filter((m) => m && typeof m.content === "string" && m.content.trim());
+    const contents = recent.map((m) => ({
+      role: m.role === "assistant" ? "model" : "user",
+      parts: [{ text: m.content.slice(0, 2000) }],
+    }));
 
-  const contents = recent.map((m) => ({
-    role: m.role === "assistant" ? "model" : "user",
-    parts: [{ text: m.content.slice(0, 2000) }],
-  }));
+    const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 
-  const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
-
-  const upstream = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${apiKey}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-        contents,
-        generationConfig: {
-          temperature: 0.5,
-          maxOutputTokens: 800,
-          topP: 0.9,
-          thinkingConfig: { thinkingBudget: 0 },
-        },
-      }),
-    }
-  );
-
-  if (!upstream.ok || !upstream.body) {
-    const detail = await upstream.text().catch(() => "");
-    return json(
+    const upstream = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
       {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          contents,
+          generationConfig: {
+            temperature: 0.5,
+            maxOutputTokens: 800,
+            topP: 0.9,
+            thinkingConfig: { thinkingBudget: 0 },
+          },
+        }),
+      }
+    );
+
+    if (!upstream.ok) {
+      const detail = await upstream.text().catch(() => "");
+      return res.status(502).json({
         error: "Upstream model error",
         status: upstream.status,
         detail: detail.slice(0, 500),
-      },
-      502
-    );
+      });
+    }
+
+    const data = await upstream.json();
+    const reply =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
+      "Sorry, I couldn't generate a response. Try rephrasing?";
+
+    return res.status(200).json({ reply });
+  } catch (err) {
+    console.error("chat.js error:", err);
+    return res.status(500).json({ error: "Internal error" });
   }
-
-  // Transform Gemini SSE → plain text chunks for the client to append.
-  const encoder = new TextEncoder();
-  const decoder = new TextDecoder();
-  const reader = upstream.body.getReader();
-
-  const stream = new ReadableStream({
-    async start(controller) {
-      let buf = "";
-      try {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          buf += decoder.decode(value, { stream: true });
-          const lines = buf.split("\n");
-          buf = lines.pop() || "";
-          for (const line of lines) {
-            if (!line.startsWith("data:")) continue;
-            const payload = line.slice(5).trim();
-            if (!payload || payload === "[DONE]") continue;
-            try {
-              const parsed = JSON.parse(payload);
-              const text =
-                parsed?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-              if (text) controller.enqueue(encoder.encode(text));
-            } catch {
-              // swallow JSON parse errors on partial chunks
-            }
-          }
-        }
-      } catch (err) {
-        controller.error(err);
-      } finally {
-        controller.close();
-      }
-    },
-  });
-
-  return new Response(stream, {
-    headers: {
-      "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "no-cache, no-transform",
-      "X-Content-Type-Options": "nosniff",
-    },
-  });
-}
-
-function json(data, status = 200) {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: { "Content-Type": "application/json" },
-  });
 }

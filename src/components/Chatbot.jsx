@@ -138,12 +138,7 @@ export default function Chatbot() {
     setPending(true);
     setError(null);
 
-    // Add a placeholder bot message that we'll stream into
-    const botIndex = next.length;
-    setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
-
     try {
-      // Exclude the greeting from what we send upstream
       const payload = next.filter((m) => m !== INITIAL_GREETING);
 
       const res = await fetch("/api/chat", {
@@ -152,55 +147,24 @@ export default function Chatbot() {
         body: JSON.stringify({ messages: payload }),
       });
 
-      // Error path — try to parse JSON error envelope from server
+      const data = await res.json().catch(() => ({}));
+
       if (!res.ok) {
-        let errMsg = `Request failed (${res.status})`;
-        try {
-          const data = await res.json();
-          const detail = data?.detail ? ` — ${data.detail}` : "";
-          errMsg = `${data?.error || errMsg}${detail}`;
-        } catch {
-          // body wasn't JSON; keep the generic message
-        }
-        throw new Error(errMsg);
+        const detail = data?.detail ? ` — ${data.detail}` : "";
+        throw new Error(
+          `${data?.error || `Request failed (${res.status})`}${detail}`
+        );
       }
 
-      // Success path — stream if possible, fall back to text otherwise
-      let acc = "";
-      if (res.body && typeof res.body.getReader === "function") {
-        const reader = res.body.getReader();
-        const decoder = new TextDecoder();
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          acc += decoder.decode(value, { stream: true });
-          setMessages((prev) => {
-            const copy = [...prev];
-            copy[botIndex] = { role: "assistant", content: acc };
-            return copy;
-          });
-        }
-      } else {
-        acc = await res.text();
-        setMessages((prev) => {
-          const copy = [...prev];
-          copy[botIndex] = { role: "assistant", content: acc };
-          return copy;
-        });
-      }
-
-      if (!acc.trim()) {
-        setMessages((prev) => {
-          const copy = [...prev];
-          copy[botIndex] = {
-            role: "assistant",
-            content: "Sorry — I couldn't generate a response. Try rephrasing?",
-          };
-          return copy;
-        });
-      }
+      const reply = (data?.reply || "").trim();
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: reply || "Sorry — I couldn't generate a response. Try rephrasing?",
+        },
+      ]);
     } catch (err) {
-      setMessages((prev) => prev.slice(0, botIndex)); // drop empty bubble
       setError(
         err.message?.includes("Failed to fetch")
           ? "Can't reach the chat service. Try again in a moment."
@@ -306,7 +270,7 @@ export default function Chatbot() {
               <MessageBubble key={i} role={m.role} content={m.content} />
             ))}
 
-            {pending && lastMsg?.role === "assistant" && !lastMsg.content && (
+            {pending && (
               <div className="flex justify-start">
                 <div className="bg-white border-2 border-black rounded-2xl rounded-bl-md px-4 py-3 inline-flex items-center gap-1.5">
                   <span className="w-2 h-2 bg-black rounded-full animate-bounce [animation-delay:0ms]" />
