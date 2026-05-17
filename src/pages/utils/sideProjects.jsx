@@ -13,7 +13,7 @@ export const sideProjects = [
   {
     title: "Task Dashboard",
     description:
-      "A clean React task management dashboard with filters, status tracking, and persistent state.",
+      "React task manager with filters, status tracking, and persistent state.",
     tech: ["React", "Vite", "CSS"],
     icon: <LayoutDashboard size={18} />,
     github: "https://github.com/faizvk/task-dashboard",
@@ -22,7 +22,7 @@ export const sideProjects = [
   {
     title: "Zoho Desk Widget",
     description:
-      "Custom TypeScript widget embedded inside the Zoho Desk ticket view to surface contextual data.",
+      "TypeScript widget embedded inside the Zoho Desk ticket view to surface contextual data.",
     tech: ["TypeScript", "Zoho API"],
     icon: <TicketCheck size={18} />,
     github: "https://github.com/faizvk/zoho-desk-ticket-widget",
@@ -40,7 +40,7 @@ export const sideProjects = [
   {
     title: "Connect Wallet",
     description:
-      "Lightweight Web3 wallet-connect demo integrating MetaMask via ethers.js.",
+      "Web3 wallet-connect demo integrating MetaMask via ethers.js.",
     tech: ["Web3", "ethers.js"],
     icon: <Wallet size={18} />,
     github: "https://github.com/faizvk/connect-wallet",
@@ -49,7 +49,7 @@ export const sideProjects = [
   {
     title: "Crypto Lister",
     description:
-      "Live market dashboard showing top trending cryptocurrencies pulled from a public API.",
+      "Market dashboard showing top trending cryptocurrencies pulled from a public API.",
     tech: ["JavaScript", "API"],
     icon: <Coins size={18} />,
     github: "https://github.com/faizvk/crypto-lister",
@@ -58,7 +58,7 @@ export const sideProjects = [
   {
     title: "Pincode Finder",
     description:
-      "Indian post-office lookup tool — enter a pincode, see all matching branches with metadata.",
+      "Indian post-office lookup — enter a pincode, see all matching branches with metadata.",
     tech: ["React", "REST"],
     icon: <MapPin size={18} />,
     github: "https://github.com/faizvk/post-office-finder",
@@ -67,7 +67,7 @@ export const sideProjects = [
   {
     title: "CA Monk Blog",
     description:
-      "TypeScript + React blog landing page with responsive typography and a clean editorial grid.",
+      "TypeScript + React blog landing page with responsive typography and an editorial grid.",
     tech: ["TypeScript", "React"],
     icon: <Newspaper size={18} />,
     github: "https://github.com/faizvk/ca-monk-blog-page",

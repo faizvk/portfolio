@@ -3,7 +3,7 @@ export const docContent = {
     title: "NexKart",
     tagline: "Full-Stack E-Commerce Platform",
     summary:
-      "A production-grade MERN e-commerce platform with Razorpay payments, role-based admin dashboard, Redis-cached catalog, and a CI pipeline that runs lint, tests, and build on every PR.",
+      "A MERN e-commerce build that takes the parts most tutorials skip seriously: server-computed Razorpay totals, atomic stock reservation, versioned Redis cache with Mongo fallback, and a test suite gated in CI.",
     role: "Sole Developer",
     status: "Live",
     timeline: "2025 – 2026",
@@ -26,11 +26,11 @@ export const docContent = {
       ],
       Data: ["MongoDB", "Redis (optional cache)"],
       Payments: ["Razorpay (server-side amount + signed verification)"],
-      Testing: ["Vitest", "Supertest", "Testing Library — 33 tests"],
+      Testing: ["Vitest", "Supertest", "Testing Library"],
       Infra: ["Docker Compose", "GitHub Actions CI", "Vercel + Render"],
     },
     highlights: [
-      "Complete shopping flow: catalog → product detail → cart → checkout → tracking, with real-time offer pricing",
+      "Complete shopping flow: catalog → product detail → cart → checkout → order tracking, with real-time offer pricing",
       "JWT auth with httpOnly refresh cookie + bcrypt + account lockout after failed attempts",
       "Razorpay integration with server-computed totals, atomic stock reservation, idempotent order placement, and signed verification",
       "Admin dashboard for products, time-bounded offers, orders, users + weekly revenue and trending product charts",
@@ -63,7 +63,7 @@ export const docContent = {
     title: "Promptive AI",
     tagline: "Multi-Model AI SaaS",
     summary:
-      "A production-ready AI SaaS that routes requests across Gemini, GPT-4o, Claude 3.5 Sonnet & Haiku, and Groq Llama 3.3 for chat, generates images via Hugging Face FLUX, rewrites content in tone, and synthesizes voice via ElevenLabs — gated by Razorpay subscriptions and per-plan quotas.",
+      "An AI SaaS for chat, image generation, tone-rewriting, and TTS — with a provider dispatcher that routes each request to whichever LLM (Gemini, GPT-4o, Claude, or Groq) is configured and allowed by the user's plan. Razorpay-gated, OAuth-authenticated, with a full audit log.",
     role: "Sole Developer",
     status: "Live",
     timeline: "2025 – 2026",
@@ -132,7 +132,7 @@ export const docContent = {
     title: "JobPilot",
     tagline: "AI Job Application Assistant",
     summary:
-      "A Next.js 14 + Prisma platform built to compress 6–8 hours of daily job-hunting into under two. Aggregates listings from LinkedIn, Indeed, Glassdoor, ZipRecruiter, Naukri, Remotive, and Jobicy; scores them against the user's skills; tailors resumes per JD; and tracks applications across a Kanban pipeline.",
+      "A Next.js 14 + Prisma platform designed to make high-volume job hunting tractable. Aggregates listings from LinkedIn, Indeed, Glassdoor, ZipRecruiter, Naukri, Remotive, and Jobicy; scores them against the user's skills; tailors resumes per JD; and tracks applications across a Kanban pipeline.",
     role: "Sole Developer",
     status: "In Development",
     timeline: "2026",
@@ -173,7 +173,7 @@ export const docContent = {
     sections: [
       {
         title: "Why this exists",
-        body: "Applying to jobs across LinkedIn, Indeed, Glassdoor, Naukri, and ZipRecruiter eats 6–8 hours daily — opening tabs, re-uploading resumes, copy-pasting cover letters, manually tracking who replied. JobPilot centralizes the workflow: one feed, one tracker, one tailoring pipeline. The goal is 50+ thoughtful applications in under two hours, not spray-and-pray.",
+        body: "Applying to jobs across LinkedIn, Indeed, Glassdoor, Naukri, and ZipRecruiter eats hours every day — opening tabs, re-uploading resumes, copy-pasting cover letters, manually tracking who replied. JobPilot centralizes the workflow into one feed, one tracker, and one tailoring pipeline so the time goes into the application itself, not the logistics around it.",
       },
       {
         title: "Aggregation layer",
@@ -241,7 +241,7 @@ export const docContent = {
       },
       {
         title: "Leading the team",
-        body: "As team lead I owned the system design (drawing the boundary between Solidity, the backend, and IPFS), broke the build into vertical slices each teammate could own end-to-end, and ran integration on the critical paths — bid submission, on-chain verification, document compliance. The project won recognition at the college's project expo and forms the basis of the published academic write-up.",
+        body: "As team lead I owned the system design — drawing the boundary between Solidity, the backend, and IPFS — broke the build into vertical slices each teammate could own, and ran integration on the critical paths: bid submission, on-chain verification, and document compliance. The project was recognized at the college project expo.",
       },
     ],
   },

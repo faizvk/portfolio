@@ -222,7 +222,7 @@ const Home = () => {
             <div className="flex items-center gap-3 mb-6 md:mb-8 flex-wrap">
               <span className="inline-flex items-center gap-2 px-3 py-1 bg-[#C5F542] text-black rounded-full border-2 border-black font-mono text-[10px] font-bold tracking-widest uppercase">
                 <span className="w-2 h-2 bg-black rounded-full animate-pulse" />
-                Available
+                Open to chat
               </span>
               <span className="px-3 py-1 bg-white text-black rounded-full border-2 border-black font-mono text-[10px] font-bold tracking-widest uppercase">
                 @ Synup
@@ -241,12 +241,10 @@ const Home = () => {
               {...fadeIn({ direction: "up", distance: 80, duration: 0.9 })}
             >
               <strong className="text-black font-black">Software Engineer</strong>{" "}
-              building across the stack — full-stack JavaScript, CI/CD
-              pipelines, and cloud infrastructure. Currently shipping production
-              systems at{" "}
-              <strong className="text-black font-black">Synup</strong> with a
-              bias for clean architecture, observability, and operational
-              maturity.
+              at <strong className="text-black font-black">Synup</strong>. I
+              work across FastAPI services, React frontends, and the CI/CD that
+              ships them — most recently a customer-facing local-SEO analytics
+              report and the agency dashboard that runs it.
             </p>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
               <a
@@ -321,7 +319,6 @@ const Home = () => {
                 })}
               >
                 Where I work
-                <span className="text-[#9BC91F]">.</span>
               </h2>
             </div>
           </div>
@@ -341,19 +338,19 @@ const Home = () => {
                   </span>
                 </div>
                 <h3 className="text-2xl md:text-4xl font-black tracking-tight text-black mb-2">
-                  Junior Software Engineer
+                  Software Engineer
                 </h3>
                 <p className="text-lg md:text-xl font-bold text-black/70 mb-6">
                   Synup
                 </p>
                 <p className="text-sm md:text-base text-black/70 font-medium leading-relaxed max-w-2xl">
-                  Owning end-to-end product features —{" "}
+                  Working{" "}
                   <strong className="text-black font-black">
-                    full-stack from FastAPI services to React frontends
-                  </strong>
-                  . Customer-facing analytics reports, agency control panels,
-                  and embeddable widgets that ship the product into third-party
-                  sites.
+                    full-stack across FastAPI services and React frontends
+                  </strong>{" "}
+                  on a customer-facing analytics report, an agency control
+                  panel, and embeddable widgets that ship the product into
+                  third-party sites.
                 </p>
               </div>
               <div className="flex md:flex-col gap-2 md:gap-3">
@@ -376,13 +373,13 @@ const Home = () => {
                   {
                     title: "Local SEO & Reputation Scan Report",
                     problem:
-                      "Built a customer-facing analytics product that scores any business's local SEO, reputation, social presence, and listing health into a single shareable report.",
+                      "A customer-facing analytics product that scores any business's local SEO, reputation, social presence, and listing health into a single shareable report.",
                     built:
-                      "Owned the product end-to-end. Architected the FastAPI + Postgres backend with async workers and a multi-LLM service layer powering the SEO, SWOT, reputation, social, and listings analyses. Built the GraphQL surface, Slack and email integrations, server-side PDF generation, and the lead-capture + credit gating flow. On the frontend, built every report section from scratch — competitor-ranking grids, SWOT quadrant, reputation comparison, AI-summarized presence, social footprint, website audit, overall grade meter — plus share / email / PDF actions.",
+                      "Architected the FastAPI + Postgres backend with async workers and a multi-LLM service layer powering the SEO, SWOT, reputation, social, and listings analyses. Built the GraphQL surface, Slack and email integrations, server-side PDF generation, and the lead-capture + credit gating flow. On the frontend, built every report section — competitor-ranking grids, SWOT quadrant, reputation comparison, AI-summarized presence, social footprint, website audit, overall grade meter — plus share, email, and PDF actions.",
                     tech: [
                       "FastAPI",
                       "PostgreSQL",
-                      "Redis Workers",
+                      "Dramatiq",
                       "Next.js",
                       "TypeScript",
                     ],
@@ -513,7 +510,6 @@ const Home = () => {
                 })}
               >
                 Code Pulse
-                <span className="text-[#9BC91F]">.</span>
               </h2>
               <p className="text-black/65 font-mono text-xs tracking-widest mt-4 uppercase font-bold">
                 Contributions — @faizvk
@@ -853,24 +849,23 @@ const Home = () => {
                 <strong className="text-black font-black bg-[#C5F542] px-2 py-0.5 rounded border-2 border-black">
                   Software Engineer
                 </strong>{" "}
-                working across the full stack — frontend, backend, CI/CD, and
-                cloud infrastructure. I joined Synup as a Junior Software
-                Engineer in February 2026 after graduating from GCE Kannur.
+                at Synup, working across the full stack — frontend, backend,
+                CI/CD, and cloud infrastructure. I graduated from GCE Kannur
+                in 2025 and joined Synup in February 2026.
               </p>
               <p>
-                My focus is shipping software that holds up under real traffic.
-                That means RESTful APIs with proper auth, rate limiting, and
-                structured logs; React frontends with sane state management;
-                Dockerized services orchestrated with Kubernetes; deployment
-                pipelines on Jenkins and GitHub Actions; and AWS infrastructure
-                fronted by load balancers — all gated behind lint, tests, and a
-                clean build.
+                My focus is building software that holds up under real traffic.
+                That looks like REST and GraphQL APIs with proper auth, rate
+                limiting, and structured logs; React frontends with sane state
+                management; Dockerized services orchestrated on Kubernetes;
+                deployment pipelines on Jenkins and GitHub Actions; and AWS
+                infrastructure fronted by load balancers.
               </p>
               <p>
-                Outside of work, I build AI SaaS tools, experiment with
-                blockchain dApps, and grind LeetCode (100+ DSA problems solved).
-                I led the team that built a Solidity-backed e-tendering system
-                for my final-year project.
+                Outside Synup I ship side projects — an AI SaaS, a job-hunt
+                assistant, and the Solidity e-tendering platform I led as
+                final-year team lead. Still solving DSA on LeetCode whenever
+                I can.
               </p>
             </div>
 
@@ -916,20 +911,11 @@ const Home = () => {
                     Feb 2026
                   </p>
                   <h4 className="text-base md:text-lg font-black text-black">
-                    Junior Software Engineer @ Synup
+                    Joined Synup as Software Engineer
                   </h4>
                   <p className="text-xs md:text-sm text-black/70 mt-1 font-medium">
-                    First full-time engineering role.
+                    Shipped the v1 scan report — full-stack from FastAPI to Next.js.
                   </p>
-                </div>
-                <div className="relative pl-6 border-l-4 border-black">
-                  <div className="absolute left-[-10px] top-1 w-4 h-4 bg-white rounded-full border-2 border-black" />
-                  <p className="text-[10px] text-black/70 uppercase tracking-widest mb-1 font-black">
-                    2025
-                  </p>
-                  <h4 className="text-base md:text-lg font-black text-black">
-                    AccioJob MERN Program — NSDC Certified
-                  </h4>
                 </div>
                 <div className="relative pl-6 border-l-4 border-black">
                   <div className="absolute left-[-10px] top-1 w-4 h-4 bg-white rounded-full border-2 border-black" />
@@ -940,19 +926,7 @@ const Home = () => {
                     ISTE State-Level Hackathon Winner
                   </h4>
                   <p className="text-xs md:text-sm text-black/70 mt-1 font-medium">
-                    Music recommendation application.
-                  </p>
-                </div>
-                <div className="relative pl-6 border-l-4 border-black">
-                  <div className="absolute left-[-10px] top-1 w-4 h-4 bg-white rounded-full border-2 border-black" />
-                  <p className="text-[10px] text-black/70 uppercase tracking-widest mb-1 font-black">
-                    Practice
-                  </p>
-                  <h4 className="text-base md:text-lg font-black text-black">
-                    100+ DSA Problems Solved
-                  </h4>
-                  <p className="text-xs md:text-sm text-black/70 mt-1 font-medium">
-                    LeetCode.
+                    For a music recommendation engine.
                   </p>
                 </div>
                 <div className="relative pl-6 border-l-4 border-black">
@@ -961,10 +935,34 @@ const Home = () => {
                     Community
                   </p>
                   <h4 className="text-base md:text-lg font-black text-black">
-                    React.js Workshop Lead
+                    React Workshop Lead, GCE Kannur
                   </h4>
                   <p className="text-xs md:text-sm text-black/70 mt-1 font-medium">
-                    Taught 50+ students at GCE Kannur.
+                    Ran a hands-on workshop for 50+ undergrads.
+                  </p>
+                </div>
+                <div className="relative pl-6 border-l-4 border-black">
+                  <div className="absolute left-[-10px] top-1 w-4 h-4 bg-white rounded-full border-2 border-black" />
+                  <p className="text-[10px] text-black/70 uppercase tracking-widest mb-1 font-black">
+                    2025
+                  </p>
+                  <h4 className="text-base md:text-lg font-black text-black">
+                    AccioJob MERN Program
+                  </h4>
+                  <p className="text-xs md:text-sm text-black/70 mt-1 font-medium">
+                    NSDC-accredited certification.
+                  </p>
+                </div>
+                <div className="relative pl-6 border-l-4 border-black">
+                  <div className="absolute left-[-10px] top-1 w-4 h-4 bg-white rounded-full border-2 border-black" />
+                  <p className="text-[10px] text-black/70 uppercase tracking-widest mb-1 font-black">
+                    Practice
+                  </p>
+                  <h4 className="text-base md:text-lg font-black text-black">
+                    100+ DSA Problems on LeetCode
+                  </h4>
+                  <p className="text-xs md:text-sm text-black/70 mt-1 font-medium">
+                    Ongoing — focused on graphs, DP, and system-design prep.
                   </p>
                 </div>
               </div>
@@ -974,7 +972,7 @@ const Home = () => {
 
               <div className="relative z-10">
                 <h3 className="text-3xl md:text-4xl font-black mb-3 text-black leading-tight uppercase">
-                  Resume<span className="text-[#9BC91F]">.</span>
+                  Resume
                 </h3>
                 <p className="text-black/65 mb-8 max-w-[240px] text-[10px] leading-relaxed font-black uppercase tracking-[0.2em]">
                   Full Details — {new Date().getFullYear()}
@@ -1009,7 +1007,7 @@ const Home = () => {
             CONTACT
           </h2>
           <p className="text-base md:text-xl font-bold text-black/70 mb-12 md:mb-20 max-w-xl mx-auto">
-            Open to interesting projects, collaborations, or just a good
+            Open to interesting projects, collaborations, or a good
             conversation about engineering.
           </p>
 

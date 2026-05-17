@@ -1,7 +1,7 @@
 export const skills = {
   languages: ["JavaScript (ES6+)", "TypeScript", "Python", "Solidity"],
   frontend: [
-    "React.js",
+    "React",
     "Next.js",
     "Redux Toolkit",
     "Tailwind CSS",
@@ -9,32 +9,26 @@ export const skills = {
   ],
   backend: [
     "Node.js",
-    "Express.js",
+    "Express",
+    "FastAPI",
     "REST APIs",
     "GraphQL",
-    "Socket.IO",
   ],
   data: ["MongoDB", "PostgreSQL", "Redis", "Prisma", "Mongoose"],
-  cloud: [
-    "AWS",
-    "Load Balancers",
-    "Vercel",
-    "Render",
-    "Cloudinary",
-  ],
+  cloud: ["AWS", "Vercel", "Render", "Cloudinary", "Nginx"],
   devops: [
     "Docker",
     "Kubernetes",
     "Jenkins",
     "GitHub Actions",
-    "CI/CD Pipelines",
+    "Linux",
   ],
-  ai: [
+  llms: [
     "Google Gemini",
-    "Hugging Face",
-    "Anthropic",
     "OpenAI",
+    "Anthropic",
     "Groq",
+    "Hugging Face",
   ],
-  tools: ["Git", "GitHub", "Postman", "Linux", "Nginx"],
+  tools: ["Git", "GitHub", "Postman", "Socket.IO", "JWT / OAuth"],
 };
