@@ -243,6 +243,8 @@ export default function Chatbot() {
 
 function MessageBubble({ role, content }) {
   const isUser = role === "user";
+  const lines = content.split("\n");
+
   return (
     <div className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
       <div
@@ -252,12 +254,88 @@ function MessageBubble({ role, content }) {
             : "bg-white text-black rounded-bl-md font-medium"
         }`}
       >
-        {content.split("\n").map((line, i) => (
-          <p key={i} className={i > 0 ? "mt-1" : ""}>
-            {line}
-          </p>
-        ))}
+        {lines.map((line, i) => {
+          // Hyphen bullet (e.g. "- Node.js")
+          const bulletMatch = line.match(/^\s*-\s+(.*)/);
+          if (bulletMatch) {
+            return (
+              <div
+                key={i}
+                className="flex items-start gap-2 mt-1.5 first:mt-0"
+              >
+                <span className="text-[#9BC91F] font-black select-none">
+                  ›
+                </span>
+                <span>{renderInline(bulletMatch[1])}</span>
+              </div>
+            );
+          }
+          // Blank line → small spacer
+          if (line.trim() === "") {
+            return <div key={i} className="h-1.5" />;
+          }
+          return (
+            <p key={i} className={i > 0 ? "mt-1" : ""}>
+              {renderInline(line)}
+            </p>
+          );
+        })}
       </div>
     </div>
+  );
+}
+
+// Tiny inline-markdown renderer: [text](url) and **bold**.
+// No third-party dep, no dangerouslySetInnerHTML — XSS-safe.
+function renderInline(text) {
+  // Tokenize on [link](url) and **bold** patterns
+  const pattern = /(\[([^\]]+)\]\(([^)]+)\))|(\*\*([^*]+)\*\*)/g;
+  const out = [];
+  let last = 0;
+  let m;
+  let key = 0;
+
+  while ((m = pattern.exec(text)) !== null) {
+    if (m.index > last) out.push(text.slice(last, m.index));
+    if (m[1]) {
+      // Markdown link
+      const label = m[2];
+      const href = m[3];
+      out.push(<SafeLink key={key++} href={href}>{label}</SafeLink>);
+    } else if (m[4]) {
+      // Bold
+      out.push(
+        <strong key={key++} className="font-black">
+          {m[5]}
+        </strong>
+      );
+    }
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) out.push(text.slice(last));
+  return out;
+}
+
+function SafeLink({ href, children }) {
+  // Whitelist safe protocols / path styles. Anything else → render as text.
+  const safe =
+    typeof href === "string" &&
+    (/^https?:\/\//i.test(href) ||
+      /^mailto:/i.test(href) ||
+      href.startsWith("/") ||
+      href.startsWith("#"));
+
+  if (!safe) return <>{children}</>;
+
+  const external = /^https?:\/\//i.test(href);
+  return (
+    <a
+      href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
+      className="underline decoration-2 underline-offset-2 decoration-[#9BC91F] font-bold hover:bg-[#C5F542] hover:text-black transition-colors"
+    >
+      {children}
+    </a>
   );
 }
