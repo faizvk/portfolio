@@ -347,14 +347,13 @@ const Home = () => {
                   Synup
                 </p>
                 <p className="text-sm md:text-base text-black/70 font-medium leading-relaxed max-w-2xl">
-                  Owning Scantool V3 end-to-end —{" "}
+                  Owning end-to-end product features —{" "}
                   <strong className="text-black font-black">
-                    full-stack from the FastAPI backend to the customer-facing
-                    Next.js report
+                    full-stack from FastAPI services to React frontends
                   </strong>
-                  , plus the Scantool V4 agency dashboard inside Synup's
-                  operating system and embeddable widgets for distribution and
-                  support.
+                  . Customer-facing analytics reports, agency control panels,
+                  and embeddable widgets that ship the product into third-party
+                  sites.
                 </p>
               </div>
               <div className="flex md:flex-col gap-2 md:gap-3">
@@ -375,59 +374,53 @@ const Home = () => {
               <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                 {[
                   {
-                    title: "Scantool V3 — Full-Stack Report Product",
+                    title: "Local SEO & Reputation Scan Report",
                     problem:
-                      "Customers needed a single shareable report that scores any business's local SEO, reputation, social, and listing presence end-to-end — and an entire backend to power it.",
+                      "Built a customer-facing analytics product that scores any business's local SEO, reputation, social presence, and listing health into a single shareable report.",
                     built:
-                      "Owned the product end-to-end. Backend: FastAPI service with async SQLAlchemy + Postgres, Dramatiq + Redis workers, Strawberry GraphQL layer, Alembic migrations, JWT/RBAC, and a multi-LLM service layer (Dwarika gpt-oss:20b, OpenAI for SWOT + AI Scores, Gemini, Perplexity) feeding the SEO / SWOT / Voice / Social / Listings analysis pipelines. Shipped Slack OAuth, Postmark email delivery, server-side PDF generation, lead-capture + credit gating, and the public scantool-v3-setup config endpoint. Frontend: built the report UI from scratch — SEO 7×7 grid with competitor ranking, SWOT quadrant, reputation/reviews comparison table, listing indexing, AI-summarized Local Presence, social footprint, website audit, and the overall grade meter — plus a Formik+Yup lead flow and report header actions (Share link, TipTap-powered AI Email composer, PDF download).",
+                      "Owned the product end-to-end. Architected the FastAPI + Postgres backend with async workers and a multi-LLM service layer powering the SEO, SWOT, reputation, social, and listings analyses. Built the GraphQL surface, Slack and email integrations, server-side PDF generation, and the lead-capture + credit gating flow. On the frontend, built every report section from scratch — competitor-ranking grids, SWOT quadrant, reputation comparison, AI-summarized presence, social footprint, website audit, overall grade meter — plus share / email / PDF actions.",
                     tech: [
-                      "FastAPI · Python",
-                      "PostgreSQL · async SQLAlchemy",
-                      "Dramatiq · Redis",
-                      "Strawberry GraphQL",
-                      "Alembic",
-                      "Gemini · OpenAI · Perplexity",
-                      "Next.js 15 · React 19",
-                      "TypeScript · Redux Toolkit",
-                      "Formik · TipTap",
-                    ],
-                  },
-                  {
-                    title: "Scantool V3 — Embeddable Widget",
-                    problem:
-                      "Agencies and partners needed to drop the scan tool onto any third-party site with a single <script> tag, without bloating page weight.",
-                    built:
-                      "Authored the vanilla-TS IIFE bundle (~1–3 KB gzip) with three widget variants — Toast, Top Stripe, and Full-Page Modal — auto-detecting full-page vs section mode, with postMessage iframe resizing, ?domain= vendor identification, and sessionStorage config caching.",
-                    tech: ["Vite", "Vanilla TypeScript", "postMessage", "IIFE Bundle"],
-                  },
-                  {
-                    title: "Platform-UI · Scantool V4",
-                    problem:
-                      "Agencies running the V3 product had no control plane — they needed analytics, lead tracking, white-label settings, and bulk-scan workflows inside the Synup OS.",
-                    built:
-                      "Built the entire V4 agency dashboard: metrics cards + AG Charts leads timeline + AG Grid Enterprise SSRM businesses table with row-action portals and grade renderers; a 7-tab Settings page (Appearance, Sections, Detail Form, CTA Banner, Custom Domain, Custom Code, Scanned Business Config) wired through ~20 GraphQL operations with optimistic toggles + dnd-kit reorder; report modals (Shareable Link, PDF, full-screen Email Composer with chip multi-select + sequential bulk send); and a Bulk Scan flow combining Google Places lookup with CSV upload via Papa Parse.",
-                    tech: [
-                      "React 18",
-                      "Vite",
+                      "FastAPI",
+                      "PostgreSQL",
+                      "Redis Workers",
+                      "Next.js",
                       "TypeScript",
-                      "Apollo · GraphQL",
-                      "AG Grid Enterprise",
-                      "@dnd-kit",
-                      "i18next · MSW",
                     ],
                   },
                   {
-                    title: "Zoho Desk Support Widget",
+                    title: "Embeddable Lead-Gen Scan Widget",
                     problem:
-                      "Customer support tickets often arrived without enough context — no console logs, no network state, no environment info — slowing down triage.",
+                      "Partners and agencies needed to drop the scan tool onto any third-party site with one <script> tag, without bloating the host page.",
                     built:
-                      "Shipped an embeddable React widget that drops in via a single <script> tag, mounts in Shadow DOM to avoid host-style collisions, and auto-attaches console logs, network activity, JS errors, and environment data to a Zoho Desk ticket via an Express + Multer proxy. Dockerized behind nginx.",
+                      "Authored a ~1–3 KB gzip vanilla-TS bundle in three variants — toast, top stripe, and full-page modal — auto-detecting embed mode, with postMessage iframe resizing, vendor identification by domain, and session-level config caching.",
+                    tech: ["TypeScript", "Vite", "postMessage", "IIFE Bundle"],
+                  },
+                  {
+                    title: "Agency Control Plane Dashboard",
+                    problem:
+                      "Agencies running the scan product had no operations layer — they needed analytics, lead tracking, white-label settings, and bulk-scan workflows in one place.",
+                    built:
+                      "Built the full agency-facing dashboard: KPI cards, an AG Charts leads timeline, an enterprise-grade table with row-action portals, a 7-tab settings page wired through ~20 GraphQL operations with optimistic toggles and drag-reorder, report modals (share / email / PDF), and a bulk scan flow combining Google Places lookup with client-side CSV upload.",
                     tech: [
-                      "Vite 7",
-                      "React 19",
+                      "React",
+                      "TypeScript",
+                      "Apollo GraphQL",
+                      "AG Grid Enterprise",
+                      "MUI",
+                    ],
+                  },
+                  {
+                    title: "Embeddable Customer Support Widget",
+                    problem:
+                      "Support tickets often arrived without enough context — no console logs, no network state, no environment info — slowing down triage.",
+                    built:
+                      "Shipped a React widget that drops into any site via one <script> tag and mounts in Shadow DOM to avoid host-style collisions. Auto-attaches console logs, network activity, JS errors, and environment data to a support ticket through an Express + Multer proxy. Dockerized behind nginx.",
+                    tech: [
+                      "React",
                       "Shadow DOM",
                       "Express",
-                      "Docker · nginx",
+                      "Docker",
+                      "nginx",
                     ],
                   },
                 ].map((p, i) => (
