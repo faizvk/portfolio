@@ -27,12 +27,36 @@ import { skills } from "./utils/skills";
 const CURRENT_YEAR = new Date().getFullYear();
 const YEARS = [CURRENT_YEAR, CURRENT_YEAR - 1, CURRENT_YEAR - 2, CURRENT_YEAR - 3];
 
+// Reusable hook: track left/right scroll affordance for a horizontal rail
+function useRailScroll(ref, setState) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const update = () => {
+      const left = el.scrollLeft > 4;
+      const right = el.scrollLeft + el.clientWidth < el.scrollWidth - 4;
+      setState((prev) =>
+        prev.left === left && prev.right === right ? prev : { left, right }
+      );
+    };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      el.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [ref, setState]);
+}
+
 const Home = () => {
   const [scrolled, setScrolled] = useState(false);
   const [ghYear, setGhYear] = useState(CURRENT_YEAR);
   const [mobileOpen, setMobileOpen] = useState(false);
   const labRailRef = React.useRef(null);
   const [labScroll, setLabScroll] = useState({ left: false, right: true });
+  const shippedRailRef = React.useRef(null);
+  const [shippedScroll, setShippedScroll] = useState({ left: false, right: true });
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -59,25 +83,9 @@ const Home = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Track horizontal scroll state of the Laboratory rail
-  useEffect(() => {
-    const el = labRailRef.current;
-    if (!el) return;
-    const update = () => {
-      const left = el.scrollLeft > 4;
-      const right = el.scrollLeft + el.clientWidth < el.scrollWidth - 4;
-      setLabScroll((prev) =>
-        prev.left === left && prev.right === right ? prev : { left, right }
-      );
-    };
-    update();
-    el.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      el.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
-  }, []);
+  // Track horizontal scroll state for both rails (Shipped + Laboratory)
+  useRailScroll(labRailRef, setLabScroll);
+  useRailScroll(shippedRailRef, setShippedScroll);
 
   // Close dropdown on Escape
   useEffect(() => {
@@ -363,12 +371,35 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Shipped at Synup */}
+            {/* Shipped at Synup — horizontal rail */}
             <div className="mt-8 md:mt-10">
               <h4 className="text-[10px] md:text-xs font-mono uppercase tracking-[0.3em] font-bold text-black/65 mb-6">
                 Shipped
               </h4>
-              <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+              <div className="relative">
+                {/* Ripple scroll-direction arrow */}
+                <div
+                  aria-hidden="true"
+                  className={`pointer-events-none absolute top-1/2 -translate-y-1/2 z-20 transition-opacity duration-300 ${
+                    shippedScroll.right ? "right-2 md:right-4" : "left-2 md:left-4"
+                  } ${shippedScroll.left || shippedScroll.right ? "opacity-100" : "opacity-0"}`}
+                >
+                  <span
+                    className={`ripple-arrow ${
+                      shippedScroll.right ? "" : "rotate-180"
+                    }`}
+                  >
+                    <ArrowUpRight size={20} strokeWidth={2.5} className="rotate-45" />
+                  </span>
+                </div>
+
+                <div
+                  ref={shippedRailRef}
+                  className="flex gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-4 -mx-5 md:-mx-8 px-5 md:px-8"
+                  role="region"
+                  aria-label="Shipped at Synup, scroll horizontally"
+                  tabIndex={0}
+                >
                 {[
                   {
                     title: "Local SEO & Reputation Scan Report",
@@ -451,7 +482,7 @@ const Home = () => {
                 ].map((p, i) => (
                   <article
                     key={i}
-                    className="bg-[#FAFAF7] border-2 border-black rounded-2xl p-5 md:p-6 hover:bg-[#EEFBC9] transition-colors"
+                    className="snap-start shrink-0 w-[280px] sm:w-[340px] md:w-[380px] flex flex-col bg-[#FAFAF7] border-2 border-black rounded-2xl p-5 md:p-6 hover:bg-[#EEFBC9] transition-colors"
                     {...fadeIn({
                       direction: "up",
                       distance: 60,
@@ -490,6 +521,7 @@ const Home = () => {
                     </div>
                   </article>
                 ))}
+                </div>
               </div>
             </div>
           </div>
