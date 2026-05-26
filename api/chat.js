@@ -28,6 +28,12 @@ Works full-stack across FastAPI services and React frontends on a B2B SaaS for l
 4. **Embeddable Customer Support Widget** — React widget that drops into any site via one <script> tag, mounts in Shadow DOM to avoid host-style collisions, auto-attaches console logs, network activity, JS errors, and environment data to a support ticket via an Express + Multer proxy. Dockerized behind nginx.
    Tech: React, Shadow DOM, Express, Docker, nginx.
 
+5. **Public REST API & Developer Platform Expansion** — Audited every GraphQL operation across the federated backend and produced the conversion plan feeding the auto-generated OpenAPI spec and developer portal. Onboarded standalone Python services into the federation gateway so they auto-flow into REST. Coordinated rollout across Rails, FastAPI, and Python codebases with a teammate handling platform integration.
+   Tech: GraphQL Federation, OpenAPI 3, FastAPI, Rails, Python.
+
+6. **AI Agent Tools (MCP) & Webhook Event Platform** — Designed composite MCP tools spanning review campaigns, AI listings analytics, marketing flows, CRM, social posting and boosts, Google Business connections, agency client and plan management, with permission-gated visibility and skill-gated loading to keep per-conversation token cost low. Also defined the outbound webhook event catalog (connection status, profile + post lifecycles, rankings, review analytics, campaigns, AI idea pipeline) with HMAC-SHA256 signing, Kafka-backed delivery with retries, and customer-facing replay / test-fire / secret-rotation flows.
+   Tech: Python, FastMCP, Kafka, HMAC-SHA256, GraphQL.
+
 ## SIDE PROJECTS (each has its own /projects/<slug> case study)
 - **NexKart** (/projects/nexkart) — MERN e-commerce with server-computed Razorpay totals, atomic stock reservation, versioned Redis cache, CI-gated test suite. Live: https://ecommerce-app-neon-eight.vercel.app/ — Repo: https://github.com/faizvk/ecommerce-app
 - **Promptive AI** (/projects/promptive-ai) — Multi-model AI SaaS (Gemini, GPT-4o, Claude, Groq), HuggingFace FLUX for images, ElevenLabs TTS, Razorpay subscriptions, OAuth. Live: https://promptive-ai.vercel.app — Repo: https://github.com/faizvk/promptive-ai

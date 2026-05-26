@@ -420,6 +420,34 @@ const Home = () => {
                       "nginx",
                     ],
                   },
+                  {
+                    title: "Public REST API & Developer Platform Expansion",
+                    problem:
+                      "The product surface was largely GraphQL-only, leaving the public REST API and customer-facing developer portal without coverage for newer products — listings analytics, marketing automations, AI post-idea generation, location management, and the scan-tool admin layer.",
+                    built:
+                      "Audited every GraphQL operation across the federated backend and produced the conversion plan feeding the auto-generated OpenAPI spec and the developer portal. Onboarded two standalone Python services into the federation gateway so they auto-flow into REST. Coordinated rollout across Rails, FastAPI, and Python codebases with a teammate handling platform integration.",
+                    tech: [
+                      "GraphQL Federation",
+                      "OpenAPI 3",
+                      "FastAPI",
+                      "Rails",
+                      "Python",
+                    ],
+                  },
+                  {
+                    title: "AI Agent Tools (MCP) & Webhook Event Platform",
+                    problem:
+                      "Two new platform surfaces were needed: an AI-agent control layer so assistants could operate the whole product through natural-language intents, and an outbound webhook system so customers could react to changes in real time instead of polling.",
+                    built:
+                      "Designed composite MCP tools spanning review campaigns, AI listings analytics, marketing flows, CRM, social posting and boosts, Google Business connections, agency client and plan management — with permission-gated visibility and skill-gated loading to keep per-conversation token cost low. In parallel, defined the webhook event catalog across connection status, profile + post lifecycles, rankings, review analytics, campaigns, and the AI idea pipeline, with HMAC-SHA256 signing, Kafka-backed delivery with retries, and customer-facing replay, test-fire, and secret-rotation flows.",
+                    tech: [
+                      "Python",
+                      "FastMCP",
+                      "Kafka",
+                      "HMAC-SHA256",
+                      "GraphQL",
+                    ],
+                  },
                 ].map((p, i) => (
                   <article
                     key={i}
