@@ -395,7 +395,7 @@ const Home = () => {
 
                 <div
                   ref={shippedRailRef}
-                  className="flex gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-4 -mx-5 md:-mx-8 px-5 md:px-8"
+                  className="flex items-start gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-4 -mx-5 md:-mx-8 px-5 md:px-8"
                   role="region"
                   aria-label="Shipped at Synup, scroll horizontally"
                   tabIndex={0}
@@ -805,7 +805,7 @@ const Home = () => {
 
           <div
             ref={labRailRef}
-            className="flex gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-6 -mx-6 md:-mx-12 lg:-mx-24 px-6 md:px-12 lg:px-24"
+            className="flex items-start gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-6 -mx-6 md:-mx-12 lg:-mx-24 px-6 md:px-12 lg:px-24"
             role="region"
             aria-label="Side projects, scroll horizontally"
             tabIndex={0}
