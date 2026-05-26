@@ -404,9 +404,9 @@ const Home = () => {
                   {
                     title: "Local SEO & Reputation Scan Report",
                     problem:
-                      "A customer-facing analytics product that scores any business's local SEO, reputation, social presence, and listing health into a single shareable report.",
+                      "A customer-facing analytics product that scores any business's local SEO, reputation, social, and listing health into a single shareable report.",
                     built:
-                      "Architected the FastAPI + Postgres backend with async workers and a multi-LLM service layer powering the SEO, SWOT, reputation, social, and listings analyses. Built the GraphQL surface, Slack and email integrations, server-side PDF generation, and the lead-capture + credit gating flow. On the frontend, built every report section — competitor-ranking grids, SWOT quadrant, reputation comparison, AI-summarized presence, social footprint, website audit, overall grade meter — plus share, email, and PDF actions.",
+                      "Architected the FastAPI + Postgres backend with async workers and a multi-LLM service layer powering the SEO, SWOT, reputation, social, and listings analyses. Built the GraphQL surface, server-side PDF, and lead-capture + credit gating flow — plus every section of the report UI on the frontend.",
                     tech: [
                       "FastAPI",
                       "PostgreSQL",
@@ -428,7 +428,7 @@ const Home = () => {
                     problem:
                       "Agencies running the scan product had no operations layer — they needed analytics, lead tracking, white-label settings, and bulk-scan workflows in one place.",
                     built:
-                      "Built the full agency-facing dashboard: KPI cards, an AG Charts leads timeline, an enterprise-grade table with row-action portals, a 7-tab settings page wired through ~20 GraphQL operations with optimistic toggles and drag-reorder, report modals (share / email / PDF), and a bulk scan flow combining Google Places lookup with client-side CSV upload.",
+                      "Built the full agency-facing dashboard: KPI cards, an AG Charts leads timeline, an enterprise-grade table with row-action portals, a multi-tab white-label settings page, report modals (share / email / PDF), and a bulk-scan flow with Google Places + CSV.",
                     tech: [
                       "React",
                       "TypeScript",
@@ -454,9 +454,9 @@ const Home = () => {
                   {
                     title: "Public REST API & Developer Platform Expansion",
                     problem:
-                      "The product surface was largely GraphQL-only, leaving the public REST API and customer-facing developer portal without coverage for newer products — listings analytics, marketing automations, AI post-idea generation, location management, and the scan-tool admin layer.",
+                      "The product surface was largely GraphQL-only, leaving the public REST API and developer portal without coverage for newer products like listings analytics, marketing automations, and post-idea generation.",
                     built:
-                      "Audited every GraphQL operation across the federated backend and produced the conversion plan feeding the auto-generated OpenAPI spec and the developer portal. Onboarded two standalone Python services into the federation gateway so they auto-flow into REST. Coordinated rollout across Rails, FastAPI, and Python codebases with a teammate handling platform integration.",
+                      "Audited every GraphQL operation across the federated backend and produced the REST conversion plan feeding the auto-generated OpenAPI spec and developer portal. Onboarded standalone Python services into the federation gateway so they auto-flow into REST.",
                     tech: [
                       "GraphQL Federation",
                       "OpenAPI 3",
@@ -468,9 +468,9 @@ const Home = () => {
                   {
                     title: "AI Agent Tools (MCP) & Webhook Event Platform",
                     problem:
-                      "Two new platform surfaces were needed: an AI-agent control layer so assistants could operate the whole product through natural-language intents, and an outbound webhook system so customers could react to changes in real time instead of polling.",
+                      "Two new platform surfaces: an AI-agent control layer so assistants can operate the product through natural-language intents, and an outbound webhook system so customers can react to changes in real time instead of polling.",
                     built:
-                      "Designed composite MCP tools spanning review campaigns, AI listings analytics, marketing flows, CRM, social posting and boosts, Google Business connections, agency client and plan management — with permission-gated visibility and skill-gated loading to keep per-conversation token cost low. In parallel, defined the webhook event catalog across connection status, profile + post lifecycles, rankings, review analytics, campaigns, and the AI idea pipeline, with HMAC-SHA256 signing, Kafka-backed delivery with retries, and customer-facing replay, test-fire, and secret-rotation flows.",
+                      "Designed composite MCP tools spanning review campaigns, listings analytics, marketing flows, CRM, social posting, Google Business, and agency client management — with permission-gated visibility and skill-gated loading. In parallel, defined the outbound webhook event catalog with HMAC-SHA256 signing, Kafka-backed delivery with retries, and customer-facing replay, test-fire, and secret-rotation flows.",
                     tech: [
                       "Python",
                       "FastMCP",
