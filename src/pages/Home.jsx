@@ -15,48 +15,24 @@ import {
   Briefcase,
   GraduationCap,
   ArrowUpRight,
+  ArrowRight,
   Code2,
   Menu,
   X,
 } from "lucide-react";
 import { fadeIn } from "../animations/fadeIn";
 import { mainProjects } from "./utils/mainProjects";
+import ProjectScene from "../components/ProjectScene";
 import { sideProjects } from "./utils/sideProjects";
 import { skills } from "./utils/skills";
 
 const CURRENT_YEAR = new Date().getFullYear();
 const YEARS = [CURRENT_YEAR, CURRENT_YEAR - 1, CURRENT_YEAR - 2, CURRENT_YEAR - 3];
 
-// Reusable hook: track left/right scroll affordance for a horizontal rail
-function useRailScroll(ref, setState) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const update = () => {
-      const left = el.scrollLeft > 4;
-      const right = el.scrollLeft + el.clientWidth < el.scrollWidth - 4;
-      setState((prev) =>
-        prev.left === left && prev.right === right ? prev : { left, right }
-      );
-    };
-    update();
-    el.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      el.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
-  }, [ref, setState]);
-}
-
 const Home = () => {
   const [scrolled, setScrolled] = useState(false);
   const [ghYear, setGhYear] = useState(CURRENT_YEAR);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const labRailRef = React.useRef(null);
-  const [labScroll, setLabScroll] = useState({ left: false, right: true });
-  const shippedRailRef = React.useRef(null);
-  const [shippedScroll, setShippedScroll] = useState({ left: false, right: true });
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -82,10 +58,6 @@ const Home = () => {
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
-
-  // Track horizontal scroll state for both rails (Shipped + Laboratory)
-  useRailScroll(labRailRef, setLabScroll);
-  useRailScroll(shippedRailRef, setShippedScroll);
 
   // Close dropdown on Escape
   useEffect(() => {
@@ -153,7 +125,7 @@ const Home = () => {
         >
           <div className="bg-white border-2 border-black rounded-3xl shadow-[6px_6px_0_0_#000] p-3">
             <ul className="flex flex-col">
-              {navLinks.map((l, i) => (
+              {navLinks.map((l) => (
                 <li key={l.href}>
                   <a
                     href={l.href}
@@ -161,12 +133,9 @@ const Home = () => {
                     className="group flex items-center justify-between px-5 py-3.5 rounded-2xl text-base font-black uppercase tracking-widest text-black hover:bg-[#C5F542] hover:translate-x-1 transition-all"
                   >
                     <span className="flex items-center gap-3">
-                      <span className="font-mono text-[10px] text-black/40 group-hover:text-black/70">
-                        0{i + 1}
-                      </span>
                       {l.label}
                     </span>
-                    <ArrowUpRight
+                    <ArrowRight
                       size={16}
                       className="text-black/30 group-hover:text-black transition-all"
                     />
@@ -175,7 +144,7 @@ const Home = () => {
               ))}
             </ul>
             <div className="mt-3 pt-3 border-t-2 border-black/10 flex items-center justify-between px-3">
-              <span className="font-mono text-[10px] uppercase tracking-widest font-bold text-black/50">
+              <span className="font-mono text-[11px] uppercase tracking-widest font-bold text-black/50">
                 @ faizvk
               </span>
               <div className="flex gap-2">
@@ -226,13 +195,13 @@ const Home = () => {
       {/* HERO */}
       <section className="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 relative pt-24 pb-20 md:pb-12">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10 max-w-7xl mx-auto w-full">
-          <div className="anim-fade-up order-2 lg:order-1">
+          <div className="anim-fade-up order-1">
             <div className="flex items-center gap-3 mb-6 md:mb-8 flex-wrap">
-              <span className="inline-flex items-center gap-2 px-3 py-1 bg-[#C5F542] text-black rounded-full border-2 border-black font-mono text-[10px] font-bold tracking-widest uppercase">
+              <span className="inline-flex items-center gap-2 px-3 py-1 bg-[#C5F542] text-black rounded-full border-2 border-black font-mono text-[11px] font-bold tracking-widest uppercase">
                 <span className="w-2 h-2 bg-black rounded-full animate-pulse" />
                 Open to chat
               </span>
-              <span className="px-3 py-1 bg-white text-black rounded-full border-2 border-black font-mono text-[10px] font-bold tracking-widest uppercase">
+              <span className="px-3 py-1 bg-white text-black rounded-full border-2 border-black font-mono text-[11px] font-bold tracking-widest uppercase">
                 @ Synup
               </span>
             </div>
@@ -293,9 +262,9 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="anim-fade-in relative flex justify-center lg:justify-end order-1 lg:order-2">
+          <div className="anim-fade-in relative flex justify-center lg:justify-end order-2">
             <div
-              className="relative w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[460px] aspect-4/5 rounded-[2rem] border-2 border-black bg-[#C5F542] overflow-hidden shadow-[8px_8px_0_0_#000]"
+              className="relative w-full max-w-[240px] sm:max-w-[340px] lg:max-w-[460px] aspect-4/5 rounded-[2rem] border-2 border-black bg-[#C5F542] overflow-hidden shadow-[8px_8px_0_0_#000]"
               {...fadeIn({ direction: "left", distance: 80, duration: 0.9 })}
             >
               <img
@@ -316,7 +285,7 @@ const Home = () => {
         <div className="max-w-6xl mx-auto">
           <div className="mb-12 md:mb-16 flex items-end justify-between border-b-2 border-black pb-8">
             <div>
-              <span className="inline-block bg-[#C5F542] text-black px-4 py-1.5 rounded-full border-2 border-black text-[10px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000] mb-5">
+              <span className="inline-block bg-[#C5F542] text-black px-4 py-1.5 rounded-full border-2 border-black text-[11px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000] mb-5">
                 Experience
               </span>
               <h2
@@ -342,7 +311,7 @@ const Home = () => {
                   <div className="inline-flex items-center justify-center w-12 h-12 bg-[#C5F542] border-2 border-black rounded-full">
                     <Briefcase size={20} />
                   </div>
-                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-black/65">
+                  <span className="text-[11px] font-black uppercase tracking-[0.3em] text-black/65">
                     Feb 2026 — Present
                   </span>
                 </div>
@@ -363,10 +332,10 @@ const Home = () => {
                 </p>
               </div>
               <div className="flex md:flex-col gap-2 md:gap-3">
-                <span className="text-[10px] font-black uppercase tracking-widest bg-black text-[#C5F542] px-3 py-1.5 rounded-full">
+                <span className="text-[11px] font-black uppercase tracking-widest bg-black text-[#C5F542] px-3 py-1.5 rounded-full">
                   Full-time
                 </span>
-                <span className="text-[10px] font-black uppercase tracking-widest bg-white border-2 border-black px-3 py-1.5 rounded-full">
+                <span className="text-[11px] font-black uppercase tracking-widest bg-white border-2 border-black px-3 py-1.5 rounded-full">
                   India
                 </span>
               </div>
@@ -374,33 +343,10 @@ const Home = () => {
 
             {/* Shipped at Synup — horizontal rail */}
             <div className="mt-8 md:mt-10">
-              <h4 className="text-[10px] md:text-xs font-mono uppercase tracking-[0.3em] font-bold text-black/65 mb-6">
+              <h4 className="text-[11px] md:text-xs font-mono uppercase tracking-[0.3em] font-bold text-black/65 mb-6">
                 Shipped
               </h4>
-              <div className="relative">
-                {/* Ripple scroll-direction arrow */}
-                <div
-                  aria-hidden="true"
-                  className={`pointer-events-none absolute top-1/2 -translate-y-1/2 z-20 transition-opacity duration-300 ${
-                    shippedScroll.right ? "right-2 md:right-4" : "left-2 md:left-4"
-                  } ${shippedScroll.left || shippedScroll.right ? "opacity-100" : "opacity-0"}`}
-                >
-                  <span
-                    className={`ripple-arrow ${
-                      shippedScroll.right ? "" : "rotate-180"
-                    }`}
-                  >
-                    <ArrowUpRight size={20} strokeWidth={2.5} className="rotate-45" />
-                  </span>
-                </div>
-
-                <div
-                  ref={shippedRailRef}
-                  className="flex items-start gap-5 md:gap-6 overflow-x-auto overflow-y-hidden overscroll-x-contain touch-pan-x snap-x snap-mandatory no-scrollbar pb-4 -mx-5 md:-mx-8 px-5 md:px-8"
-                  role="region"
-                  aria-label="Shipped at Synup, scroll horizontally"
-                  tabIndex={0}
-                >
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
                 {[
                   {
                     title: "AI Agent Tools (MCP) for Claude & ChatGPT",
@@ -453,28 +399,23 @@ const Home = () => {
                 ].map((p, i) => (
                   <article
                     key={i}
-                    className="snap-start shrink-0 w-[280px] sm:w-[340px] md:w-[380px] flex flex-col bg-[#FAFAF7] border-2 border-black rounded-2xl p-5 md:p-6 hover:bg-[#EEFBC9] transition-colors"
+                    className="flex flex-col bg-[#FAFAF7] border-2 border-black rounded-2xl p-5 md:p-6 hover:bg-[#EEFBC9] transition-colors"
                     {...fadeIn({
                       direction: "up",
                       distance: 60,
                       duration: 0.9,
                     })}
                   >
-                    <div className="flex items-start justify-between gap-3 mb-3">
-                      <h5 className="text-base md:text-lg font-black tracking-tight text-black">
-                        {p.title}
-                      </h5>
-                      <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-black/40 shrink-0">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                    </div>
+                    <h5 className="text-base md:text-lg font-black tracking-tight text-black mb-3">
+                      {p.title}
+                    </h5>
                     <p className="text-xs md:text-sm font-semibold text-black/70 mb-3 leading-relaxed">
                       <span className="font-mono text-[11px] uppercase tracking-widest text-black/55 font-black mr-1">
                         Problem ·
                       </span>
                       {p.problem}
                     </p>
-                    <p className="text-xs md:text-sm text-black/70 mb-4 leading-relaxed font-medium">
+                    <p className="text-xs md:text-sm text-black/70 mb-4 leading-relaxed font-medium flex-1">
                       <span className="font-mono text-[11px] uppercase tracking-widest text-black/55 font-black mr-1">
                         Built ·
                       </span>
@@ -492,7 +433,6 @@ const Home = () => {
                     </div>
                   </article>
                 ))}
-                </div>
               </div>
             </div>
           </div>
@@ -506,7 +446,7 @@ const Home = () => {
                 <GraduationCap size={18} />
               </div>
               <div className="flex-1">
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-black/65">
+                <span className="text-[11px] font-black uppercase tracking-[0.3em] text-black/65">
                   2025 — Graduated
                 </span>
                 <h3 className="text-xl md:text-2xl font-black tracking-tight text-black mt-1">
@@ -526,7 +466,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto">
           <div className="mb-16 md:mb-20 flex flex-col md:flex-row items-start md:items-end justify-between border-b-2 border-black pb-10 gap-4">
             <div>
-              <span className="inline-block bg-[#C5F542] text-black px-4 py-1.5 rounded-full border-2 border-black text-[10px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000] mb-5">
+              <span className="inline-block bg-[#C5F542] text-black px-4 py-1.5 rounded-full border-2 border-black text-[11px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000] mb-5">
                 Selected Work
               </span>
               <h2
@@ -544,7 +484,7 @@ const Home = () => {
                 Production builds + documentation
               </p>
             </div>
-            <span className="bg-white text-black px-4 py-2 rounded-full border-2 border-black text-[10px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000]">
+            <span className="bg-white text-black px-4 py-2 rounded-full border-2 border-black text-[11px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000]">
               {mainProjects.length} Projects
             </span>
           </div>
@@ -563,14 +503,11 @@ const Home = () => {
                 })}
               >
                 <div className="aspect-[16/10] relative overflow-hidden border-b-2 border-black bg-[#EEFBC9]">
-                  <div
-                    className="img-zoom absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${project.image})` }}
-                  />
-                  <span className="reveal-badge absolute bottom-4 left-4 bg-black text-[#C5F542] px-3 py-1.5 rounded-full border-2 border-black text-[10px] font-black uppercase tracking-widest">
+                  <ProjectScene slug={project.slug} className="img-zoom" />
+                  <span className="reveal-badge z-10 absolute bottom-4 left-4 bg-black text-[#C5F542] px-3 py-1.5 rounded-full border-2 border-black text-[11px] font-black uppercase tracking-widest">
                     View Case Study
                   </span>
-                  <div className="reveal-badge absolute top-4 right-4 bg-[#C5F542] text-black p-2 rounded-full border-2 border-black">
+                  <div className="reveal-badge z-10 absolute top-4 right-4 bg-[#C5F542] text-black p-2 rounded-full border-2 border-black">
                     <ArrowUpRight size={16} />
                   </div>
                 </div>
@@ -579,7 +516,7 @@ const Home = () => {
                     {project.tags.map((t) => (
                       <span
                         key={t}
-                        className="text-[10px] font-black uppercase tracking-widest text-black bg-[#C5F542] border-2 border-black px-2.5 py-1 rounded-full"
+                        className="text-[11px] font-black uppercase tracking-widest text-black bg-[#C5F542] border-2 border-black px-2.5 py-1 rounded-full"
                       >
                         {t}
                       </span>
@@ -599,7 +536,7 @@ const Home = () => {
                       {project.tech.slice(0, 4).map((t) => (
                         <span
                           key={t}
-                          className="text-[10px] font-mono text-black/65 font-bold uppercase"
+                          className="text-[11px] font-mono text-black/65 font-bold uppercase"
                         >
                           #{t}
                         </span>
@@ -628,7 +565,7 @@ const Home = () => {
                           <ExternalLink size={16} />
                         </a>
                       )}
-                      <span className="text-[10px] font-black uppercase tracking-widest bg-black text-[#C5F542] px-3 py-1.5 rounded-full">
+                      <span className="text-[11px] font-black uppercase tracking-widest bg-black text-[#C5F542] px-3 py-1.5 rounded-full">
                         Docs →
                       </span>
                     </div>
@@ -650,39 +587,16 @@ const Home = () => {
               Laboratory
             </h2>
             <div className="h-0.5 flex-1 min-w-[40px] bg-black" />
-            <span className="text-[10px] font-black uppercase tracking-widest text-black/65 whitespace-nowrap">
-              {sideProjects.length} Experiments
+            <span className="text-[11px] font-black uppercase tracking-widest text-black/65 whitespace-nowrap">
+              Smaller builds
             </span>
           </div>
 
-          <div className="relative">
-            {/* Inline scroll-direction indicator — single small arrow, no bg, ripples horizontally */}
-            <div
-              aria-hidden="true"
-              className={`pointer-events-none absolute top-1/2 -translate-y-1/2 z-20 transition-opacity duration-300 ${
-                labScroll.right ? "right-2 md:right-4" : "left-2 md:left-4"
-              } ${labScroll.left || labScroll.right ? "opacity-100" : "opacity-0"}`}
-            >
-              <span
-                className={`ripple-arrow ${
-                  labScroll.right ? "" : "rotate-180"
-                }`}
-              >
-                <ArrowUpRight size={20} strokeWidth={2.5} className="rotate-45" />
-              </span>
-            </div>
-
-          <div
-            ref={labRailRef}
-            className="flex items-start gap-5 md:gap-6 overflow-x-auto overflow-y-hidden overscroll-x-contain touch-pan-x snap-x snap-mandatory no-scrollbar pb-6 -mx-6 md:-mx-12 lg:-mx-24 px-6 md:px-12 lg:px-24"
-            role="region"
-            aria-label="Side projects, scroll horizontally"
-            tabIndex={0}
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             {sideProjects.map((project, i) => (
               <div
                 key={i}
-                className="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[340px] bg-white border-2 border-black rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 transition-all duration-300 group shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-[#EEFBC9]"
+                className="bg-white border-2 border-black rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 transition-all duration-300 group shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-[#EEFBC9]"
                 {...fadeIn({
                   direction: "up",
                   distance: 80,
@@ -693,9 +607,6 @@ const Home = () => {
                   <div className="icon-spin inline-flex items-center justify-center w-10 h-10 bg-[#C5F542] border-2 border-black rounded-full text-black">
                     {project.icon}
                   </div>
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-black/40">
-                    {String(i + 1).padStart(2, "0")} / {String(sideProjects.length).padStart(2, "0")}
-                  </span>
                 </div>
                 <h3 className="text-xl md:text-2xl font-black mb-3 text-black">
                   {project.title}
@@ -708,7 +619,7 @@ const Home = () => {
                     {project.tech.map((t) => (
                       <span
                         key={t}
-                        className="text-[10px] font-mono text-black/65 uppercase font-black"
+                        className="text-[11px] font-mono text-black/65 uppercase font-black"
                       >
                         {t}
                       </span>
@@ -741,24 +652,15 @@ const Home = () => {
                 </div>
               </div>
             ))}
-            {/* End-of-list pill */}
-            <div className="snap-start shrink-0 w-[200px] flex items-center justify-center">
-              <div className="text-center">
-                <p className="font-mono text-[10px] uppercase tracking-widest font-bold text-black/40 mb-3">
-                  End of list
-                </p>
-                <a
-                  href="https://github.com/faizvk?tab=repositories"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-black text-[#C5F542] border-2 border-black rounded-full px-5 py-3 text-[10px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000] hover:shadow-[1px_1px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
-                >
-                  <Github size={14} /> All Repos
-                </a>
-              </div>
-            </div>
           </div>
-          </div>
+          <a
+            href="https://github.com/faizvk?tab=repositories"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-flex items-center gap-2 bg-black text-[#C5F542] border-2 border-black rounded-full px-5 py-3 text-[11px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000] hover:shadow-[1px_1px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+          >
+            <Github size={14} /> All repos on GitHub
+          </a>
         </div>
       </section>
 
@@ -770,7 +672,7 @@ const Home = () => {
         <div className="max-w-6xl mx-auto">
           <div className="mb-10 md:mb-14 flex flex-col md:flex-row items-start md:items-end justify-between gap-4 border-b-2 border-black pb-8">
             <div>
-              <span className="inline-block bg-[#C5F542] text-black px-4 py-1.5 rounded-full border-2 border-black text-[10px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000] mb-5">
+              <span className="inline-block bg-[#C5F542] text-black px-4 py-1.5 rounded-full border-2 border-black text-[11px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000] mb-5">
                 GitHub Activity
               </span>
               <h2
@@ -791,7 +693,7 @@ const Home = () => {
               href="https://github.com/faizvk"
               target="_blank"
               rel="noopener noreferrer"
-              className="group shine inline-flex items-center gap-2 bg-black text-[#C5F542] px-5 py-3 rounded-full font-black text-[10px] uppercase tracking-widest border-2 border-black shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+              className="group shine inline-flex items-center gap-2 bg-black text-[#C5F542] px-5 py-3 rounded-full font-black text-[11px] uppercase tracking-widest border-2 border-black shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
             >
               <Github size={14} className="arrow" /> View Profile
             </a>
@@ -871,7 +773,7 @@ const Home = () => {
       >
         <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 lg:gap-20">
           <div className="lg:col-span-7">
-            <span className="inline-block bg-[#C5F542] text-black px-4 py-1.5 rounded-full border-2 border-black text-[10px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000] mb-8">
+            <span className="inline-block bg-[#C5F542] text-black px-4 py-1.5 rounded-full border-2 border-black text-[11px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000] mb-8">
               About Me
             </span>
             <div className="space-y-6 text-black/75 text-lg md:text-xl font-medium leading-relaxed">
@@ -910,7 +812,7 @@ const Home = () => {
                     key={category}
                     className="skill-card bg-white border-2 border-black rounded-2xl p-5 shadow-[4px_4px_0_0_#000]"
                   >
-                    <h4 className="text-[10px] uppercase tracking-[0.25em] text-black font-black mb-4 border-b-2 border-black pb-2">
+                    <h4 className="text-[11px] uppercase tracking-[0.25em] text-black font-black mb-4 border-b-2 border-black pb-2">
                       {category}
                     </h4>
                     <ul className="space-y-2.5">
@@ -938,7 +840,7 @@ const Home = () => {
               <div className="space-y-8">
                 <div className="relative pl-6 border-l-4 border-black">
                   <div className="absolute left-[-10px] top-1 w-4 h-4 bg-white rounded-full border-2 border-black" />
-                  <p className="text-[10px] text-black/70 uppercase tracking-widest mb-1 font-black">
+                  <p className="text-[11px] text-black/70 uppercase tracking-widest mb-1 font-black">
                     Feb 2026
                   </p>
                   <h4 className="text-base md:text-lg font-black text-black">
@@ -950,7 +852,7 @@ const Home = () => {
                 </div>
                 <div className="relative pl-6 border-l-4 border-black">
                   <div className="absolute left-[-10px] top-1 w-4 h-4 bg-white rounded-full border-2 border-black" />
-                  <p className="text-[10px] text-black/70 uppercase tracking-widest mb-1 font-black">
+                  <p className="text-[11px] text-black/70 uppercase tracking-widest mb-1 font-black">
                     2025
                   </p>
                   <h4 className="text-base md:text-lg font-black text-black">
@@ -962,7 +864,7 @@ const Home = () => {
                 </div>
                 <div className="relative pl-6 border-l-4 border-black">
                   <div className="absolute left-[-10px] top-1 w-4 h-4 bg-white rounded-full border-2 border-black" />
-                  <p className="text-[10px] text-black/70 uppercase tracking-widest mb-1 font-black">
+                  <p className="text-[11px] text-black/70 uppercase tracking-widest mb-1 font-black">
                     2024
                   </p>
                   <h4 className="text-base md:text-lg font-black text-black">
@@ -974,7 +876,7 @@ const Home = () => {
                 </div>
                 <div className="relative pl-6 border-l-4 border-black">
                   <div className="absolute left-[-10px] top-1 w-4 h-4 bg-white rounded-full border-2 border-black" />
-                  <p className="text-[10px] text-black/70 uppercase tracking-widest mb-1 font-black">
+                  <p className="text-[11px] text-black/70 uppercase tracking-widest mb-1 font-black">
                     Community
                   </p>
                   <h4 className="text-base md:text-lg font-black text-black">
@@ -986,7 +888,7 @@ const Home = () => {
                 </div>
                 <div className="relative pl-6 border-l-4 border-black">
                   <div className="absolute left-[-10px] top-1 w-4 h-4 bg-white rounded-full border-2 border-black" />
-                  <p className="text-[10px] text-black/70 uppercase tracking-widest mb-1 font-black">
+                  <p className="text-[11px] text-black/70 uppercase tracking-widest mb-1 font-black">
                     Practice
                   </p>
                   <h4 className="text-base md:text-lg font-black text-black">
@@ -1005,7 +907,7 @@ const Home = () => {
                 <h3 className="text-3xl md:text-4xl font-black mb-3 text-black leading-tight uppercase">
                   Resume
                 </h3>
-                <p className="text-black/65 mb-8 max-w-[240px] text-[10px] leading-relaxed font-black uppercase tracking-[0.2em]">
+                <p className="text-black/65 mb-8 max-w-[240px] text-[11px] leading-relaxed font-black uppercase tracking-[0.2em]">
                   Full Details — {new Date().getFullYear()}
                 </p>
                 <a
@@ -1028,10 +930,10 @@ const Home = () => {
       {/* FOOTER / CONTACT */}
       <footer
         id="contact"
-        className="py-24 md:py-40 px-6 md:px-12 lg:px-24 bg-[#C5F542] text-black relative overflow-hidden border-t-2 border-black"
+        className="pt-24 pb-32 md:py-40 px-6 md:px-12 lg:px-24 bg-[#C5F542] text-black relative overflow-hidden border-t-2 border-black"
       >
         <div className="max-w-7xl mx-auto text-center relative z-10">
-          <span className="inline-block bg-white text-black px-4 py-1.5 rounded-full border-2 border-black text-[10px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000] mb-10">
+          <span className="inline-block bg-white text-black px-4 py-1.5 rounded-full border-2 border-black text-[11px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000] mb-10">
             Let's Talk
           </span>
           <h2 className="text-[15vw] md:text-[14vw] font-black tracking-tighter mb-12 md:mb-20 leading-none text-black select-none">
@@ -1073,10 +975,10 @@ const Home = () => {
           </div>
 
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-10 md:pt-16 border-t-2 border-black">
-            <p className="text-black/80 font-mono text-[10px] uppercase tracking-[0.25em] md:tracking-[0.5em] font-black">
+            <p className="text-black/80 font-mono text-[11px] uppercase tracking-[0.25em] md:tracking-[0.5em] font-black">
               Faiz Zubair Vadakkayil / {new Date().getFullYear()}
             </p>
-            <div className="flex gap-6 md:gap-12 text-[10px] uppercase font-black text-black/70 tracking-widest">
+            <div className="flex gap-6 md:gap-12 text-[11px] uppercase font-black text-black/70 tracking-widest">
               <span>Synup</span>
               <span>Kerala, IN</span>
             </div>

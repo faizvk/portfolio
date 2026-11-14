@@ -1,14 +1,58 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import { ArrowLeft, Github, ExternalLink, CircleCheck } from "lucide-react";
 import { docContent } from "./utils/docContent";
+import ProjectScene from "../components/ProjectScene";
+import { fadeIn } from "../animations/fadeIn";
 
 export default function ProjectDoc() {
   const { slug } = useParams();
   const doc = docContent[slug];
+  const heroRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    if (doc) document.title = `${doc.title} — Faiz Zubair`;
+    return () => {
+      document.title = "Faiz Zubair — Software Engineer";
+    };
+  }, [slug, doc]);
+
+  // Hero fades + drifts up as you scroll past it; the scene behind zooms gently.
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el) return;
+    let frame = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const p = Math.min(1, window.scrollY / (el.offsetHeight * 0.9));
+        el.style.setProperty("--hero-p", p.toFixed(3));
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [slug]);
+
+  // Reveal sections as they enter the viewport
+  useEffect(() => {
+    const els = document.querySelectorAll("[data-fade='true']");
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
+        }),
+      { threshold: 0.1, rootMargin: "0px 0px -8% 0px" }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
   }, [slug]);
 
   if (!doc) return <Navigate to="/" replace />;
@@ -20,7 +64,7 @@ export default function ProjectDoc() {
           <Link
             to="/"
             aria-label="Back to home"
-            className="inline-flex items-center gap-2 bg-white border-2 border-black rounded-full px-4 py-2 text-[10px] md:text-xs uppercase tracking-widest font-black shadow-[3px_3px_0_0_#000] hover:shadow-[1px_1px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+            className="inline-flex items-center gap-2 bg-white border-2 border-black rounded-full px-4 py-2 text-[11px] md:text-xs uppercase tracking-widest font-black shadow-[3px_3px_0_0_#000] hover:shadow-[1px_1px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
           >
             <ArrowLeft size={14} /> Back
           </Link>
@@ -30,16 +74,24 @@ export default function ProjectDoc() {
         </div>
       </nav>
 
-      <main className="max-w-5xl mx-auto px-6 md:px-10 py-12 md:py-20">
+      <header
+        ref={heroRef}
+        className="doc-hero relative overflow-hidden border-b-2 border-black min-h-[78vh] flex items-center"
+      >
+        <div className="doc-hero-scene absolute inset-0">
+          <ProjectScene slug={slug} />
+        </div>
+        <div className="doc-hero-veil absolute inset-0" />
+        <div className="doc-hero-content relative z-10 w-full max-w-5xl mx-auto px-6 md:px-10 py-16 md:py-24">
         <div className="anim-fade-up">
           <div className="flex flex-wrap items-center gap-3 mb-6">
-            <span className="px-3 py-1 bg-[#C5F542] text-black rounded-full border-2 border-black font-mono text-[10px] font-bold tracking-widest uppercase">
+            <span className="px-3 py-1 bg-[#C5F542] text-black rounded-full border-2 border-black font-mono text-[11px] font-bold tracking-widest uppercase">
               {doc.status}
             </span>
-            <span className="px-3 py-1 bg-white text-black rounded-full border-2 border-black font-mono text-[10px] font-bold tracking-widest uppercase">
+            <span className="px-3 py-1 bg-white text-black rounded-full border-2 border-black font-mono text-[11px] font-bold tracking-widest uppercase">
               {doc.role}
             </span>
-            <span className="text-black/65 font-mono text-[10px] tracking-[0.2em] uppercase font-bold">
+            <span className="text-black/65 font-mono text-[11px] tracking-[0.2em] uppercase font-bold">
               {doc.timeline}
             </span>
           </div>
@@ -52,7 +104,7 @@ export default function ProjectDoc() {
             {doc.tagline}
           </p>
 
-          <p className="text-base md:text-lg leading-relaxed text-black/75 max-w-3xl font-medium mb-10">
+          <p className="text-base md:text-lg leading-relaxed text-black/80 max-w-2xl font-medium mb-10">
             {doc.summary}
           </p>
 
@@ -77,8 +129,11 @@ export default function ProjectDoc() {
             )}
           </div>
         </div>
+        </div>
+      </header>
 
-        <section className="mt-16 md:mt-24">
+      <main className="max-w-5xl mx-auto px-6 md:px-10 py-12 md:py-20">
+        <section {...fadeIn({ direction: "up" })}>
           <h2 className="inline-block text-sm md:text-base font-black uppercase tracking-[0.3em] bg-black text-[#C5F542] px-4 py-2 rounded-full mb-8">
             Tech Stack
           </h2>
@@ -88,7 +143,7 @@ export default function ProjectDoc() {
                 key={group}
                 className="skill-card bg-white border-2 border-black rounded-2xl p-5 md:p-6 shadow-[4px_4px_0_0_#000]"
               >
-                <h4 className="text-[10px] md:text-[11px] uppercase tracking-[0.3em] text-black font-black mb-4 border-b-2 border-black pb-2">
+                <h4 className="text-[11px] md:text-[11px] uppercase tracking-[0.3em] text-black font-black mb-4 border-b-2 border-black pb-2">
                   {group}
                 </h4>
                 <ul className="space-y-2">
@@ -107,7 +162,7 @@ export default function ProjectDoc() {
           </div>
         </section>
 
-        <section className="mt-16 md:mt-24">
+        <section className="mt-16 md:mt-24" {...fadeIn({ direction: "up" })}>
           <h2 className="inline-block text-sm md:text-base font-black uppercase tracking-[0.3em] bg-black text-[#C5F542] px-4 py-2 rounded-full mb-8">
             Highlights
           </h2>
@@ -131,7 +186,7 @@ export default function ProjectDoc() {
 
         <section className="mt-16 md:mt-24 space-y-12 md:space-y-16">
           {doc.sections.map((s, i) => (
-            <article key={i}>
+            <article key={i} {...fadeIn({ direction: i % 2 ? "left" : "right" })}>
               <h3 className="text-2xl md:text-4xl font-black tracking-tighter mb-4 md:mb-6 text-black">
                 {s.title}
               </h3>
@@ -149,7 +204,7 @@ export default function ProjectDoc() {
           >
             <ArrowLeft size={14} /> All Projects
           </Link>
-          <p className="text-black/65 font-mono text-[10px] uppercase tracking-[0.4em] font-black">
+          <p className="text-black/65 font-mono text-[11px] uppercase tracking-[0.4em] font-black">
             Faiz Zubair / {new Date().getFullYear()}
           </p>
         </div>

@@ -1,0 +1,123 @@
+/* Scene wrapper: fills its box; animations only run while on screen */
+.scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.scene svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.scene * {
+  animation-duration: 9s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+  animation-play-state: paused;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.scene.is-playing * {
+  animation-play-state: running;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene * {
+    animation: none !important;
+  }
+}
+
+/* Shared */
+.scene .pan { animation-name: sc-pan; animation-timing-function: linear; }
+@keyframes sc-pan { from { transform: translate(0, 0); } to { transform: translate(50px, 50px); } }
+
+/* ---------- NexKart: browse → add to cart → checkout → paid → shipped ---------- */
+.nk-prod { animation-name: nk-prod; }
+.nk-prod-1 { animation-delay: 0.15s; }
+.nk-prod-2 { animation-name: nk-prod-pick; animation-delay: 0.3s; }
+@keyframes nk-prod { 0% { opacity: 0; transform: translateY(20px); } 8%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+@keyframes nk-prod-pick { 0% { opacity: 0; transform: translateY(20px); } 8% { opacity: 1; transform: none; } 16%, 19% { transform: scale(1.06); } 22%, 92% { transform: none; opacity: 1; } 100% { opacity: 0; } }
+.nk-fly { animation-name: nk-fly; animation-timing-function: ease-in-out; opacity: 0; }
+@keyframes nk-fly {
+  0%, 20% { opacity: 0; transform: translate(0, 0) scale(1); }
+  22% { opacity: 1; transform: translate(0, 0) scale(1); }
+  32% { opacity: 1; transform: translate(245px, 40px) scale(0.3); }
+  34%, 100% { opacity: 0; transform: translate(245px, 40px) scale(0.2); }
+}
+.nk-bag { animation-name: nk-bag; }
+@keyframes nk-bag { 0%, 32% { transform: none; } 35% { transform: scale(1.08, 0.94); } 38%, 100% { transform: none; } }
+.nk-badge { animation-name: nk-badge; }
+@keyframes nk-badge { 0%, 32% { opacity: 0; transform: scale(0); } 37%, 92% { opacity: 1; transform: scale(1); } 100% { opacity: 0; } }
+.nk-step { animation-name: nk-step; opacity: 0.25; }
+.nk-step-0 { animation-delay: 3.2s; }
+.nk-step-1 { animation-delay: 4s; }
+.nk-step-2 { animation-delay: 4.8s; }
+.nk-step-3 { animation-delay: 5.6s; }
+@keyframes nk-step { 0% { opacity: 0.25; transform: scale(0.94); } 5% { opacity: 1; transform: scale(1.05); } 8%, 35% { opacity: 1; transform: none; } 45%, 100% { opacity: 0.25; } }
+.nk-line { animation-name: nk-line; transform-origin: left center; transform: scaleX(0); }
+.nk-line-1 { animation-delay: 3.6s; }
+.nk-line-2 { animation-delay: 4.4s; }
+.nk-line-3 { animation-delay: 5.2s; }
+@keyframes nk-line { 0% { transform: scaleX(0); } 6%, 35% { transform: scaleX(1); } 45%, 100% { transform: scaleX(0); } }
+.nk-toast { animation-name: nk-toast; }
+@keyframes nk-toast { 0%, 55% { opacity: 0; translate: 0 16px; } 60%, 88% { opacity: 1; translate: 0 0; scale: 1; rotate: 0deg; } 95%, 100% { opacity: 0; } }
+
+/* ---------- Promptive AI: type prompt → dispatcher picks a model → image + voice ---------- */
+.pa-typing { animation-name: pa-type; animation-timing-function: steps(27); transform-origin: left center; }
+@keyframes pa-type { 0% { transform: scaleX(0); } 22%, 90% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+.pa-progress { animation-name: pa-progress; animation-timing-function: linear; }
+@keyframes pa-progress { 0%, 24% { width: 0; } 45%, 90% { width: 336px; } 100% { width: 0; } }
+.pa-orbit { animation-name: pa-orbit; animation-timing-function: linear; transform-origin: 0 0; transform-box: view-box; }
+@keyframes pa-orbit { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+.pa-model { animation-name: pa-counter; animation-timing-function: linear; }
+@keyframes pa-counter { from { transform: rotate(0); } to { transform: rotate(-360deg); } }
+.pa-core { animation-name: pa-core; }
+@keyframes pa-core { 0%, 24% { transform: scale(1); } 30% { transform: scale(1.35); fill: #fff; } 36%, 100% { transform: scale(1); } }
+.pa-tile { animation-name: pa-tile; opacity: 0; }
+.pa-tile-1 { animation-delay: 0.25s; }
+.pa-tile-2 { animation-delay: 0.5s; }
+@keyframes pa-tile { 0%, 40% { opacity: 0; scale: 0.6; rotate: -6deg; } 48%, 90% { opacity: 1; translate: 0 0; scale: 1; rotate: 0deg; } 100% { opacity: 0; } }
+.pa-wave { animation-name: pa-wave; }
+@keyframes pa-wave { 0%, 55% { opacity: 0; translate: 0 14px; } 62%, 90% { opacity: 1; translate: 0 0; scale: 1; rotate: 0deg; } 100% { opacity: 0; } }
+.pa-bar { animation-name: pa-bar; animation-duration: 0.9s; animation-timing-function: ease-in-out; animation-direction: alternate; }
+@keyframes pa-bar { from { transform: scaleY(0.25); } to { transform: scaleY(1); } }
+
+/* ---------- Pursuit / JobPilot: search → matched jobs stream in → card moves through kanban ---------- */
+.jp-typing { animation-name: jp-type; animation-timing-function: steps(30); transform-origin: left center; }
+@keyframes jp-type { 0% { transform: scaleX(0); } 20%, 92% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+.jp-job { animation-name: jp-job; opacity: 0; }
+.jp-job-0 { animation-delay: 0s; }
+.jp-job-1 { animation-delay: 0.3s; }
+.jp-job-2 { animation-delay: 0.6s; }
+@keyframes jp-job { 0%, 22% { opacity: 0; translate: -30px 0; } 30%, 90% { opacity: 1; translate: 0 0; scale: 1; rotate: 0deg; } 97%, 100% { opacity: 0; } }
+.jp-bar { animation-name: jp-bar; transform-origin: left center; }
+@keyframes jp-bar { 0%, 30% { transform: scaleX(0); } 40%, 92% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+.jp-card { animation-name: jp-card; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+@keyframes jp-card {
+  0%, 42% { opacity: 0; transform: translateY(0) scale(0.9); }
+  46%, 54% { opacity: 1; transform: translateY(0) scale(1); }
+  62%, 70% { opacity: 1; transform: translateY(105px); }
+  78%, 90% { opacity: 1; transform: translateY(210px); }
+  96%, 100% { opacity: 0; transform: translateY(210px); }
+}
+
+/* ---------- SmartChain: bid doc → AI check → hash → new block on chain → IPFS lock ---------- */
+.sc-doc { animation-name: sc-doc; }
+@keyframes sc-doc { 0% { opacity: 0; translate: 0 20px; } 8%, 90% { opacity: 1; translate: 0 0; scale: 1; rotate: 0deg; } 100% { opacity: 0; } }
+.sc-ai { animation-name: sc-ai; }
+@keyframes sc-ai { 0%, 12% { opacity: 0; scale: 0.9; } 18%, 90% { opacity: 1; translate: 0 0; scale: 1; rotate: 0deg; } 100% { opacity: 0; } }
+.sc-hash { animation-name: sc-hash; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+@keyframes sc-hash {
+  0%, 24% { opacity: 0; transform: translate(0, 0); }
+  28% { opacity: 1; transform: translate(0, 0); }
+  48% { opacity: 1; transform: translate(400px, 40px) scale(0.6); }
+  52%, 100% { opacity: 0; transform: translate(400px, 40px) scale(0.5); }
+}
+.sc-block { animation-name: sc-block; }
+.sc-block-1 { animation-delay: 0.1s; }
+.sc-block-2 { animation-delay: 0.2s; }
+.sc-block-3 { animation-name: sc-block-new; }
+@keyframes sc-block { 0% { opacity: 0; } 8%, 92% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes sc-block-new { 0%, 48% { opacity: 0; scale: 0.4; } 54% { opacity: 1; scale: 1.12; } 58%, 92% { opacity: 1; translate: 0 0; scale: 1; rotate: 0deg; } 100% { opacity: 0; } }
+.sc-ipfs { animation-name: sc-ipfs; }
+@keyframes sc-ipfs { 0%, 60% { opacity: 0; translate: 0 14px; } 66%, 92% { opacity: 1; translate: 0 0; scale: 1; rotate: 0deg; } 100% { opacity: 0; } }
