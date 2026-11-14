@@ -23,6 +23,7 @@ import {
 import { fadeIn } from "../animations/fadeIn";
 import { mainProjects } from "./utils/mainProjects";
 import ProjectScene from "../components/ProjectScene";
+import WorkScene from "../components/WorkScene";
 import HeroBackdrop from "../components/HeroBackdrop";
 import { HeroTerminal, SpinBadge, TechMarquee } from "../components/HeroExtras";
 import { sideProjects } from "./utils/sideProjects";
@@ -436,29 +437,30 @@ const Home = () => {
                 ].map((p, i) => (
                   <article
                     key={i}
-                    className="flex flex-col bg-[#FAFAF7] border-2 border-black rounded-2xl p-5 md:p-6 hover:bg-[#EEFBC9] transition-colors"
+                    className="group relative overflow-hidden flex flex-col bg-[#FAFAF7] border-2 border-black rounded-2xl p-5 md:p-6 hover:bg-[#EEFBC9] transition-colors"
                     {...fadeIn({
                       direction: "up",
                       distance: 60,
                       duration: 0.9,
                     })}
                   >
-                    <h5 className="text-base md:text-lg font-black tracking-tight text-black mb-3">
+                    <WorkScene index={i} />
+                    <h5 className="relative text-base md:text-lg font-black tracking-tight text-black mb-3">
                       {p.title}
                     </h5>
-                    <p className="text-xs md:text-sm font-semibold text-black/70 mb-3 leading-relaxed">
+                    <p className="relative text-xs md:text-sm font-semibold text-black/70 mb-3 leading-relaxed">
                       <span className="font-mono text-[11px] uppercase tracking-widest text-black/55 font-black mr-1">
                         Problem ·
                       </span>
                       {p.problem}
                     </p>
-                    <p className="text-xs md:text-sm text-black/70 mb-4 leading-relaxed font-medium flex-1">
+                    <p className="relative text-xs md:text-sm text-black/70 mb-4 leading-relaxed font-medium flex-1">
                       <span className="font-mono text-[11px] uppercase tracking-widest text-black/55 font-black mr-1">
                         Built ·
                       </span>
                       {p.built}
                     </p>
-                    <div className="flex flex-wrap gap-1.5 pt-3 border-t-2 border-black/10">
+                    <div className="relative flex flex-wrap gap-1.5 pt-3 border-t-2 border-black/10">
                       {p.tech.map((t) => (
                         <span
                           key={t}

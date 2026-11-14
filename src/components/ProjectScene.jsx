@@ -249,10 +249,10 @@ function SmartChain() {
 
 const SCENES = { nexkart: NexKart, "promptive-ai": Promptive, jobpilot: Pursuit, smartchain: SmartChain };
 
-export default function ProjectScene({ slug, className = "" }) {
+// Wrapper that only runs a scene's CSS animations while it is on screen.
+export function SceneFrame({ children, className = "" }) {
   const ref = useRef(null);
   const [playing, setPlaying] = useState(false);
-  const Scene = SCENES[slug];
 
   useEffect(() => {
     const el = ref.current;
@@ -262,10 +262,19 @@ export default function ProjectScene({ slug, className = "" }) {
     return () => io.disconnect();
   }, []);
 
-  if (!Scene) return null;
   return (
     <div ref={ref} className={`scene ${playing ? "is-playing" : ""} ${className}`} aria-hidden="true">
-      <Scene />
+      {children}
     </div>
+  );
+}
+
+export default function ProjectScene({ slug, className = "" }) {
+  const Scene = SCENES[slug];
+  if (!Scene) return null;
+  return (
+    <SceneFrame className={className}>
+      <Scene />
+    </SceneFrame>
   );
 }

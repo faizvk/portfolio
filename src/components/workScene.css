@@ -1,0 +1,63 @@
+/* Faint by default, stronger on card hover. Uses individual transform
+   properties so SVG position attributes are not overridden. */
+.work-scene {
+  opacity: 0.24;
+  transition: opacity 0.4s ease;
+}
+.group:hover .work-scene {
+  opacity: 0.45;
+}
+.work-scene * {
+  animation-duration: 6s;
+}
+
+.ws-d1 { animation-delay: 0.3s; }
+.ws-d2 { animation-delay: 0.6s; }
+
+/* Agents */
+.ws-bubble { animation-name: ws-pop; }
+@keyframes ws-pop { 0% { opacity: 0; scale: 0.8; } 8%, 90% { opacity: 1; scale: 1; } 100% { opacity: 0; } }
+.ws-wire { animation-name: ws-dash; animation-timing-function: linear; }
+@keyframes ws-dash { to { stroke-dashoffset: -66; } }
+.ws-node { animation-name: ws-node; }
+@keyframes ws-node { 0%, 15% { opacity: 0.2; scale: 0.8; } 25%, 85% { opacity: 1; scale: 1; } 100% { opacity: 0.2; } }
+.ws-result { animation-name: ws-result; }
+@keyframes ws-result { 0%, 40% { opacity: 0; translate: 0 30px; } 52%, 90% { opacity: 1; translate: 0 0; } 100% { opacity: 0; } }
+
+/* Webhooks */
+.ws-tick { animation-name: ws-tick; }
+@keyframes ws-tick { 0%, 30% { scale: 0; } 40%, 85% { scale: 1; } 100% { scale: 0; } }
+
+/* Scan report */
+.ws-gauge { stroke-dasharray: 100; animation-name: ws-gauge; }
+@keyframes ws-gauge { 0% { stroke-dashoffset: 100; } 50%, 85% { stroke-dashoffset: 18; } 100% { stroke-dashoffset: 100; } }
+.ws-needle { transform-origin: 50% 100%; animation-name: ws-needle; }
+@keyframes ws-needle { 0% { rotate: -90deg; } 50%, 85% { rotate: 58deg; } 100% { rotate: -90deg; } }
+.ws-bar { transform-origin: bottom; animation-name: ws-bar; }
+@keyframes ws-bar { 0% { scale: 1 0.05; } 45%, 85% { scale: 1 var(--h); } 100% { scale: 1 0.05; } }
+
+/* Lead-gen */
+.ws-widget { animation-name: ws-widget; }
+@keyframes ws-widget { 0%, 10% { opacity: 0; translate: 40px 0; } 22%, 88% { opacity: 1; translate: 0 0; } 100% { opacity: 0; } }
+
+/* Support */
+.ws-bell { animation-name: ws-ring; animation-timing-function: ease-in-out; }
+@keyframes ws-ring { 0%, 30%, 100% { rotate: 0deg; } 5%, 15%, 25% { rotate: 14deg; } 10%, 20% { rotate: -14deg; } }
+.ws-bug { animation-name: ws-bug; }
+@keyframes ws-bug { 0%, 35% { opacity: 1; scale: 1; } 45%, 90% { opacity: 0; scale: 0.3; } 100% { opacity: 1; scale: 1; } }
+.ws-fixed { animation-name: ws-fixed; }
+@keyframes ws-fixed { 0%, 40% { opacity: 0; scale: 0.3; } 50%, 88% { opacity: 1; scale: 1; } 100% { opacity: 0; } }
+.ws-pulse { stroke-dasharray: 100; animation-name: ws-draw; animation-timing-function: linear; }
+@keyframes ws-draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: -100; } }
+
+/* Infra */
+.ws-pod { animation-name: ws-pod; }
+.ws-p2 { animation-delay: 0.4s; }
+.ws-p3 { animation-delay: 0.8s; }
+@keyframes ws-pod { 0%, 10% { opacity: 0; scale: 0.2; } 22%, 85% { opacity: 1; scale: 1; } 100% { opacity: 0; } }
+.ws-scale { animation-name: ws-pop; animation-delay: 1.2s; }
+.ws-step { animation-name: ws-step; opacity: 0; }
+.ws-s1 { animation-delay: 0.6s; }
+.ws-s2 { animation-delay: 1.2s; }
+.ws-s3 { animation-delay: 1.8s; }
+@keyframes ws-step { 0%, 30% { opacity: 0; } 38%, 80% { opacity: 1; } 100% { opacity: 0; } }
