@@ -39,7 +39,7 @@ export function HeroTerminal() {
 
   const start = Math.max(0, line - 2);
   return (
-    <div className="hero-terminal w-[290px] sm:w-[330px] bg-black text-white rounded-2xl border-2 border-black shadow-[6px_6px_0_0_#C5F542] p-4 font-mono text-[11px] sm:text-xs leading-relaxed">
+    <div className="hero-terminal select-none w-[290px] sm:w-[330px] bg-black text-white rounded-2xl border-2 border-black shadow-[6px_6px_0_0_#C5F542] p-4 font-mono text-[11px] sm:text-xs leading-relaxed">
       <div className="flex items-center gap-1.5 mb-3">
         <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
         <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
@@ -64,7 +64,7 @@ export function HeroTerminal() {
 export function SpinBadge() {
   const text = "AI AGENTS • MCP • WEBHOOKS • APIS • FULL-STACK • ";
   return (
-    <div className="spin-badge relative w-28 h-28 sm:w-32 sm:h-32" aria-hidden="true">
+    <div className="spin-badge select-none relative w-28 h-28 sm:w-32 sm:h-32" aria-hidden="true">
       <svg viewBox="0 0 120 120" className="spin-badge-ring absolute inset-0 w-full h-full">
         <defs>
           <path id="spin-circle" d="M60 60 m-47 0 a47 47 0 1 1 94 0 a47 47 0 1 1 -94 0" />
