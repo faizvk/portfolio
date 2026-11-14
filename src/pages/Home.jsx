@@ -23,6 +23,7 @@ import {
 import { fadeIn } from "../animations/fadeIn";
 import { mainProjects } from "./utils/mainProjects";
 import ProjectScene from "../components/ProjectScene";
+import HeroBackdrop from "../components/HeroBackdrop";
 import { sideProjects } from "./utils/sideProjects";
 import { skills } from "./utils/skills";
 
@@ -35,7 +36,14 @@ const Home = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const hero = document.getElementById("top-hero");
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+      if (hero) {
+        const p = Math.min(1, window.scrollY / (hero.offsetHeight * 0.8));
+        hero.style.setProperty("--hero-p", p.toFixed(3));
+      }
+    };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -193,7 +201,14 @@ const Home = () => {
       )}
 
       {/* HERO */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 relative pt-24 pb-20 md:pb-12">
+      <section
+        id="top-hero"
+        className="home-hero min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 relative overflow-hidden pt-24 pb-20 md:pb-12"
+      >
+        <div className="home-hero-bg absolute inset-0">
+          <HeroBackdrop />
+        </div>
+        <div className="home-hero-veil absolute inset-0 pointer-events-none" />
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10 max-w-7xl mx-auto w-full">
           <div className="anim-fade-up order-1">
             <div className="flex items-center gap-3 mb-6 md:mb-8 flex-wrap">
