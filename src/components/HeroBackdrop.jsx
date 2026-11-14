@@ -1,90 +1,123 @@
 import { useEffect, useRef } from "react";
 
-// Hero background: a faint network of the systems Faiz works across, with
-// lime "data" pulses travelling between them. Pulses use SVG animateMotion,
-// paused while off-screen or when the visitor prefers reduced motion.
-
-const NODES = {
-  claude: [110, 150, "Claude"],
-  mcp: [640, 120, "MCP"],
-  chatgpt: [1060, 70, "ChatGPT"],
-  kafka: [790, 430, "Kafka"],
-  api: [720, 760, "REST API"],
-  hook: [330, 860, "Webhooks"],
-  rails: [1370, 840, "Rails"],
-  next: [40, 560, "Next.js"],
-};
-
-const LINKS = [
-  ["claude", "mcp", "M110 150 C 300 60, 470 220, 640 120"],
-  ["mcp", "chatgpt", "M640 120 C 800 40, 900 140, 1060 70"],
-  ["mcp", "kafka", "M640 120 C 700 260, 860 300, 790 430"],
-  ["kafka", "api", "M790 430 C 900 560, 640 620, 720 760"],
-  ["kafka", "rails", "M790 430 C 1000 520, 1200 900, 1370 840"],
-  ["api", "hook", "M720 760 C 600 900, 450 780, 330 860"],
-  ["next", "claude", "M40 560 C 0 400, 160 300, 110 150"],
-  ["hook", "next", "M330 860 C 150 900, 60 760, 40 560"],
-];
+// Interactive hero background: a particle network that links nearby dots and
+// reaches toward the cursor. Pauses off-screen; static for reduced motion.
 
 export default function HeroBackdrop() {
   const ref = useRef(null);
 
   useEffect(() => {
-    const svg = ref.current;
-    if (!svg) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const canvas = ref.current;
+    const ctx = canvas.getContext("2d");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const mouse = { x: -9999, y: -9999 };
+    let w = 0, h = 0, dpr = 1, dots = [], raf = 0, visible = true;
+
+    const resize = () => {
+      const r = canvas.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = r.width;
+      h = r.height;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const n = Math.min(120, Math.round((w * h) / 12000));
+      dots = Array.from({ length: n }, (_, i) => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.45,
+        vy: (Math.random() - 0.5) * 0.45,
+        r: Math.random() * 1.8 + 1.4,
+        lime: i % 4 === 0,
+      }));
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+      for (const d of dots) {
+        if (!reduce) {
+          const dx = d.x - mouse.x, dy = d.y - mouse.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 140 && dist > 0) {
+            d.vx += (dx / dist) * 0.06;
+            d.vy += (dy / dist) * 0.06;
+          }
+          d.vx *= 0.985;
+          d.vy *= 0.985;
+          if (Math.abs(d.vx) < 0.12) d.vx += (Math.random() - 0.5) * 0.05;
+          if (Math.abs(d.vy) < 0.12) d.vy += (Math.random() - 0.5) * 0.05;
+          d.x += d.vx;
+          d.y += d.vy;
+          if (d.x < 0 || d.x > w) d.vx *= -1;
+          if (d.y < 0 || d.y > h) d.vy *= -1;
+        }
+      }
+      for (let i = 0; i < dots.length; i++) {
+        const a = dots[i];
+        for (let j = i + 1; j < dots.length; j++) {
+          const b = dots[j];
+          const dist = Math.hypot(a.x - b.x, a.y - b.y);
+          if (dist < 130) {
+            ctx.strokeStyle = `rgba(0,0,0,${0.16 * (1 - dist / 130)})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+        const md = Math.hypot(a.x - mouse.x, a.y - mouse.y);
+        if (md < 200) {
+          ctx.strokeStyle = `rgba(155,201,31,${0.9 * (1 - md / 200)})`;
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
+        }
+      }
+      for (const d of dots) {
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, d.lime ? d.r + 1.2 : d.r, 0, Math.PI * 2);
+        ctx.fillStyle = d.lime ? "#C5F542" : "rgba(0,0,0,.35)";
+        ctx.fill();
+        if (d.lime) {
+          ctx.lineWidth = 1.2;
+          ctx.strokeStyle = "#000";
+          ctx.stroke();
+        }
+      }
+      if (visible && !reduce) raf = requestAnimationFrame(draw);
+    };
+
+    const onMove = (e) => {
+      const r = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - r.left;
+      mouse.y = e.clientY - r.top;
+    };
+    const onLeave = () => {
+      mouse.x = mouse.y = -9999;
+    };
     const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !reduce.matches) svg.unpauseAnimations();
-      else svg.pauseAnimations();
+      visible = e.isIntersecting;
+      cancelAnimationFrame(raf);
+      if (visible) draw();
     });
-    io.observe(svg);
-    if (reduce.matches) svg.pauseAnimations();
-    return () => io.disconnect();
+
+    resize();
+    draw();
+    io.observe(canvas);
+    window.addEventListener("resize", resize);
+    window.addEventListener("pointermove", onMove, { passive: true });
+    document.addEventListener("pointerleave", onLeave);
+    return () => {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("pointermove", onMove);
+      document.removeEventListener("pointerleave", onLeave);
+    };
   }, []);
 
-  return (
-    <svg
-      ref={ref}
-      className="hero-backdrop absolute inset-0 w-full h-full pointer-events-none"
-      viewBox="0 0 1440 900"
-      preserveAspectRatio="xMidYMid slice"
-      aria-hidden="true"
-    >
-      <defs>
-        <pattern id="hb-grid" width="48" height="48" patternUnits="userSpaceOnUse">
-          <path d="M48 0H0V48" fill="none" stroke="#000" strokeOpacity=".045" />
-        </pattern>
-        <radialGradient id="hb-glow" cx=".5" cy=".5" r=".5">
-          <stop offset="0" stopColor="#C5F542" stopOpacity=".55" />
-          <stop offset="1" stopColor="#C5F542" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-
-      <rect x="-48" y="-48" width="1536" height="996" fill="url(#hb-grid)" className="hb-pan" />
-      <circle cx="790" cy="430" r="260" fill="url(#hb-glow)" className="hb-breathe" />
-
-      {LINKS.map(([, , d], i) => (
-        <g key={i}>
-          <path id={`hb-l${i}`} d={d} fill="none" stroke="#000" strokeOpacity=".12" strokeWidth="1.5" strokeDasharray="4 8" className="hb-flow" />
-          <circle r="5" fill="#9BC91F" stroke="#000" strokeWidth="1.5">
-            <animateMotion dur={`${5 + (i % 4)}s`} begin={`${i * 0.7}s`} repeatCount="indefinite" rotate="auto">
-              <mpath href={`#hb-l${i}`} />
-            </animateMotion>
-          </circle>
-        </g>
-      ))}
-
-      {Object.entries(NODES).map(([k, [x, y, label]], i) => (
-        <g key={k} transform={`translate(${x},${y})`}>
-          <g className="hb-node" style={{ animationDelay: `${i * 0.6}s` }}>
-            <rect x={-label.length * 5 - 18} y="-17" width={label.length * 10 + 36} height="34" rx="17" fill="#fff" stroke="#000" strokeOpacity=".35" strokeWidth="1.5" />
-            <circle cx={-label.length * 5 - 4} r="4" fill="#C5F542" stroke="#000" strokeOpacity=".5" />
-            <text x="6" y="5" textAnchor="middle" fontFamily="Geist Mono, ui-monospace, monospace" fontSize="13" fontWeight="700" fill="#000" fillOpacity=".55">
-              {label}
-            </text>
-          </g>
-        </g>
-      ))}
-    </svg>
-  );
+  return <canvas ref={ref} className="absolute inset-0 w-full h-full" aria-hidden="true" />;
 }

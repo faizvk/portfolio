@@ -24,6 +24,7 @@ import { fadeIn } from "../animations/fadeIn";
 import { mainProjects } from "./utils/mainProjects";
 import ProjectScene from "../components/ProjectScene";
 import HeroBackdrop from "../components/HeroBackdrop";
+import { HeroTerminal, SpinBadge, TechMarquee } from "../components/HeroExtras";
 import { sideProjects } from "./utils/sideProjects";
 import { skills } from "./utils/skills";
 
@@ -279,7 +280,25 @@ const Home = () => {
 
           <div className="anim-fade-in relative flex justify-center lg:justify-end order-2">
             <div
-              className="relative w-full max-w-[240px] sm:max-w-[340px] lg:max-w-[460px] aspect-4/5 rounded-[2rem] border-2 border-black bg-[#C5F542] overflow-hidden shadow-[8px_8px_0_0_#000]"
+              className="photo-tilt relative w-full max-w-[240px] sm:max-w-[340px] lg:max-w-[460px]"
+              onPointerMove={(e) => {
+                const r = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.setProperty("--ry", `${((e.clientX - r.left) / r.width - 0.5) * 14}deg`);
+                e.currentTarget.style.setProperty("--rx", `${((e.clientY - r.top) / r.height - 0.5) * -14}deg`);
+              }}
+              onPointerLeave={(e) => {
+                e.currentTarget.style.setProperty("--rx", "0deg");
+                e.currentTarget.style.setProperty("--ry", "0deg");
+              }}
+            >
+            <div className="absolute -top-10 -right-6 sm:-right-10 z-20">
+              <SpinBadge />
+            </div>
+            <div className="hidden md:block absolute -bottom-12 -left-24 lg:-left-32 z-20">
+              <HeroTerminal />
+            </div>
+            <div
+              className="photo-tilt-card relative w-full max-w-[240px] sm:max-w-[340px] lg:max-w-[460px] aspect-4/5 rounded-[2rem] border-2 border-black bg-[#C5F542] overflow-hidden shadow-[8px_8px_0_0_#000]"
               {...fadeIn({ direction: "left", distance: 80, duration: 0.9 })}
             >
               <img
@@ -288,9 +307,12 @@ const Home = () => {
                 className="w-full h-full object-cover object-top grayscale contrast-110"
               />
             </div>
+            </div>
           </div>
         </div>
       </section>
+
+      <TechMarquee />
 
       {/* EXPERIENCE */}
       <section

@@ -399,43 +399,54 @@ button,
 .home-hero-veil {
   background: linear-gradient(
     90deg,
-    rgba(250, 250, 247, 0.92) 0%,
-    rgba(250, 250, 247, 0.75) 38%,
-    rgba(250, 250, 247, 0) 62%
+    rgba(250, 250, 247, 0.85) 0%,
+    rgba(250, 250, 247, 0.6) 35%,
+    rgba(250, 250, 247, 0) 55%
   );
 }
 @media (max-width: 1023px) {
   .home-hero-veil {
-    background: rgba(250, 250, 247, 0.72);
+    background: rgba(250, 250, 247, 0.6);
   }
 }
-.hb-pan {
-  animation: hb-pan 24s linear infinite;
+
+/* Hero extras: 3D photo tilt, spinning badge, terminal caret, marquee */
+.photo-tilt {
+  --rx: 0deg;
+  --ry: 0deg;
+  perspective: 900px;
 }
-@keyframes hb-pan {
-  to { transform: translate(48px, 48px); }
+.photo-tilt-card {
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 0.25s ease-out;
+  will-change: transform;
 }
-.hb-flow {
-  animation: hb-flow 3s linear infinite;
+.spin-badge-ring {
+  animation: spin-badge 14s linear infinite;
 }
-@keyframes hb-flow {
-  to { stroke-dashoffset: -24; }
+@keyframes spin-badge {
+  to { transform: rotate(360deg); }
 }
-.hb-breathe {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: hb-breathe 7s ease-in-out infinite;
+.hero-terminal {
+  animation: term-float 6s ease-in-out infinite;
 }
-@keyframes hb-breathe {
-  50% { transform: scale(1.15); opacity: 0.7; }
+@keyframes term-float {
+  50% { translate: 0 -10px; }
 }
-.hb-node {
-  animation: hb-float 6s ease-in-out infinite;
+.term-caret {
+  animation: caret 0.9s steps(1) infinite;
+  color: #c5f542;
 }
-@keyframes hb-float {
-  50% { translate: 0 -8px; }
+@keyframes caret {
+  50% { opacity: 0; }
+}
+.marquee-track {
+  animation: marquee 30s linear infinite;
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hb-pan, .hb-flow, .hb-breathe, .hb-node { animation: none; }
-  .home-hero-bg { transform: none; }
+  .spin-badge-ring, .hero-terminal, .marquee-track { animation: none; }
+  .photo-tilt-card { transform: none; }
 }
