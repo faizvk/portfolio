@@ -121,7 +121,7 @@ const Home = () => {
           </a>
 
           {/* Desktop links */}
-          <div className="hidden md:flex gap-7 text-[10px] uppercase tracking-[0.2em] font-bold text-black/60">
+          <div className="hidden md:flex gap-7 text-xs uppercase tracking-[0.2em] font-bold text-black/70">
             {navLinks.map((l) => (
               <a key={l.href} href={l.href} className="nav-link">
                 {l.label}
@@ -249,10 +249,11 @@ const Home = () => {
               {...fadeIn({ direction: "up", distance: 80, duration: 0.9 })}
             >
               <strong className="text-black font-black">Software Engineer</strong>{" "}
-              at <strong className="text-black font-black">Synup</strong>. I
-              work across FastAPI services, React frontends, and the CI/CD that
-              ships them — most recently a customer-facing local-SEO analytics
-              report and the agency dashboard that runs it.
+              at <strong className="text-black font-black">Synup</strong>, a
+              local-marketing SaaS. I build full-stack products with Next.js,
+              React, FastAPI and Rails — from AI agent tools (MCP) that let
+              customers run the product from Claude and ChatGPT, to webhooks,
+              public APIs and analytics reports.
             </p>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
               <a
@@ -356,9 +357,9 @@ const Home = () => {
                   <strong className="text-black font-black">
                     full-stack across FastAPI services and React frontends
                   </strong>{" "}
-                  on a customer-facing analytics report, an agency control
-                  panel, and embeddable widgets that ship the product into
-                  third-party sites.
+                  on AI agent tools, webhooks, public APIs, an analytics report
+                  with its lead-gen widget and agency dashboard, plus production
+                  support across the platform.
                 </p>
               </div>
               <div className="flex md:flex-col gap-2 md:gap-3">
@@ -402,82 +403,52 @@ const Home = () => {
                 >
                 {[
                   {
-                    title: "Local SEO & Reputation Scan Report",
+                    title: "AI Agent Tools (MCP) for Claude & ChatGPT",
                     problem:
-                      "A customer-facing analytics product that scores any business's local SEO, reputation, social, and listing health into a single shareable report.",
+                      "Customers wanted to manage listings, reviews and posts without clicking through dashboards.",
                     built:
-                      "Architected the FastAPI + Postgres backend with async workers and a multi-LLM service layer powering the SEO, SWOT, reputation, social, and listings analyses. Built the GraphQL surface, server-side PDF, and lead-capture + credit gating flow — plus every section of the report UI on the frontend.",
-                    tech: [
-                      "FastAPI",
-                      "PostgreSQL",
-                      "Dramatiq",
-                      "Next.js",
-                      "TypeScript",
-                    ],
+                      "Built MCP (Model Context Protocol) tools with permission controls and interactive in-chat cards, so users manage these features just by asking Claude or ChatGPT.",
+                    tech: ["Python", "MCP", "GraphQL", "TypeScript"],
                   },
                   {
-                    title: "Embeddable Lead-Gen Scan Widget",
+                    title: "Webhooks & Public REST API",
                     problem:
-                      "Partners and agencies needed to drop the scan tool onto any third-party site with one <script> tag, without bloating the host page.",
+                      "Customers had to keep polling the API to find out when their data changed.",
                     built:
-                      "Authored a ~1–3 KB gzip vanilla-TS bundle in three variants — toast, top stripe, and full-page modal — auto-detecting embed mode, with postMessage iframe resizing, vendor identification by domain, and session-level config caching.",
-                    tech: ["TypeScript", "Vite", "postMessage", "IIFE Bundle"],
+                      "Built a webhook system with HMAC-SHA256 signing and reliable Kafka delivery with retries, so customers get instant notifications. Expanded the public REST API with OpenAPI 3 docs.",
+                    tech: ["Kafka", "Rails", "FastAPI", "OpenAPI 3"],
                   },
                   {
-                    title: "Agency Control Plane Dashboard",
+                    title: "Business Scan Report",
                     problem:
-                      "Agencies running the scan product had no operations layer — they needed analytics, lead tracking, white-label settings, and bulk-scan workflows in one place.",
+                      "Businesses had no single place to see how they look online.",
                     built:
-                      "Built the full agency-facing dashboard: KPI cards, an AG Charts leads timeline, an enterprise-grade table with row-action portals, a multi-tab white-label settings page, report modals (share / email / PDF), and a bulk-scan flow with Google Places + CSV.",
-                    tech: [
-                      "React",
-                      "TypeScript",
-                      "Apollo GraphQL",
-                      "AG Grid Enterprise",
-                      "MUI",
-                    ],
+                      "Built a report that scores any business's SEO, reviews, social media and listings in one shareable page: FastAPI + PostgreSQL backend with background workers, LLM-powered analysis and PDF export, plus the Next.js frontend.",
+                    tech: ["FastAPI", "PostgreSQL", "Next.js", "LLMs"],
                   },
                   {
-                    title: "Embeddable Customer Support Widget",
+                    title: "Lead-Gen Widget & Agency Dashboard",
                     problem:
-                      "Support tickets often arrived without enough context — no console logs, no network state, no environment info — slowing down triage.",
+                      "Partners wanted the report on their own websites to capture leads.",
                     built:
-                      "Shipped a React widget that drops into any site via one <script> tag and mounts in Shadow DOM to avoid host-style collisions. Auto-attaches console logs, network activity, JS errors, and environment data to a support ticket through an Express + Multer proxy. Dockerized behind nginx.",
-                    tech: [
-                      "React",
-                      "Shadow DOM",
-                      "Express",
-                      "Docker",
-                      "nginx",
-                    ],
+                      "Turned the report into a lead-generation tool partners add to any website with one 1–3 KB script tag, and built the React + GraphQL dashboard to track leads, customize branding and run bulk scans.",
+                    tech: ["React", "TypeScript", "GraphQL", "AG Grid"],
                   },
                   {
-                    title: "Public REST API & Developer Platform Expansion",
+                    title: "Production Support",
                     problem:
-                      "The product surface was largely GraphQL-only, leaving the public REST API and developer portal without coverage for newer products like listings analytics, marketing automations, and post-idea generation.",
+                      "Customer workflows broke in ways that were slow to spot and fix.",
                     built:
-                      "Audited every GraphQL operation across the federated backend and produced the REST conversion plan feeding the auto-generated OpenAPI spec and developer portal. Onboarded standalone Python services into the federation gateway so they auto-flow into REST.",
-                    tech: [
-                      "GraphQL Federation",
-                      "OpenAPI 3",
-                      "FastAPI",
-                      "Rails",
-                      "Python",
-                    ],
+                      "Fixed bugs across the AI agent platform (Next.js, Supabase, Rust) and the legacy Rails app, and made alerts readable so issues are caught early.",
+                    tech: ["Next.js", "Supabase", "Rust", "Rails"],
                   },
                   {
-                    title: "AI Agent Tools (MCP) & Webhook Event Platform",
+                    title: "Infrastructure & Automation",
                     problem:
-                      "Two new platform surfaces: an AI-agent control layer so assistants can operate the product through natural-language intents, and an outbound webhook system so customers can react to changes in real time instead of polling.",
+                      "Background workers couldn't keep up with daily checks on directory websites.",
                     built:
-                      "Designed composite MCP tools spanning review campaigns, listings analytics, marketing flows, CRM, social posting, Google Business, and agency client management — with permission-gated visibility and skill-gated loading. In parallel, defined the outbound webhook event catalog with HMAC-SHA256 signing, Kafka-backed delivery with retries, and customer-facing replay, test-fire, and secret-rotation flows.",
-                    tech: [
-                      "Python",
-                      "FastMCP",
-                      "Kafka",
-                      "HMAC-SHA256",
-                      "GraphQL",
-                    ],
+                      "Resolved Kubernetes worker bottlenecks, raising daily Google-indexing checks ~4×, and built Airflow DAGs and cron jobs for sitemaps, index checks and listing-change tracking.",
+                    tech: ["Kubernetes", "Airflow", "Python", "AWS"],
                   },
                 ].map((p, i) => (
                   <article
@@ -497,14 +468,14 @@ const Home = () => {
                         {String(i + 1).padStart(2, "0")}
                       </span>
                     </div>
-                    <p className="text-xs md:text-sm font-bold text-black/70 mb-3 leading-relaxed">
-                      <span className="font-mono text-[9px] uppercase tracking-widest text-[#9BC91F] mr-1">
+                    <p className="text-xs md:text-sm font-semibold text-black/70 mb-3 leading-relaxed">
+                      <span className="font-mono text-[11px] uppercase tracking-widest text-black/55 font-black mr-1">
                         Problem ·
                       </span>
                       {p.problem}
                     </p>
                     <p className="text-xs md:text-sm text-black/70 mb-4 leading-relaxed font-medium">
-                      <span className="font-mono text-[9px] uppercase tracking-widest text-[#9BC91F] mr-1">
+                      <span className="font-mono text-[11px] uppercase tracking-widest text-black/55 font-black mr-1">
                         Built ·
                       </span>
                       {p.built}
@@ -513,7 +484,7 @@ const Home = () => {
                       {p.tech.map((t) => (
                         <span
                           key={t}
-                          className="font-mono text-[9px] font-bold uppercase tracking-widest text-black bg-white border-2 border-black rounded-full px-2.5 py-1"
+                          className="font-mono text-[11px] font-bold uppercase tracking-widest text-black bg-white border-2 border-black rounded-full px-2.5 py-1"
                         >
                           {t}
                         </span>
@@ -545,108 +516,6 @@ const Home = () => {
                   Government College of Engineering, Kannur
                 </p>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* GITHUB ACTIVITY */}
-      <section
-        id="activity"
-        className="py-20 md:py-32 px-6 md:px-12 lg:px-24 bg-[#FAFAF7]"
-      >
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-10 md:mb-14 flex flex-col md:flex-row items-start md:items-end justify-between gap-4 border-b-2 border-black pb-8">
-            <div>
-              <span className="inline-block bg-[#C5F542] text-black px-4 py-1.5 rounded-full border-2 border-black text-[10px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000] mb-5">
-                GitHub Activity
-              </span>
-              <h2
-                className="text-5xl md:text-7xl font-black tracking-tighter uppercase text-black"
-                {...fadeIn({
-                  direction: "right",
-                  distance: 80,
-                  duration: 0.9,
-                })}
-              >
-                Code Pulse
-              </h2>
-              <p className="text-black/65 font-mono text-xs tracking-widest mt-4 uppercase font-bold">
-                Contributions — @faizvk
-              </p>
-            </div>
-            <a
-              href="https://github.com/faizvk"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group shine inline-flex items-center gap-2 bg-black text-[#C5F542] px-5 py-3 rounded-full font-black text-[10px] uppercase tracking-widest border-2 border-black shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
-            >
-              <Github size={14} className="arrow" /> View Profile
-            </a>
-          </div>
-
-          <div
-            className="bg-white border-2 border-black rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-10 shadow-[6px_6px_0_0_#000]"
-            {...fadeIn({ direction: "up", distance: 60, duration: 0.9 })}
-          >
-            <div className="flex flex-wrap gap-2 mb-6 pb-6 border-b-2 border-black/10">
-              {YEARS.map((y) => {
-                const active = y === ghYear;
-                return (
-                  <button
-                    key={y}
-                    type="button"
-                    onClick={() => setGhYear(y)}
-                    aria-pressed={active}
-                    aria-label={`Show contributions for ${y}`}
-                    className={`font-mono text-[11px] md:text-xs font-bold uppercase tracking-widest px-5 py-3 min-h-[44px] rounded-full border-2 border-black transition-all ${
-                      active
-                        ? "bg-[#C5F542] text-black shadow-[3px_3px_0_0_#000]"
-                        : "bg-white text-black/70 hover:text-black hover:bg-[#EEFBC9]"
-                    }`}
-                  >
-                    {y}
-                  </button>
-                );
-              })}
-            </div>
-            <div className="github-calendar-wrap overflow-x-auto">
-              <GitHubCalendar
-                key={ghYear}
-                username="faizvk"
-                year={ghYear}
-                throwOnError={false}
-                errorMessage="No contributions found for this year."
-                colorScheme="light"
-                theme={{
-                  light: [
-                    "#E4E4DE",
-                    "#CDE889",
-                    "#A8DB2C",
-                    "#7DA816",
-                    "#52720A",
-                  ],
-                }}
-                blockSize={13}
-                blockMargin={4}
-                fontSize={13}
-                labels={{
-                  totalCount: `{{count}} contributions in ${ghYear}`,
-                }}
-                style={{ color: "#000" }}
-                renderBlock={(block, activity) =>
-                  React.cloneElement(block, {
-                    "data-tooltip-id": "gh-tooltip",
-                    "data-tooltip-html": `<strong>${activity.count}</strong> contribution${
-                      activity.count === 1 ? "" : "s"
-                    } on <span style="opacity:.7">${activity.date}</span>`,
-                  })
-                }
-              />
-              <Tooltip
-                id="gh-tooltip"
-                className="!bg-black !text-[#C5F542] !rounded-md !border-2 !border-black !font-mono !text-[11px] !px-3 !py-2"
-              />
             </div>
           </div>
         </div>
@@ -893,6 +762,108 @@ const Home = () => {
         </div>
       </section>
 
+      {/* GITHUB ACTIVITY */}
+      <section
+        id="activity"
+        className="py-20 md:py-32 px-6 md:px-12 lg:px-24 bg-[#FAFAF7]"
+      >
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-10 md:mb-14 flex flex-col md:flex-row items-start md:items-end justify-between gap-4 border-b-2 border-black pb-8">
+            <div>
+              <span className="inline-block bg-[#C5F542] text-black px-4 py-1.5 rounded-full border-2 border-black text-[10px] font-black uppercase tracking-widest shadow-[3px_3px_0_0_#000] mb-5">
+                GitHub Activity
+              </span>
+              <h2
+                className="text-5xl md:text-7xl font-black tracking-tighter uppercase text-black"
+                {...fadeIn({
+                  direction: "right",
+                  distance: 80,
+                  duration: 0.9,
+                })}
+              >
+                Code Pulse
+              </h2>
+              <p className="text-black/65 font-mono text-xs tracking-widest mt-4 uppercase font-bold">
+                Contributions — @faizvk
+              </p>
+            </div>
+            <a
+              href="https://github.com/faizvk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group shine inline-flex items-center gap-2 bg-black text-[#C5F542] px-5 py-3 rounded-full font-black text-[10px] uppercase tracking-widest border-2 border-black shadow-[4px_4px_0_0_#000] hover:shadow-[2px_2px_0_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+            >
+              <Github size={14} className="arrow" /> View Profile
+            </a>
+          </div>
+
+          <div
+            className="bg-white border-2 border-black rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-10 shadow-[6px_6px_0_0_#000]"
+            {...fadeIn({ direction: "up", distance: 60, duration: 0.9 })}
+          >
+            <div className="flex flex-wrap gap-2 mb-6 pb-6 border-b-2 border-black/10">
+              {YEARS.map((y) => {
+                const active = y === ghYear;
+                return (
+                  <button
+                    key={y}
+                    type="button"
+                    onClick={() => setGhYear(y)}
+                    aria-pressed={active}
+                    aria-label={`Show contributions for ${y}`}
+                    className={`font-mono text-[11px] md:text-xs font-bold uppercase tracking-widest px-5 py-3 min-h-[44px] rounded-full border-2 border-black transition-all ${
+                      active
+                        ? "bg-[#C5F542] text-black shadow-[3px_3px_0_0_#000]"
+                        : "bg-white text-black/70 hover:text-black hover:bg-[#EEFBC9]"
+                    }`}
+                  >
+                    {y}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="github-calendar-wrap overflow-x-auto">
+              <GitHubCalendar
+                key={ghYear}
+                username="faizvk"
+                year={ghYear}
+                throwOnError={false}
+                errorMessage="No contributions found for this year."
+                colorScheme="light"
+                theme={{
+                  light: [
+                    "#E4E4DE",
+                    "#CDE889",
+                    "#A8DB2C",
+                    "#7DA816",
+                    "#52720A",
+                  ],
+                }}
+                blockSize={13}
+                blockMargin={4}
+                fontSize={13}
+                labels={{
+                  totalCount: `{{count}} contributions in ${ghYear}`,
+                }}
+                style={{ color: "#000" }}
+                renderBlock={(block, activity) =>
+                  React.cloneElement(block, {
+                    "data-tooltip-id": "gh-tooltip",
+                    "data-tooltip-html": `<strong>${activity.count}</strong> contribution${
+                      activity.count === 1 ? "" : "s"
+                    } on <span style="opacity:.7">${activity.date}</span>`,
+                  })
+                }
+              />
+              <Tooltip
+                id="gh-tooltip"
+                className="!bg-black !text-[#C5F542] !rounded-md !border-2 !border-black !font-mono !text-[11px] !px-3 !py-2"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ABOUT */}
       <section
         id="about"
@@ -974,7 +945,19 @@ const Home = () => {
                     Joined Synup as Software Engineer
                   </h4>
                   <p className="text-xs md:text-sm text-black/70 mt-1 font-medium">
-                    Shipped the v1 scan report — full-stack from FastAPI to Next.js.
+                    Building AI agent tools, webhooks and analytics products.
+                  </p>
+                </div>
+                <div className="relative pl-6 border-l-4 border-black">
+                  <div className="absolute left-[-10px] top-1 w-4 h-4 bg-white rounded-full border-2 border-black" />
+                  <p className="text-[10px] text-black/70 uppercase tracking-widest mb-1 font-black">
+                    2025
+                  </p>
+                  <h4 className="text-base md:text-lg font-black text-black">
+                    AccioJob MERN Program
+                  </h4>
+                  <p className="text-xs md:text-sm text-black/70 mt-1 font-medium">
+                    NSDC-accredited certification.
                   </p>
                 </div>
                 <div className="relative pl-6 border-l-4 border-black">
@@ -999,18 +982,6 @@ const Home = () => {
                   </h4>
                   <p className="text-xs md:text-sm text-black/70 mt-1 font-medium">
                     Ran a hands-on workshop for 50+ undergrads.
-                  </p>
-                </div>
-                <div className="relative pl-6 border-l-4 border-black">
-                  <div className="absolute left-[-10px] top-1 w-4 h-4 bg-white rounded-full border-2 border-black" />
-                  <p className="text-[10px] text-black/70 uppercase tracking-widest mb-1 font-black">
-                    2025
-                  </p>
-                  <h4 className="text-base md:text-lg font-black text-black">
-                    AccioJob MERN Program
-                  </h4>
-                  <p className="text-xs md:text-sm text-black/70 mt-1 font-medium">
-                    NSDC-accredited certification.
                   </p>
                 </div>
                 <div className="relative pl-6 border-l-4 border-black">
@@ -1070,6 +1041,12 @@ const Home = () => {
             Open to interesting projects, collaborations, or a good
             conversation about engineering.
           </p>
+          <a
+            href="mailto:faizvk14@gmail.com"
+            className="inline-block -mt-6 md:-mt-12 mb-12 md:mb-16 text-xl md:text-3xl font-black underline decoration-2 underline-offset-8 hover:decoration-4"
+          >
+            faizvk14@gmail.com
+          </a>
 
           <div className="flex flex-wrap justify-center gap-5 md:gap-8 mb-24 md:mb-32">
             {[
